@@ -6,7 +6,7 @@ module.exports = (ctx) => {
 	const user = ctx.update.message.from
 
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
-	if (ctx.update.message.chat.type !== 'group' && channelName.toLowerCase() !== ctx.state.controller.config.telegram.channel.toLowerCase()) {
+	if (ctx.update.message.chat.type === 'private' && channelName.toLowerCase() !== ctx.state.controller.config.telegram.channel.toLowerCase()) {
 		return controller.log.log({ level: 'info', message: `${ctx.update.message.from.username} tried to register in ${channelName}`, event: 'telegram:registerFail' })
 	}
 	controller.query.countQuery('id', 'humans', 'id', user.id)
