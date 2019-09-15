@@ -18,7 +18,7 @@ module.exports = (ctx) => {
 					})
 			}
 			if (!isregistered) {
-				controller.query.insertOrUpdateQuery('humans', ['id', 'name', 'area'], [[user.id, emojiStrip(user.first_name.toLowerCase()), '[]']]).catch((O_o) => {})
+				controller.query.insertOrUpdateQuery('humans', ['id', 'name', 'area'], [[user.id, user.username, '[]']]).catch((O_o) => {})
 				ctx.reply('✅').catch((O_o) => {
 					controller.log.error(O_o.message)
 				})
