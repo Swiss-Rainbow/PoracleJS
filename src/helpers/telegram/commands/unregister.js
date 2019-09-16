@@ -6,15 +6,20 @@ module.exports = async (ctx) => {
 	const user = ctx.update.message.from
 	const targets = []
 	const mentions = []
+    const userids = []
 	const args = ctx.state.command.splitArgs
 	args.forEach((arg) => {
 		if (arg.startsWith('@')) {
 			mentions.push(arg.replace('@', ''))
 		}
+        else if (parseInt(arg, 10)) {
+            userids.push(arg)
+        }
 	})
 
 
 	if (_.includes(controller.config.telegram.admins, user.id.toString())) {
+        
 		let extraTargets = []
 		try {
 			if (mentions.length) extraTargets = await controller.query.selectAllInQuery('humans', 'name', mentions)
@@ -23,12 +28,26 @@ module.exports = async (ctx) => {
 			controller.log.error(`Failed to get menitoned users for telegram: ${err.message}`)
 			extraTargets = []
 		}
-
-		extraTargets.forEach((target) => {
+        extraTargets.forEach((target) => {
 			if (target.id.length < 15) targets.push({ id: target.id, name: target.name })
 		})
+
+        let moreExtraTargets = []
+        try {
+			if (userids.length) moreExtraTargets = await controller.query.selectAllInQuery('humans', 'id', userids)
+		}
+		catch (err) {
+			controller.log.error(`Failed to get userided users for telegram: ${err.message}`)
+			moreExtraTargets = []
+		}
+        moreExtraTargets.forEach((target) => {
+			if (target.id.length < 15) targets.push({ id: target.id, name: target.name })
+		})
+		
 	}
-	if (!targets.length) targets.push({ id: user.id, name: user.first_name })
+
+	if (!targets.length && mentions.length === 0 && userids.length === 0) targets.push({ id: user.id, name: user.first_name })
+
 	targets.forEach((target) => {
 		controller.query.countQuery('id', 'humans', 'id', target.id)
 			.then((isregistered) => {
