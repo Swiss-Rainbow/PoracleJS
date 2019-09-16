@@ -68,27 +68,34 @@ process.on('message', (msg) => {
 				})
 			}
 		}
-		const msgPromises = []
-		if (config.telegram.images) {
-			msgPromises.push(client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true }))
-		}
-		Promise.all([
-			msgPromises,
-		]).then(() => {
-			client.telegram.sendMessage(msg.job.target, message, { parse_mode: 'Markdown', disable_web_page_preview: true }).then(() => {
-				if (config.telegram.location) {
-					client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
-						log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
-					})
-				}
-			}).catch((err) => {
-				log.error(`Failed sending Telegram message to ${msg.job.name}. Error: ${err.message}`)
-			})
-		}).catch((err) => {
-			log.error(`Failed sending Telegram sticker to ${msg.job.name}. Error: ${err.message}`)
-		})
+        if (config.telegram.images) {
 
-
+            client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true }).then(() => {
+			    client.telegram.sendMessage(msg.job.target, message, { parse_mode: 'Markdown', disable_web_page_preview: true }).then(() => {
+				    if (config.telegram.location) {
+					    client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
+						    log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
+    					})
+	    			}
+		    	}).catch((err) => {
+			    	log.error(`Failed sending Telegram message to ${msg.job.name}. Error: ${err.message}`)
+    			})
+	    	}).catch((err) => {
+		    	log.error(`Failed sending Telegram sticker to ${msg.job.name}. Error: ${err.message}`)
+    		})
+        }
+        else {
+            
+            client.telegram.sendMessage(msg.job.target, message, { parse_mode: 'Markdown', disable_web_page_preview: true }).then(() => {
+			    if (config.telegram.location) {
+				    client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
+					    log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
+    				})
+    			}
+	    	}).catch((err) => {
+		    	log.error(`Failed sending Telegram message to ${msg.job.name}. Error: ${err.message}`)
+    		})
+        }
 		hungryInterval = startBeingHungry()
 	}
 
