@@ -1,5 +1,3 @@
-const emojiStrip = require('emoji-strip')
-
 module.exports = (ctx) => {
 
 	const { controller } = ctx.state
