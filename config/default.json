@@ -85,11 +85,11 @@
   "telegram": {
     "enabled": false,
     "images": true,
-    "mons_images": true,
+    "pokemon_images": true,
     "raid_images": false,
     "quest_images": false,
     "location": true,
-    "mons_location": true,
+    "pokemon_location": true,
     "raid_location": false,
     "quest_location": false,
     "stickerurl": "https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop/src/util/images/telegram/",
