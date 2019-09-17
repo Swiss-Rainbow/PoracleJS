@@ -85,10 +85,17 @@
   "telegram": {
     "enabled": false,
     "images": true,
+    "mons_images": true,
+    "raid_images": false,
+    "quest_images": false,
     "location": true,
+    "mons_location": true,
+    "raid_location": false,
+    "quest_location": false,
     "stickerurl": "https://raw.githubusercontent.com/KartulUdus/PoracleJS/develop/src/util/images/telegram/",
     "token": [""],
     "admins": [""],
-    "channel": "PoracleJsTest"
+    "channel": "PoracleJsTest",
+    "register_chat": ""
   }
 }
