@@ -247,4 +247,5 @@ module.exports = async () => new Promise((resolve, reject) => {
 		.catch((unhappy) => {
 			reject(log.error(`Database migration unhappy: ${unhappy.message}`))
 		})
+    db.end()
 })
