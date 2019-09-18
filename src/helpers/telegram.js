@@ -72,7 +72,7 @@ process.on('message', (msg) => {
 
             client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true }).then(() => {
 			    client.telegram.sendMessage(msg.job.target, message, { parse_mode: 'Markdown', disable_web_page_preview: true }).then(() => {
-                    if (config.telegram.location || (message.type === 'pokemon' && config.telegram.pokemon_location) || (message.type === 'raid' && config.telegram.raid_location) || (message.type === 'quest' && config.telegram.quest_location))
+                    if (config.telegram.location || (message.type === 'pokemon' && config.telegram.pokemon_location) || (message.type === 'raid' && config.telegram.raid_location) || (message.type === 'quest' && config.telegram.quest_location)) {
 					    client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
 						    log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
     					})
