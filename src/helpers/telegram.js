@@ -68,7 +68,7 @@ process.on('message', (msg) => {
 				})
 			}
 		}
-        if (config.telegram.images || (message.type === 'pokemon' && config.telegram.pokemon_images) || (message.type === 'raid' && config.telegram.raid_images) || (message.type === 'quest' && config.telegram.quest_images))
+        if (config.telegram.images || (message.type === 'pokemon' && config.telegram.pokemon_images) || (message.type === 'raid' && config.telegram.raid_images) || (message.type === 'quest' && config.telegram.quest_images)) {
 
             client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true }).then(() => {
 			    client.telegram.sendMessage(msg.job.target, message, { parse_mode: 'Markdown', disable_web_page_preview: true }).then(() => {
