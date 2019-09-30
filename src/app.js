@@ -43,7 +43,6 @@ const start = async () => {
 		await migrator()
 		if (config.discord.enabled) cp.fork(`${__dirname}/helpers/discordCommando.js`)
 		await fastify.listen(config.general.port, config.general.host)
-        if (config.ipv6.hostipv6) await fastify.listen(config.general.port, config.general.hostipv6)
 		log.info(`Poracle started on ${fastify.server.address().address}:${fastify.server.address().port}`)
 	}
 	catch (err) {
