@@ -36,7 +36,7 @@ module.exports = (ctx) => {
 				let remove = false
 
 				args.forEach((element) => {
-					if (element.match(/ex/gi)) park = 1
+					if (element.toLowerCase() === 'ex') park = 1
 					else if (element.match(/template[1-5]/gi)) template = element.replace(/template/gi, '')
 					else if (element.match(/level\d/gi)) levels.push(element.replace(/level/gi, ''))
 					else if (element.match(/instinct/gi)) team = 3
@@ -53,7 +53,7 @@ module.exports = (ctx) => {
 				})
 				if (!remove) {
 					if (levels.length) {
-						const insertData = levels.map(level => [target.id, level, template, distance, park, team])
+						const insertData = levels.map((level) => [target.id, level, template, distance, park, team])
 						controller.query.insertOrUpdateQuery(
 							'egg',
 							['id', 'raid_level', 'template', 'distance', 'park', 'team'],

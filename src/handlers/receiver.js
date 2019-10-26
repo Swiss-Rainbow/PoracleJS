@@ -1,4 +1,3 @@
-const log = require('../logger')
 const _ = require('lodash')
 const config = require('config')
 const mysql = require('mysql2/promise')
@@ -8,6 +7,7 @@ const uuid = require('uuid/v4')
 
 const db = mysql.createPool(config.db)
 const Cache = require('ttl')
+const log = require('../logger')
 
 const discordcache = new Cache({
 	ttl: config.discord.limitsec * 1000,
@@ -19,16 +19,18 @@ const discordQueue = []
 const telegramQueue = []
 
 const cache = new Cache({
-	ttl: 61 * 60 * 1000,
+	ttl: 360 * 60 * 1000, // 6 hours
 })
 
 const MonsterController = require('../controllers/monster')
 const RaidController = require('../controllers/raid')
+const InvasionController = require('../controllers/invasion')
 const QuestController = require('../controllers/quest')
 
 const monsterController = new MonsterController(db)
 const raidController = new RaidController(db)
 const questController = new QuestController(db)
+const invasionController = new InvasionController(db)
 
 // check how long the Queue is every minute. ideally empty
 setInterval(() => {
@@ -82,6 +84,35 @@ if (config.telegram.enabled) {
 }
 
 
+function handlePokestopMessage(hook, correlationId) {
+	// Get a feeler for RDM/MAD differences
+	const incidentExpiration = hook.message.incident_expiration ? hook.message.incident_expiration : hook.message.incident_expire_timestamp
+
+	if (incidentExpiration) {
+		if (!cache.get(`${hook.message.pokestop_id}_${incidentExpiration}`)) {
+			cache.put(`${hook.message.pokestop_id}_${incidentExpiration}`, 'cached')
+			if (incidentExpiration > 0) {
+				invasionController.handle(hook.message)
+					.then((work) => {
+						work.forEach((job) => {
+							if (job.target.toString().length > 15 && config.discord.enabled) discordQueue.push(job)
+							if (job.target.toString().length < 15 && config.telegram.enabled) telegramQueue.push(job)
+							invasionController.addOneQuery('humans', 'alerts_sent', 'id', job.target)
+						})
+					})
+					.catch((e) => {
+						log.log({ level: 'error', message: `invasionController failed to handle ${correlationId} \n${e.message} `, event: 'fail:invasionController' })
+					})
+			}
+		}
+		else {
+			log.log({ level: 'warn', message: `Pokestop Invasion message :${hook.message.pokestop_id} was sent again too soon`, event: 'cache:duplicate' })
+		}
+	}
+
+	// LURE handling goes here
+}
+
 module.exports = async (req, reply) => {
 	if (config.general.ipWhitelist.length && !_.includes(config.general.ipWhitelist, req.raw.ip)) {
 		log.warn(`Rejecting request from ${req.raw.ip} as it is not in the whitelist`)
@@ -120,7 +151,7 @@ module.exports = async (req, reply) => {
 					})
 				}
 				else {
-					log.log({ level: 'warn', message: `Monster encounter:${hook.message.encounter_id} was sent again too soon`, event: 'cache:duplicate' })
+					log.log({ level: 'info', message: `Monster encounter:${hook.message.encounter_id} was sent again too soon`, event: 'cache:duplicate' })
 				}
 
 				break
@@ -142,7 +173,7 @@ module.exports = async (req, reply) => {
 						})
 				}
 				else {
-					log.log({ level: 'warn', message: `Raid at gym :${hook.message.gym_id} was sent again too soon`, event: 'cache:duplicate' })
+					log.log({ level: 'info', message: `Raid at gym :${hook.message.gym_id} was sent again too soon`, event: 'cache:duplicate' })
 				}
 				break
 			}
@@ -171,14 +202,29 @@ module.exports = async (req, reply) => {
 				break
 			}
 			case 'quest': {
-				const q = hook.message
-				questController.handle(q).then((work) => {
-					work.forEach((job) => {
-						if (job.target.toString().length > 15 && config.discord.enabled) discordQueue.push(job)
-						if (job.target.toString().length < 15 && config.telegram.enabled) telegramQueue.push(job)
-						raidController.addOneQuery('humans', 'alerts_sent', 'id', job.target)
+				if (!cache.get(`${hook.message.pokestop_id}_${JSON.stringify(hook.message.rewards.toString())}`)) {
+					cache.put(`${hook.message.pokestop_id}_${JSON.stringify(hook.message.rewards.toString())}`, 'cached')
+					const q = hook.message
+					questController.handle(q).then((work) => {
+						work.forEach((job) => {
+							if (job.target.toString().length > 15 && config.discord.enabled) discordQueue.push(job)
+							if (job.target.toString().length < 15 && config.telegram.enabled) telegramQueue.push(job)
+							questController.addOneQuery('humans', 'alerts_sent', 'id', job.target)
+						})
 					})
-				})
+				}
+				else {
+					log.log({ level: 'info', message: `Quest at pokestop:${hook.message.pokestop_id} was sent again too soon`, event: 'cache:duplicate' })
+				}
+				break
+
+			}
+			case 'pokestop': {
+				handlePokestopMessage(hook, correlationId)
+				break
+			}
+			case 'invasion': {
+				handlePokestopMessage(hook, correlationId)
 				break
 			}
 			default:

@@ -17,17 +17,16 @@ const file = new winston.transports.File({
 const console = new (winston.transports.Console)({
 	level: config.general.logLevel,
 	format: winston.format.combine(
+		winston.format.colorize(),
 		winston.format.simple(),
 		winston.format.errors({ stack: true }),
 	),
 	handleExceptions: true,
 })
 
-module.exports =
-
-	winston.createLogger({
-		transports: [
-			console,
-			file,
-		],
-	})
+module.exports =	winston.createLogger({
+	transports: [
+		console,
+		file,
+	],
+})

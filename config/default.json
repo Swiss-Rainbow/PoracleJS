@@ -15,7 +15,7 @@
     "host": "127.0.0.1",
     "port": "3030",
     "imgurl": "https://raw.githubusercontent.com/KartulUdus/PoracleJS/master/src/util/images/",
-    "max_pokemon": 500,
+    "max_pokemon": 721,
     "monsterMinimumTimeTillHidden": 60,
     "ipWhitelist": [],
     "ipBlacklist": []
@@ -62,13 +62,15 @@
   },
 
   "commands": {
-    "poracle": "",
+    "adminid": "",
     "area": "",
     "backup": "",
     "channel": "",
     "egg": "",
     "help": "",
+    "invasion": "",
     "location": "",
+    "poracle": "",
     "quest": "",
     "raid": "",
     "restore": "",
@@ -79,8 +81,7 @@
     "unregister": "",
     "untrack": "",
     "version": "",
-    "webhook": "",
-    "adminid": ""
+    "webhook": ""
   },
   "telegram": {
     "enabled": false,
