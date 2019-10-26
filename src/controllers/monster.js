@@ -122,18 +122,7 @@ class Monster extends Controller {
 
 			data.name = monsterData[data.pokemon_id].name ? monsterData[data.pokemon_id].name : 'errormon'
 			data.formname = ''
-<<<<<<< HEAD
-			data.iv = data.weight ? Math.round(((data.individual_attack + data.individual_defense + data.individual_stamina) / 0.45)) : -1
-			data.individual_attack = data.weight ? data.individual_attack : 0
-			data.individual_defense = data.weight ? data.individual_defense : 0
-			data.individual_stamina = data.weight ? data.individual_stamina : 0
-			data.cp = data.weight ? data.cp : 0
-			data.pokemon_level = data.weight ? data.pokemon_level : 0
-			data.move_1 = data.weight ? data.move_1 : 0
-			data.move_2 = data.weight ? data.move_2 : 0
-			data.weight = data.weight ? data.weight.toFixed(1) : 0
-=======
-			data.iv = encountered ? ((+data.individual_attack + +data.individual_defense + +data.individual_stamina) / 0.45).toFixed(2) : -1
+			data.iv = encountered ? Math.round(((+data.individual_attack + +data.individual_defense + +data.individual_stamina) / 0.45)) : -1
 			data.individual_attack = encountered ? +data.individual_attack : 0
 			data.individual_defense = encountered ? +data.individual_defense : 0
 			data.individual_stamina = encountered ? +data.individual_stamina : 0
@@ -142,7 +131,6 @@ class Monster extends Controller {
 			data.move_1 = encountered ? data.move_1 : 0
 			data.move_2 = encountered ? data.move_2 : 0
 			data.weight = encountered ? data.weight.toFixed(2) : 0
->>>>>>> 57f97ec16756d99a141e1158b836ab67dfcb523b
 			data.quick_move = data.weight && moveData[data.move_1] ? moveData[data.move_1].name : ''
 			data.charge_move = data.weight && moveData[data.move_2] ? moveData[data.move_2].name : ''
 			if (data.form === undefined || data.form === null) data.form = 0
