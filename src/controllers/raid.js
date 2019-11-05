@@ -182,7 +182,7 @@ class Raid extends Controller {
 										resolve([])
 										return null
 									}
-									this.getAddress({ lat: data.latitude, lon: data.longitude }).then((geoResult) => {
+									this.getAddress({ lat: data.latitude.toString().substring(0, 8), lon: data.longitude.toString().substring(0, 8) }).then((geoResult) => {
 
 										const jobs = []
 										whoCares.forEach((cares) => {
@@ -284,8 +284,8 @@ class Raid extends Controller {
 						data.gymname = gymInfo ? gymInfo.gym_name : data.gym_name
 						data.description = gymInfo ? gymInfo.description : ''
 						data.url = gymInfo ? gymInfo.url : data.url
-						data.park = gymInfo ? gymInfo.park : data.ex_raid_eligible
-						data.park = data.ex_raid_eligible ? data.ex_raid_eligible : data.park
+						data.park = !!(data.ex_raid_eligible || data.is_ex_raid_eligible)
+
 						data.ex = data.park ? 'EX' : ''
 						if (data.tth.firstDateWasLater) {
 							log.warn(`Raid level${data.level} appearead, but it seems it already hatched`)
@@ -312,7 +312,7 @@ class Raid extends Controller {
 										resolve([])
 										return null
 									}
-									this.getAddress({ lat: data.latitude, lon: data.longitude }).then((geoResult) => {
+									this.getAddress({ lat: data.latitude.toString().substring(0, 8), lon: data.longitude.toString().substring(0, 8) }).then((geoResult) => {
 										const jobs = []
 										const alarmId = this.uuid
 										log.log({
