@@ -2,13 +2,14 @@ const _ = require('lodash')
 const geofence = require('../../../../config/geofence.json')
 
 const confAreas = geofence.map((area) => area.name.toLowerCase()).sort()
+const confAreasNormal = geofence.map((area) => area.name.sort()
 
 module.exports = (ctx) => {
 
 	const { controller, command } = ctx.state
 	const user = ctx.update.message.from
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
-	const args = command.splitArgs
+	const args = command.toLowerCase().splitArgs
 
 	let target = { id: user.id.toString(), name: user.first_name }
 	if (!_.includes(controller.config.telegram.admins, user.id.toString()) && ctx.update.message.chat.type !== 'private') {
@@ -47,7 +48,7 @@ module.exports = (ctx) => {
 								ctx.reply(`Added areas: ${addAreas}`).catch((O_o) => {
 									controller.log.error(O_o.message)
 								})
-								controller.log.log({ level: 'debug', message: `${user.first_name} added area ${addAreas} for ${target.name}`, event: 'discord:areaAdd' })
+								controller.log.log({ level: 'debug', message: `${user.first_name} added area ${addAreas} for ${target.name}`, event: 'telegram:areaAdd' })
 							}
 							else {
 								ctx.reply('👌').catch((O_o) => {
@@ -76,7 +77,7 @@ module.exports = (ctx) => {
 							}
 							if (removeAreas.length) {
 								ctx.reply(`Removed areas: ${removeAreas}`)
-								controller.log.log({ level: 'debug', message: `${user.first_name} removed area ${removeAreas} for ${target.name}`, event: 'discord:areaRemove' })
+								controller.log.log({ level: 'debug', message: `${user.first_name} removed area ${removeAreas} for ${target.name}`, event: 'telegram:areaRemove' })
 							}
 							else {
 								ctx.reply('👌').catch((O_o) => {
@@ -90,10 +91,10 @@ module.exports = (ctx) => {
 						break
 					}
 					case 'list': {
-						ctx.reply(`Current configured areas are ${confAreas}`).catch((O_o) => {
+						ctx.reply(`Current configured areas are ${confAreasNormal}`).catch((O_o) => {
 							controller.log.error(O_o.message)
 						})
-						controller.log.log({ level: 'debug', message: `${user.first_name} checked areas for ${target.name}`, event: 'discord:areaList' })
+						controller.log.log({ level: 'debug', message: `${user.first_name} checked areas for ${target.name}`, event: 'telegram:areaList' })
 						break
 					}
 					default:
