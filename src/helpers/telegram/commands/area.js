@@ -9,7 +9,7 @@ module.exports = (ctx) => {
 	const { controller, command } = ctx.state
 	const user = ctx.update.message.from
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
-	const args = command.toLowerCase().splitArgs
+	const args = command.splitArgs.toLowerCase()
 
 	let target = { id: user.id.toString(), name: user.first_name }
 	if (!_.includes(controller.config.telegram.admins, user.id.toString()) && ctx.update.message.chat.type !== 'private') {
