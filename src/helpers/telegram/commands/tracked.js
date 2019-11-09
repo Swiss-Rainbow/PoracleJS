@@ -150,7 +150,7 @@ module.exports = (ctx) => {
 									controller.log.error(O_o.message)
 								})
 								const attachment = fs.readFileSync(filepath, { encoding: 'utf-8' })
-								ctx.telegram.sendDocument(target.id, {source: attachment, filename: 'tracked.txt'})
+								ctx.telegram.sendDocument(target.id, {document: attachment})
 									.then(() => {
 										fs.unlinkSync(filepath)
 									})
