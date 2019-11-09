@@ -88,7 +88,7 @@ process.on('message', (msg) => {
                     
                     let sticker = msg.job.sticker;
                     let posUnderline = sticker.lastIndexOf("_");
-                    let subcode = sticker.substr(posUnserline);
+                    let subcode = sticker.substr(posUnderline);
                     sticker.replace(subcode, "_00.webp");
                     client.telegram.sendSticker(msg.job.target, sticker, { disable_notification: true }).then(() => {
 		        	    client.telegram.sendMessage(msg.job.target, message, { parse_mode: 'Markdown', disable_web_page_preview: true }).then(() => {
