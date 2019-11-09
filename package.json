@@ -51,7 +51,7 @@
     "mustache": "^3.1.0",
     "mysql2": "^1.7.0",
     "node-fetch": "^2.6.0",
-    "node-geocoder": "^3.24.0",
+    "node-geocoder": "^3.25.0",
     "point-in-polygon": "^1.0.1",
     "point-of-view": "^3.6.0",
     "pokemon-gif": "^1.0.14",
