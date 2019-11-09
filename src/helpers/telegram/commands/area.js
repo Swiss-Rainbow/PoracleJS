@@ -2,7 +2,7 @@ const _ = require('lodash')
 const geofence = require('../../../../config/geofence.json')
 
 const confAreas = geofence.map((area) => area.name.toLowerCase()).sort()
-const confAreasNormal = geofence.map((area) => area.name.sort()
+const confAreasNormal = geofence.map((area) => area.name).sort()
 
 module.exports = (ctx) => {
 
