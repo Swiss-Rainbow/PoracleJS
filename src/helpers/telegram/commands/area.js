@@ -91,7 +91,7 @@ module.exports = (ctx) => {
 						break
 					}
 					case 'list': {
-						ctx.reply(`Current configured areas are ${confAreasNormal}`).catch((O_o) => {
+						ctx.reply(`Current configured areas are ${confAreasNormal.join(", ")}`).catch((O_o) => {
 							controller.log.error(O_o.message)
 						})
 						controller.log.log({ level: 'debug', message: `${user.first_name} checked areas for ${target.name}`, event: 'telegram:areaList' })
