@@ -253,6 +253,7 @@ class Monster extends Controller {
 								name: cares.name,
 								emoji: caresCache === config.discord.limitamount + 1 ? [] : data.emoji,
 								meta: { correlationId: data.correlationId, messageId: data.messageId, alarmId },
+                                type: 'monster',
 
 							}
 							if (caresCache <= config.discord.limitamount + 1) {

@@ -69,10 +69,10 @@ process.on('message', (msg) => {
 			}
 		}
         // Send normal sticker id
-		if (config.telegram.images || (message.type === 'pokemon' && config.telegram.pokemon_images) || (message.type === 'raid' && config.telegram.raid_images) || (message.type === 'quest' && config.telegram.quest_images)) {
+		if (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images)) {
             client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true }).then(() => {
 			    client.telegram.sendMessage(msg.job.target, message, { parse_mode: 'Markdown', disable_web_page_preview: true }).then(() => {
-                    if (config.telegram.location || (message.type === 'pokemon' && config.telegram.pokemon_location) || (message.type === 'raid' && config.telegram.raid_location) || (message.type === 'quest' && config.telegram.quest_location)) {
+                    if (config.telegram.location || (msg.type === 'monster' && config.telegram.monster_location) || (msg.type === 'raid' && config.telegram.raid_location) || (msg.type === 'quest' && config.telegram.quest_location) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
 					    client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
 						    log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
     					})
@@ -84,7 +84,7 @@ process.on('message', (msg) => {
 	    	}).catch((err) => {
 		    	log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker:${msg.job.sticker}. Error: ${err.message}`)
                 
-                if (config.telegram.images || (message.type === 'pokemon' && config.telegram.pokemon_images) || (message.type === 'raid' && config.telegram.raid_images) || (message.type === 'quest' && config.telegram.quest_images)) {
+                if (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
                     
                     let sticker = msg.job.sticker;
                     let posUnderline = sticker.lastIndexOf("_");
@@ -92,7 +92,7 @@ process.on('message', (msg) => {
                     sticker = sticker.replace(subcode, "_00.webp");
                     client.telegram.sendSticker(msg.job.target, sticker, { disable_notification: true }).then(() => {
 		        	    client.telegram.sendMessage(msg.job.target, message, { parse_mode: 'Markdown', disable_web_page_preview: true }).then(() => {
-                            if (config.telegram.location || (message.type === 'pokemon' && config.telegram.pokemon_location) || (message.type === 'raid' && config.telegram.raid_location) || (message.type === 'quest' && config.telegram.quest_location)) {
+                            if (config.telegram.location || (msg.type === 'monster' && config.telegram.monster_location) || (msg.type === 'raid' && config.telegram.raid_location) || (msg.type === 'quest' && config.telegram.quest_location) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
 					            client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
 						            log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
     					        })
@@ -106,7 +106,7 @@ process.on('message', (msg) => {
 		    	        log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker:${msg.job.sticker}. Error: ${err.message}`)
 
                         client.telegram.sendMessage(msg.job.target, message, { parse_mode: 'Markdown', disable_web_page_preview: true }).then(() => {
-		        	    if (config.telegram.location || (message.type === 'pokemon' && config.telegram.pokemon_location) || (message.type === 'raid' && config.telegram.raid_location) || (message.type === 'quest' && config.telegram.quest_location)) {
+		        	    if (config.telegram.location || (msg.type === 'monster' && config.telegram.monster_location) || (msg.type === 'raid' && config.telegram.raid_location) || (msg.type === 'quest' && config.telegram.quest_location) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
 				            client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
 					            log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
     			    	        })
@@ -122,7 +122,7 @@ process.on('message', (msg) => {
         else {
             
             client.telegram.sendMessage(msg.job.target, message, { parse_mode: 'Markdown', disable_web_page_preview: true }).then(() => {
-			    if (config.telegram.location || (message.type === 'pokemon' && config.telegram.pokemon_location) || (message.type === 'raid' && config.telegram.raid_location) || (message.type === 'quest' && config.telegram.quest_location)) {
+			    if (config.telegram.location || (msg.type === 'monster' && config.telegram.monster_location) || (msg.type === 'raid' && config.telegram.raid_location) || (msg.type === 'quest' && config.telegram.quest_location) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
 				    client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
 					    log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
     				})

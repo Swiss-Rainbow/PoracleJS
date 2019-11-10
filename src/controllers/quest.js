@@ -185,6 +185,7 @@ class Quest extends Controller {
 								name: cares.name,
 								emoji: [],
 								meta: { correlationId: data.correlationId, messageId: data.messageId, alarmId },
+                                type: 'quest',
 							}
 							if (caresCache <= config.discord.limitamount + 1) {
 								jobs.push(work)

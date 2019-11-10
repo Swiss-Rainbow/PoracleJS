@@ -252,6 +252,7 @@ class Incident extends Controller {
 									name: cares.name,
 									emoji: caresCache === config.discord.limitamount + 1 ? [] : data.emoji,
 									meta: { correlationId: data.correlationId, messageId: data.messageId, alarmId },
+                                    type: 'invasion',
 								}
 								if (caresCache <= config.discord.limitamount + 1) {
 									jobs.push(work)
