@@ -69,7 +69,7 @@ process.on('message', (msg) => {
 			}
 		}
         // Send normal sticker id
-		if (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images)) {
+		if ((config.telegram.images && msg.job.sticker) || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images)) {
             client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true }).then(() => {
 			    sendMessage(client, msg, message);
             // Normaize Sticker and try to send again!
