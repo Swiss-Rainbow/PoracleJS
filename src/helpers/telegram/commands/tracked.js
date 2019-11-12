@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const fs = require('fs')
 const path = require('path')
-const hastebin = require('hastebin-gen')
+//const hastebin = require('hastebin-gen')
 const config = require('config')
 
 let monsterDataPath = `${__dirname}/../../../util/monsters.json`
@@ -136,29 +136,30 @@ module.exports = (ctx) => {
 						ctx.reply(message)
 					}
 					else {
-						const hastebinMessage = hastebin(message)
-						hastebinMessage
-							.then((hastelink) => {
-								ctx.reply(`${target.name} tracking list is quite long. Have a look at ${hastelink}`).catch((O_o) => {
-									controller.log.error(O_o.message)
-								})
-							})
-							.catch((err) => {
+//						const hastebinMessage = hastebin(message)
+//						hastebinMessage
+//							.then((hastelink) => {
+//								ctx.reply(`${target.name} tracking list is quite long. Have a look at ${hastelink}`).catch((O_o) => {
+//									controller.log.error(O_o.message)
+//								})
+//							})
+//							.catch((err) => {
 								const filepath = path.join(__dirname, `../../../../.cache/${human.name}.txt`)
 								fs.writeFileSync(filepath, message)
-								ctx.reply(`${target.name} tracking list is long, but Hastebin is also down. ☹️ \nTracking list made into a file:`).catch((O_o) => {
-									controller.log.error(O_o.message)
-								})
+//								ctx.reply(`${target.name} tracking list is long, but Hastebin is also down. ☹️ \nTracking list made into a file:`).catch((O_o) => {
+//									controller.log.error(O_o.message)
+//								})
 								const document = fs.readFileSync(filepath)
 								ctx.telegram.sendDocument(target.id, { source: document, filename: 'tracked.txt' })
+
 									.then(() => {
 										fs.unlinkSync(filepath)
 									})
 									.catch((O_o) => {
 										controller.log.error(O_o.message)
 									})
-								controller.log.error(`Hastebin unhappy: ${err.message}`)
-							})
+//								controller.log.error(`Hastebin unhappy: ${err.message}`)
+//							})
 					}
 				})
 			}
