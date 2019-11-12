@@ -149,8 +149,8 @@ module.exports = (ctx) => {
 								ctx.reply(`${target.name} tracking list is long, but Hastebin is also down. ☹️ \nTracking list made into a file:`).catch((O_o) => {
 									controller.log.error(O_o.message)
 								})
-								const attachment = fs.readFileSync(filepath, { encoding: 'utf-8' })
-								ctx.telegram.sendDocument(target.id, {document: attachment})
+								const document = fs.readFileSync(filepath)
+								ctx.telegram.sendDocument(target.id, { source: document, filename: 'tracked.txt' })
 									.then(() => {
 										fs.unlinkSync(filepath)
 									})
