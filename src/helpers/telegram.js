@@ -82,10 +82,10 @@ process.on('message', (msg) => {
 				sticker = sticker.replace(subcode, "_00.webp");
 				client.telegram.sendSticker(msg.job.target, sticker, { disable_notification: true }).then(() => {
 					sendMessage(client, msg, message);
-				// Send without sticker, if also normalized sticker is missing
 				}).catch((err) => {
-					log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker:${msg.job.sticker}. Error: ${err.message}`)
+					log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${sticker}. Error: ${err.message}`)
 
+					// Send without sticker, if also normalized sticker is missing
 					sendMessage(client, msg, message);
 				})
     		})
