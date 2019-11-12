@@ -69,27 +69,25 @@ process.on('message', (msg) => {
 			}
 		}
         // Send normal sticker id
-		if (msg.job.sticker && (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images)) {
+		if (msg.job.sticker && (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images) || (msg.type === 'invasion' && config.telegram.invasion_location))) {
             client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true }).then(() => {
 			    sendMessage(client, msg, message);
-            // Normaize Sticker and try to send again!
 	    	}).catch((err) => {
-		    	log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker:${msg.job.sticker}. Error: ${err.message}`)
+		    	log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${msg.job.sticker}. Error: ${err.message}`)
 
-                if (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
-                    let sticker = msg.job.sticker;
-                    let posUnderline = sticker.lastIndexOf("_");
-                    let subcode = sticker.substr(posUnderline);
-                    sticker = sticker.replace(subcode, "_00.webp");
-                    client.telegram.sendSticker(msg.job.target, sticker, { disable_notification: true }).then(() => {
-		        	    sendMessage(client, msg, message);
-                    // Send without sticker, if also normalized sticker is missing
-	    	        }).catch((err) => {
-		    	        log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker:${msg.job.sticker}. Error: ${err.message}`)
+            	// Normalize sticker and try to send again!
+                let sticker = msg.job.sticker;
+				let posUnderline = sticker.lastIndexOf("_");
+				let subcode = sticker.substr(posUnderline);
+				sticker = sticker.replace(subcode, "_00.webp");
+				client.telegram.sendSticker(msg.job.target, sticker, { disable_notification: true }).then(() => {
+					sendMessage(client, msg, message);
+				// Send without sticker, if also normalized sticker is missing
+				}).catch((err) => {
+					log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker:${msg.job.sticker}. Error: ${err.message}`)
 
-                        sendMessage(client, msg, message);
-                    })
-                }
+					sendMessage(client, msg, message);
+				})
     		})
         }
         // Send without any sticker
