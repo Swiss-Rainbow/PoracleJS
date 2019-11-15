@@ -162,6 +162,7 @@
       "__name": "TLG_ADMINS",
       "__format": "json"
     },
-    "channel": "TLG_CHANNEL"
+    "channel": "TLG_CHANNEL",
+    "register_chat": "TLG_REGISTER"
   }
 }
