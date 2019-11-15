@@ -7,8 +7,8 @@ module.exports = (ctx) => {
 	if (ctx.update.message.chat.type === 'private' && channelName.toLowerCase() !== ctx.state.controller.config.telegram.channel.toLowerCase()) {
 		return controller.log.log({ level: 'info', message: `${ctx.update.message.from.username} tried to register in ${channelName}`, event: 'telegram:registerFail' })
 	}
-    if (ctx.state.controller.config.telegram.register_chat !== '' && ctx.update.message.chat.id !== ctx.state.controller.config.telegram.register_chat) {
-        return controller.log.log({ level: 'info', message: `${ctx.update.message.from.username} tried to register in other than prepared register channel ${ctx.update.message.chat.id}`, event: 'telegram:registerFail' })
+    if (ctx.state.controller.config.telegram.register_chat !== '' && ctx.update.message.chat.id != ctx.state.controller.config.telegram.register_chat) {
+        return controller.log.log({ level: 'info', message: `${ctx.update.message.from.username} tried to register in other than prepared (${ctx.state.controller.config.telegram.register_chat}) register channel ${ctx.update.message.chat.id}`, event: 'telegram:registerFail' })
     }
 	controller.query.countQuery('id', 'humans', 'id', user.id)
 		.then((isregistered) => {
