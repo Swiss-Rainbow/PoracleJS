@@ -191,12 +191,12 @@
     "95": "Sunny"
   },
   "422": {
-    "96": "West_Sea",
-    "97": "East_Sea"
+    "96": "West-Sea",
+    "97": "East-Sea"
   },
   "423": {
-    "98": "West_Sea",
-    "99": "East_Sea"
+    "98": "West-Sea",
+    "99": "East-Sea"
   },
   "493": {
     "100": "Normal",
@@ -225,7 +225,7 @@
   },
   "150": {
     "133": "Armored",
-    "134": "Armored_Intro",
+    "134": "Armored-Intro",
     "135": "Normal"
   },
   "41": {
