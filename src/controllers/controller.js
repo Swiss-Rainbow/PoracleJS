@@ -148,10 +148,10 @@ class Controller {
 
 	async pointInArea(point) {
 		return new Promise((resolve) => {
-			const confAreas = this.geofence.map((area) => area.name.toLowerCase())
+			const confAreas = this.geofence.map((area) => area.name)
 			const matchAreas = []
 			confAreas.forEach((area) => {
-				const areaObj = _.find(this.geofence, (p) => p.name.toLowerCase() === area)
+				const areaObj = _.find(this.geofence, (p) => p.name.toLowerCase() === area.toLowerCase())
 				if (inside(point, areaObj.path)) {
 					matchAreas.push(area)
 				}
