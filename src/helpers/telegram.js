@@ -110,6 +110,8 @@ process.on('message', (msg) => {
 				}
 			}
 
+			hungryInterval = startBeingHungry()
+
 			client.telegram.sendMessage(msg.job.target, message, {
 				parse_mode: 'Markdown',
 				disable_web_page_preview: true,
@@ -122,8 +124,6 @@ process.on('message', (msg) => {
 			}).catch((err) => {
 				log.error(`Failed sending Telegram message to ${msg.job.name}. Error: ${err.message}`)
 			})
-
-			hungryInterval = startBeingHungry()
 		})()
 	}
-})
+    })
