@@ -63,6 +63,22 @@ fs.readdir(`${__dirname}/telegram/commands/`, (err, files) => {
 
 let hungryInterval = startBeingHungry()
 
+function sendMessage(client, msg, message) {
+	client.telegram.sendMessage(msg.job.target, message, {
+		parse_mode: 'Markdown',
+		disable_web_page_preview: true,
+	}).then(() => {
+		if (config.telegram.location || (msg.type === 'monster' && config.telegram.monster_location) || (msg.type === 'raid' && config.telegram.raid_location) || (msg.type === 'quest' && config.telegram.quest_location) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
+			client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
+				log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
+			})
+		}
+		hungryInterval = startBeingHungry()
+	}).catch((err) => {
+		log.error(`Failed sending Telegram message to ${msg.job.name}. Error: ${err.message}`)
+	})
+}
+
 process.on('message', (msg) => {
 	const client = _.sample(clients)
 	if (msg.reason === 'food') {
@@ -91,39 +107,31 @@ process.on('message', (msg) => {
 				})
 			}
 		}
-
-		(async () => {
-			if (msg.job.sticker && (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images) || (msg.type === 'invasion' && config.telegram.invasion_location))) {
-				try {
-					await client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true })
-				} catch (err) {
-					log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${msg.job.sticker}. Error: ${err.message}`)
-
-					// Normalize sticker and try to send again!
-					let sticker = msg.job.sticker
-					const posUnderline = sticker.lastIndexOf('_')
-					const subcode = sticker.substr(posUnderline)
-					sticker = sticker.replace(subcode, '_00.webp')
-					await client.telegram.sendSticker(msg.job.target, sticker, { disable_notification: true }).catch((err) => {
-						log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${sticker}. Error: ${err.message}`)
-					})
-				}
-			}
-
-			hungryInterval = startBeingHungry()
-
-			client.telegram.sendMessage(msg.job.target, message, {
-				parse_mode: 'Markdown',
-				disable_web_page_preview: true,
-			}).then(() => {
-				if (config.telegram.location || (msg.type === 'monster' && config.telegram.monster_location) || (msg.type === 'raid' && config.telegram.raid_location) || (msg.type === 'quest' && config.telegram.quest_location) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
-					client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
-						log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
-					})
-				}
+		// Send normal sticker id
+		if (msg.job.sticker && (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images) || (msg.type === 'invasion' && config.telegram.invasion_location))) {
+			client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true }).then(() => {
+				sendMessage(client, msg, message)
 			}).catch((err) => {
-				log.error(`Failed sending Telegram message to ${msg.job.name}. Error: ${err.message}`)
+				log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${msg.job.sticker}. Error: ${err.message}`)
+
+				// Normalize sticker and try to send again!
+				let sticker = msg.job.sticker
+				const posUnderline = sticker.lastIndexOf('_')
+				const subcode = sticker.substr(posUnderline)
+				sticker = sticker.replace(subcode, '_00.webp')
+				client.telegram.sendSticker(msg.job.target, sticker, { disable_notification: true }).then(() => {
+					sendMessage(client, msg, message)
+				}).catch((err) => {
+					log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${sticker}. Error: ${err.message}`)
+
+					// Send without sticker, if also normalized sticker is missing
+					sendMessage(client, msg, message)
+				})
 			})
-		})()
+		}
+		// Send without any sticker
+		else {
+			sendMessage(client, msg, message)
+		}
 	}
     })
