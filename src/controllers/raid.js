@@ -281,10 +281,10 @@ class Raid extends Controller {
 									log.log({ level: 'error', message: `raidWhoCares errored with: ${err.message}`, event: 'fail:monsterWhoCares' })
 								})
 							}).catch((err) => {
-								log.log({ level: 'error', message: `pointsInArea errored with: ${err.message}`, event: 'fail:pointsInArea' })
+								log.log({ level: 'error', message: `pointsInArea errored with: ${err.message}`, event: 'fail:raidPointsInArea' })
 							})
 					}).catch((err) => {
-						log.log({ level: 'error', message: `get gym-info errored with: ${err.message}`, event: 'fail:pointsInArea' })
+						log.log({ level: 'error', message: `get gym-info errored with: ${err.message}`, event: 'fail:raidPointsInArea' })
 					})
 			}
 			else {
