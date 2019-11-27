@@ -243,9 +243,9 @@ class Incident extends Controller {
 									// geocode stuff
 									lat: data.latitude.toString().substring(0, 8),
 									lon: data.longitude.toString().substring(0, 8),
-									addr: geoResult.addr,
+									addr: this.terminateTelegramMarkdown(geoResult.addr),
 									streetNumber: geoResult.streetNumber,
-									streetName: geoResult.streetName,
+									streetName: this.terminateTelegramMarkdown(geoResult.streetName),
 									zipcode: geoResult.zipcode,
 									country: geoResult.country,
 									countryCode: geoResult.countryCode,

@@ -95,20 +95,6 @@ class Monster extends Controller {
 
 		return parseInt(this.ivColorData[colorIdx].replace(/^#/, ''), 16)
 	}
-    
-    terminateTelegramMarkdown(str) {
-        
-        if (config.discord.enabled) {
-            
-            return str;
-        }
-        let result = str;
-        result = result.replace(/_/g, "\\_")
-            .replace(/\*/g, "\\*")
-            .replace(/\[/g, "\\[")
-            .replace(/`/g, "\\`");
-        return result;
-    }
 
 	async handle(data) {
 		return new Promise((resolve) => {
