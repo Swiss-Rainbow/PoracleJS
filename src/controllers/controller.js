@@ -193,6 +193,13 @@ class Controller {
             .replace(/`/g, "\\`");
         return result;
     }
+    
+    replaceHtmlEntities(str) {
+        
+        let result = str;
+        result = result.replace("&#39;", "'");
+        return result;
+    }
 
 	// DB queries
 
