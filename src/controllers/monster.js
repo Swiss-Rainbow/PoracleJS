@@ -251,7 +251,7 @@ class Monster extends Controller {
 								zipcode: geoResult.zipcode,
 								country: geoResult.country,
 								countryCode: geoResult.countryCode,
-								city: this.replaceHtmlEntities(eoResult.city),
+								city: this.replaceHtmlEntities(geoResult.city),
 								state: geoResult.state,
 								stateCode: geoResult.stateCode,
 								flagemoji: geoResult.flag,
