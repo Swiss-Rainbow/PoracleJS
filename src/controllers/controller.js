@@ -186,19 +186,27 @@ class Controller {
             
             return str;
         }
-        let result = str;
-        result = result.replace(/_/g, "\\_")
+        str = str.replace(/_/g, "\\_")
             .replace(/\*/g, "\\*")
             .replace(/\[/g, "\\[")
-            .replace(/`/g, "\\`");
-        return result;
+            .replace(/`/g, "\\`")
+        return str
     }
     
     replaceHtmlEntities(str) {
-        
-        let result = str;
-        result = result.replace("&#39;", "'");
-        return result;
+
+        log.log({
+		level: 'debug',
+		message: `Str before: (${str})`,
+		event: 'replaceHtmlEntities'
+	})
+        str = str.replace("&#39;", "'")
+        log.log({
+		level: 'debug',
+		message: `Str after: (${str})`,
+		event: 'replaceHtmlEntities'
+	})
+        return str
     }
 
 	// DB queries
