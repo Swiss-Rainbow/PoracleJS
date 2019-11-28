@@ -73,10 +73,10 @@ function sendMessage(client, msg, message) {
 				log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
 			})
 		}
-		hungryInterval = startBeingHungry()
 	}).catch((err) => {
 		log.error(`Failed sending Telegram message to ${msg.job.name}. Error: ${err.message}`)
 	})
+	hungryInterval = startBeingHungry()
 }
 
 process.on('message', (msg) => {
@@ -134,4 +134,4 @@ process.on('message', (msg) => {
 			sendMessage(client, msg, message)
 		}
 	}
-    })
+})
