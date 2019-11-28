@@ -179,20 +179,6 @@ class Controller {
 		this.discordcache.put(id, ch + 1)
 		return true
 	}
-    
-    terminateTelegramMarkdown(str) {
-        
-        if (config.discord.enabled) {
-            
-            return str;
-        }
-        let result = str;
-        result = result.replace(/_/g, "\\_")
-            .replace(/\*/g, "\\*")
-            .replace(/\[/g, "\\[")
-            .replace(/`/g, "\\`");
-        return result;
-    }
 
 	// DB queries
 

@@ -235,9 +235,9 @@ class Raid extends Controller {
 												// geocode stuff
 												lat: data.latitude.toString().substring(0, 8),
 												lon: data.longitude.toString().substring(0, 8),
-												addr: this.terminateTelegramMarkdown(geoResult.addr),
+												addr: geoResult.addr,
 												streetNumber: geoResult.streetNumber,
-												streetName: this.terminateTelegramMarkdown(geoResult.streetName),
+												streetName: geoResult.streetName,
 												zipcode: geoResult.zipcode,
 												country: geoResult.country,
 												countryCode: geoResult.countryCode,
