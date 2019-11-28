@@ -95,20 +95,6 @@ class Monster extends Controller {
 
 		return parseInt(this.ivColorData[colorIdx].replace(/^#/, ''), 16)
 	}
-    
-    terminateTelegramMarkdown(str) {
-        
-        if (config.discord.enabled) {
-            
-            return str;
-        }
-        result = str;
-        result = result.replace(/_/g, "\\_")
-            .replace(/\*/g, "\\*")
-            .replace(/\[/g, "\\[")
-            .replace(/`/g, "\\`");
-        return result;
-    }
 
 	async handle(data) {
 		return new Promise((resolve) => {
@@ -259,9 +245,9 @@ class Monster extends Controller {
 								// geocode stuff
 								lat: data.latitude.toString().substring(0, 8),
 								lon: data.longitude.toString().substring(0, 8),
-								addr: terminateTelegramMarkdown(geoResult.addr),
+								addr: geoResult.addr,
 								streetNumber: geoResult.streetNumber,
-								streetName: terminateTelegramMarkdown(geoResult.streetName),
+								streetName: geoResult.streetName,
 								zipcode: geoResult.zipcode,
 								country: geoResult.country,
 								countryCode: geoResult.countryCode,
