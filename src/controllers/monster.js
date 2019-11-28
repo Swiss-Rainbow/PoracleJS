@@ -102,7 +102,7 @@ class Monster extends Controller {
             
             return str;
         }
-        let result = str;
+        result = str;
         result = result.replace(/_/g, "\\_")
             .replace(/\*/g, "\\*")
             .replace(/\[/g, "\\[")
