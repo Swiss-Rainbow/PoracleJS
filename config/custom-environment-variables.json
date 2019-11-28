@@ -39,8 +39,23 @@
     "ipBlacklist": {
       "__name": "IP_BLACKLIST",
       "__format": "json"
+    },
+    "invasionPropsToEscape": {
+        "__name": "INVASION_ESCAPE",
+        "__format": "json"
+    },
+    "monsterPropsToEscape": {
+        "__name": "MONSTER_ESCAPE",
+        "__format": "json"
+    },
+    "raidPropsToEscape": {
+        "__name": "RAID_ESCAPE",
+        "__format": "json"
+    },
+    "questPropsToEscape": {
+        "__name": "QUEST_ESCAPE",
+        "__format": "json"
     }
-
   },
 
   "locale": {

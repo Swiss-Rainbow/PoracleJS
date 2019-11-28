@@ -252,6 +252,14 @@ class Raid extends Controller {
 
 											})
 
+											if (config.general.raidPropsToEscape.length) {
+												for (const [key, value] of Object.entries(view)) {
+													if (_.includes(config.general.raidPropsToEscape, key)) {
+														view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+													}
+												}
+											}
+
 											const template = JSON.stringify(dts.raid[`${cares.template}`])
 											let message = mustache.render(template, view)
 											message = JSON.parse(message)

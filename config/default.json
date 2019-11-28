@@ -18,7 +18,11 @@
     "max_pokemon": 721,
     "monsterMinimumTimeTillHidden": 60,
     "ipWhitelist": [],
-    "ipBlacklist": []
+    "ipBlacklist": [],
+    "invasionPropsToEscape": ["name", "areas", "addr", "streetNumber", "streetName", "zipcode", "country", "countryCode", "city", "state", "stateCode", "neighbourhood"],
+    "monsterPropsToEscape": ["name", "areas", "addr", "streetNumber", "streetName", "zipcode", "country", "countryCode", "city", "state", "stateCode", "neighbourhood"],
+    "raidPropsToEscape": ["name", "areas", "addr", "streetNumber", "streetName", "zipcode", "country", "countryCode", "city", "state", "stateCode", "neighbourhood"],
+    "questPropsToEscape": ["name","questType", "reward", "conditions", "monsterNames", "itemNames", "areas", "addr", "streetNumber", "streetName", "zipcode", "country", "countryCode", "city", "state", "stateCode", "neighbourhood"]
   },
 
   "locale": {

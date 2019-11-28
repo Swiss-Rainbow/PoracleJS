@@ -187,6 +187,14 @@ class Quest extends Controller {
 
 						})
 
+						if (config.general.questPropsToEscape.length) {
+							for (const [key, value] of Object.entries(view)) {
+								if (_.includes(config.general.questPropsToEscape, key)) {
+									view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+								}
+							}
+						}
+
 						whoCares.forEach((cares) => {
 							const alarmId = this.uuid
 							log.log({
