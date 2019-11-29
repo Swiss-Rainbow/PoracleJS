@@ -140,8 +140,8 @@ class Monster extends Controller {
 			if (data.form === undefined || data.form === null) data.form = 0
 			if (data.form) data.formname = formData[data.pokemon_id] ? formData[data.pokemon_id][data.form] : ''
 			if (!data.weather) data.weather = 0
-			data.move1emoji = moveData[data.move_1] && moveData[data.move_1].type ? types[moveData[data.move_1].type].emoji : ''
-			data.move2emoji = moveData[data.move_2] && moveData[data.move_2].type ? types[moveData[data.move_2].type].emoji : ''
+			data.move1emoji = moveData[data.move_1] && moveData[data.move_1].type && typeof moveData[data.move_1].type !== 'undefined' ? types[moveData[data.move_1].type].emoji : ''
+			data.move2emoji = moveData[data.move_2] && moveData[data.move_2].type && typeof moveData[data.move_2].type !== 'undefined' ? types[moveData[data.move_2].type].emoji : ''
 			data.move1emoji = moveData[data.move_1] && moveData[data.move_1].type && emojiData.type && emojiData.type[moveData[data.move_1].type] ? emojiData.type[moveData[data.move_1].type] : data.move1emoji
 			data.move2emoji = moveData[data.move_2] && moveData[data.move_2].type && emojiData.type && emojiData.type[moveData[data.move_2].type] ? emojiData.type[moveData[data.move_2].type] : data.move2emoji
 			data.boost = weatherData[data.weather].name ? weatherData[data.weather].name : ''
