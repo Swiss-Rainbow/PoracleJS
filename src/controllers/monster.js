@@ -132,8 +132,8 @@ class Monster extends Controller {
 			data.individual_stamina = encountered ? +data.individual_stamina : 0
 			data.cp = encountered ? +data.cp : 0
 			data.pokemon_level = encountered ? data.pokemon_level : 0
-			data.move_1 = encountered && typeof data.move_1 !== 'undefined' ? data.move_1 : 0
-			data.move_2 = encountered && typeof data.move_2 !== 'undefined' ? data.move_2 : 0
+			data.move_1 = encountered ? data.move_1 : 0
+			data.move_2 = encountered ? data.move_2 : 0
 			data.weight = encountered ? data.weight.toFixed(2) : 0
 			data.quick_move = data.weight && moveData[data.move_1] ? moveData[data.move_1].name : ''
 			data.charge_move = data.weight && moveData[data.move_2] ? moveData[data.move_2].name : ''
