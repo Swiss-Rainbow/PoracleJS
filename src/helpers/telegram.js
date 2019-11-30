@@ -10,6 +10,10 @@ const log = require('../logger')
 
 function startBeingHungry() {
 	const hungryInterval = setInterval(() => {
+		log.log({
+			level: 'debug',
+			message: `PoracleJSDebug: telegram worker #${cluster.worker.id} sends hungary command`,
+		})
 		process.send({ reason: 'hungary' })
 	}, 100)
 	return hungryInterval
@@ -89,9 +93,17 @@ process.on('message', (msg) => {
 
 		targets[msg.job.target] = targets[msg.job.target] || []
 		targets[msg.job.target].push((length) => {
+			log.log({
+				level: 'debug',
+				message: `PoracleJSDebug: target: ${msg.job.target} (${msg.job.name}) / Length: ${targets[msg.job.target].length}`,
+			})
 			if (hungryInterval !== null && Object.getOwnPropertyNames(targets).length > 10) {
 				clearInterval(hungryInterval)
 				hungryInterval = null
+				log.log({
+					level: 'debug',
+					message: `PoracleJSDebug: telegram worker #${cluster.worker.id} stopped being hungry`,
+				})
 			}
 			if (length > 1) {
 				return false
@@ -100,6 +112,10 @@ process.on('message', (msg) => {
 				if (msg.job.sticker && (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images) || (msg.type === 'invasion' && config.telegram.invasion_location))) {
 					try {
 						await client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true })
+						log.log({
+							level: 'debug',
+							message: `PoracleJSDebug: Sticker ${msg.job.sticker} sent to ${msg.job.name}`,
+						})
 					}
 					catch (err) {
 						log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${msg.job.sticker}. Error: ${err.message}`)
@@ -112,6 +128,10 @@ process.on('message', (msg) => {
 						await client.telegram.sendSticker(msg.job.target, sticker, { disable_notification: true }).catch((err) => {
 							log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${sticker}. Error: ${err.message}`)
 						})
+						log.log({
+							level: 'debug',
+							message: `PoracleJSDebug: Normalized sticker ${sticker} sent to ${msg.job.name}`,
+						})
 					}
 				}
 
@@ -119,6 +139,10 @@ process.on('message', (msg) => {
 					parse_mode: 'Markdown',
 					disable_web_page_preview: true,
 				}).then(() => {
+					log.log({
+						level: 'debug',
+						message: `PoracleJSDebug: Message ${message} sent to ${msg.job.name}`,
+					})
 					if (config.telegram.location || (msg.type === 'monster' && config.telegram.monster_location) || (msg.type === 'raid' && config.telegram.raid_location) || (msg.type === 'quest' && config.telegram.quest_location) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
 						client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
 							log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
@@ -135,6 +159,10 @@ process.on('message', (msg) => {
 						delete targets[msg.job.target]
 						if (hungryInterval === null && Object.getOwnPropertyNames(targets).length < 10) {
 							hungryInterval = startBeingHungry()
+							log.log({
+								level: 'debug',
+								message: `PoracleJSDebug: telegram worker #${cluster.worker.id} restarted being hungry`,
+							})
 						}
 					}
 				})
