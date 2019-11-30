@@ -1,0 +1,1842 @@
+{
+  "0": {
+    "name": "Tuonoshock",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "1": {
+    "name": "Tuonoshock",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "2": {
+    "name": "Attacco Rapido",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "3": {
+    "name": "Graffio",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "4": {
+    "name": "Braciere",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "5": {
+    "name": "Frustata",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "6": {
+    "name": "Azione",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "7": {
+    "name": "Foglielama",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "8": {
+    "name": "Riduttore",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "9": {
+    "name": "Pistolacqua",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "10": {
+    "name": "Morso",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "11": {
+    "name": "Botta",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "12": {
+    "name": "Doppiasberla",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "13": {
+    "name": "Avvolgibotta",
+    "type": "Normal",
+    "damage": 60,
+    "duration": 2900,
+    "energy": 33,
+    "dps": 20.69
+  },
+  "14": {
+    "name": "Iper Raggio",
+    "type": "Normal",
+    "damage": 150,
+    "duration": 3800,
+    "energy": 100,
+    "dps": 39.47
+  },
+  "15": {
+    "name": "Leccata",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "16": {
+    "name": "Neropulsar",
+    "type": "Dark",
+    "damage": 80,
+    "duration": 3000,
+    "energy": 50,
+    "dps": 26.67
+  },
+  "17": {
+    "name": "Smog",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "18": {
+    "name": "Fango",
+    "type": "Poison",
+    "damage": 50,
+    "duration": 2100,
+    "energy": 33,
+    "dps": 23.81
+  },
+  "19": {
+    "name": "Ferrartigli",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "20": {
+    "name": "Presa",
+    "type": "Normal",
+    "damage": 35,
+    "duration": 1900,
+    "energy": 33,
+    "dps": 18.42
+  },
+  "21": {
+    "name": "Ruotafuoco",
+    "type": "Fire",
+    "damage": 60,
+    "duration": 2700,
+    "energy": 50,
+    "dps": 22.22
+  },
+  "22": {
+    "name": "Megacorno",
+    "type": "Bug",
+    "damage": 90,
+    "duration": 2200,
+    "energy": 100,
+    "dps": 40.91
+  },
+  "23": {
+    "name": "Attacco d'Ala",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "24": {
+    "name": "Lanciafiamme",
+    "type": "Fire",
+    "damage": 70,
+    "duration": 2200,
+    "energy": 50,
+    "dps": 31.82
+  },
+  "25": {
+    "name": "Sbigoattacco",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "26": {
+    "name": "Fossa",
+    "type": "Ground",
+    "damage": 100,
+    "duration": 4700,
+    "energy": 50,
+    "dps": 21.28
+  },
+  "27": {
+    "name": "Colpo Basso",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "28": {
+    "name": "Incrocolpo",
+    "type": "Fighting",
+    "damage": 50,
+    "duration": 1500,
+    "energy": 50,
+    "dps": 33.33
+  },
+  "29": {
+    "name": "Psicotaglio",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "30": {
+    "name": "Psicoraggio",
+    "type": "Psichico",
+    "damage": 70,
+    "duration": 3200,
+    "energy": 50,
+    "dps": 21.88
+  },
+  "31": {
+    "name": "Terremoto",
+    "type": "Ground",
+    "damage": 120,
+    "duration": 3600,
+    "energy": 100,
+    "dps": 33.33
+  },
+  "32": {
+    "name": "Pietrataglio",
+    "type": "Rock",
+    "damage": 100,
+    "duration": 2300,
+    "energy": 100,
+    "dps": 43.48
+  },
+  "33": {
+    "name": "Gelopugno",
+    "type": "Ice",
+    "damage": 50,
+    "duration": 1900,
+    "energy": 33,
+    "dps": 26.32
+  },
+  "34": {
+    "name": "Cuorestampo",
+    "type": "Psichico",
+    "damage": 40,
+    "duration": 1900,
+    "energy": 33,
+    "dps": 21.05
+  },
+  "35": {
+    "name": "Scarica",
+    "type": "Electric",
+    "damage": 65,
+    "duration": 2500,
+    "energy": 33,
+    "dps": 26
+  },
+  "36": {
+    "name": "Cannonflash",
+    "type": "Steel",
+    "damage": 100,
+    "duration": 2700,
+    "energy": 100,
+    "dps": 37.04
+  },
+  "37": {
+    "name": "Beccata",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "38": {
+    "name": "Drill Beccata",
+    "type": "Flying",
+    "damage": 60,
+    "duration": 2300,
+    "energy": 33,
+    "dps": 26.09
+  },
+  "39": {
+    "name": "Geloraggio",
+    "type": "Ice",
+    "damage": 90,
+    "duration": 3300,
+    "energy": 50,
+    "dps": 27.27
+  },
+  "40": {
+    "name": "Bora",
+    "type": "Ice",
+    "damage": 130,
+    "duration": 3100,
+    "energy": 100,
+    "dps": 41.94
+  },
+  "41": {
+    "name": "Eterelama",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "42": {
+    "name": "Ondacalda",
+    "type": "Fire",
+    "damage": 95,
+    "duration": 3000,
+    "energy": 100,
+    "dps": 31.67
+  },
+  "43": {
+    "name": "Doppio Ago",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "44": {
+    "name": "Velenpuntura",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "45": {
+    "name": "Aeroassalto",
+    "type": "Flying",
+    "damage": 55,
+    "duration": 2400,
+    "energy": 33,
+    "dps": 22.92
+  },
+  "46": {
+    "name": "Giravvita",
+    "type": "Ground",
+    "damage": 80,
+    "duration": 2800,
+    "energy": 50,
+    "dps": 28.57
+  },
+  "47": {
+    "name": "Petal Bora",
+    "type": "Grass",
+    "damage": 110,
+    "duration": 2600,
+    "energy": 100,
+    "dps": 42.31
+  },
+  "48": {
+    "name": "Megassorbimento",
+    "type": "Grass",
+    "damage": 25,
+    "duration": 2600,
+    "energy": 50,
+    "dps": 9.62
+  },
+  "49": {
+    "name": "Ronzio",
+    "type": "Bug",
+    "damage": 90,
+    "duration": 3700,
+    "energy": 50,
+    "dps": 24.32
+  },
+  "50": {
+    "name": "Velenodenti",
+    "type": "Poison",
+    "damage": 35,
+    "duration": 1700,
+    "energy": 33,
+    "dps": 20.59
+  },
+  "51": {
+    "name": "Nottesferza",
+    "type": "Dark",
+    "damage": 50,
+    "duration": 2200,
+    "energy": 33,
+    "dps": 22.73
+  },
+  "52": {
+    "name": "Lacerazione",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "53": {
+    "name": "Bollaraggio",
+    "type": "Water",
+    "damage": 45,
+    "duration": 1900,
+    "energy": 33,
+    "dps": 23.68
+  },
+  "54": {
+    "name": "Sottomissione",
+    "type": "Fighting",
+    "damage": 60,
+    "duration": 2200,
+    "energy": 50,
+    "dps": 27.27
+  },
+  "55": {
+    "name": "Colpokarate",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "56": {
+    "name": "Calciobasso",
+    "type": "Fighting",
+    "damage": 40,
+    "duration": 1900,
+    "energy": 33,
+    "dps": 21.05
+  },
+  "57": {
+    "name": "Acquagetto",
+    "type": "Water",
+    "damage": 45,
+    "duration": 2600,
+    "energy": 33,
+    "dps": 17.31
+  },
+  "58": {
+    "name": "Idrondata",
+    "type": "Water",
+    "damage": 50,
+    "duration": 1900,
+    "energy": 33,
+    "dps": 26.32
+  },
+  "59": {
+    "name": "Semebomba",
+    "type": "Grass",
+    "damage": 55,
+    "duration": 2100,
+    "energy": 33,
+    "dps": 26.19
+  },
+  "60": {
+    "name": "Psicoshock",
+    "type": "Psichico",
+    "damage": 65,
+    "duration": 2700,
+    "energy": 33,
+    "dps": 24.07
+  },
+  "61": {
+    "name": "Sassata",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "62": {
+    "name": "Forzantica",
+    "type": "Rock",
+    "damage": 70,
+    "duration": 3500,
+    "energy": 33,
+    "dps": 20
+  },
+  "63": {
+    "name": "Rocciotomba",
+    "type": "Rock",
+    "damage": 70,
+    "duration": 3200,
+    "energy": 50,
+    "dps": 21.88
+  },
+  "64": {
+    "name": "Frana",
+    "type": "Rock",
+    "damage": 80,
+    "duration": 2700,
+    "energy": 50,
+    "dps": 29.63
+  },
+  "65": {
+    "name": "Gemmoforza",
+    "type": "Rock",
+    "damage": 80,
+    "duration": 2900,
+    "energy": 50,
+    "dps": 27.59
+  },
+  "66": {
+    "name": "Furtivombra",
+    "type": "Ghost",
+    "damage": 50,
+    "duration": 2900,
+    "energy": 33,
+    "dps": 17.24
+  },
+  "67": {
+    "name": "Pugnodombra",
+    "type": "Ghost",
+    "damage": 40,
+    "duration": 1700,
+    "energy": 33,
+    "dps": 23.53
+  },
+  "68": {
+    "name": "Ombrartigli",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "69": {
+    "name": "Funestovento",
+    "type": "Ghost",
+    "damage": 50,
+    "duration": 2300,
+    "energy": 33,
+    "dps": 21.74
+  },
+  "70": {
+    "name": "Palla Ombra",
+    "type": "Ghost",
+    "damage": 100,
+    "duration": 3000,
+    "energy": 50,
+    "dps": 33.33
+  },
+  "71": {
+    "name": "Pugnoscarica",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "72": {
+    "name": "Bombagnete",
+    "type": "Steel",
+    "damage": 70,
+    "duration": 2800,
+    "energy": 33,
+    "dps": 25
+  },
+  "73": {
+    "name": "Alacciaio",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "74": {
+    "name": "Metaltestata",
+    "type": "Steel",
+    "damage": 60,
+    "duration": 1900,
+    "energy": 50,
+    "dps": 31.58
+  },
+  "75": {
+    "name": "Caricaparabola",
+    "type": "Electric",
+    "damage": 25,
+    "duration": 2800,
+    "energy": 50,
+    "dps": 8.93
+  },
+  "76": {
+    "name": "Scintilla",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "77": {
+    "name": "Tuonopugno",
+    "type": "Electric",
+    "damage": 45,
+    "duration": 1800,
+    "energy": 33,
+    "dps": 25
+  },
+  "78": {
+    "name": "Tuono",
+    "type": "Electric",
+    "damage": 100,
+    "duration": 2400,
+    "energy": 100,
+    "dps": 41.67
+  },
+  "79": {
+    "name": "Tuonobolt",
+    "type": "Electric",
+    "damage": 80,
+    "duration": 2500,
+    "energy": 50,
+    "dps": 32
+  },
+  "80": {
+    "name": "Tornado",
+    "type": "Dragon",
+    "damage": 45,
+    "duration": 2800,
+    "energy": 33,
+    "dps": 16.07
+  },
+  "81": {
+    "name": "Dragospiro",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "82": {
+    "name": "Dragopulsar",
+    "type": "Dragon",
+    "damage": 90,
+    "duration": 3600,
+    "energy": 50,
+    "dps": 25
+  },
+  "83": {
+    "name": "Dragartigli",
+    "type": "Dragon",
+    "damage": 50,
+    "duration": 1700,
+    "energy": 33,
+    "dps": 29.41
+  },
+  "84": {
+    "name": "Incantavoce",
+    "type": "Fairy",
+    "damage": 70,
+    "duration": 3900,
+    "energy": 33,
+    "dps": 17.95
+  },
+  "85": {
+    "name": "Assorbibacio",
+    "type": "Fairy",
+    "damage": 60,
+    "duration": 2600,
+    "energy": 50,
+    "dps": 23.08
+  },
+  "86": {
+    "name": "Magibrillio",
+    "type": "Fairy",
+    "damage": 100,
+    "duration": 3500,
+    "energy": 50,
+    "dps": 28.57
+  },
+  "87": {
+    "name": "Forza Lunare",
+    "type": "Fairy",
+    "damage": 130,
+    "duration": 3900,
+    "energy": 100,
+    "dps": 33.33
+  },
+  "88": {
+    "name": "Carineria",
+    "type": "Fairy",
+    "damage": 90,
+    "duration": 2900,
+    "energy": 50,
+    "dps": 31.03
+  },
+  "89": {
+    "name": "Velenocroce",
+    "type": "Poison",
+    "damage": 40,
+    "duration": 1500,
+    "energy": 33,
+    "dps": 26.67
+  },
+  "90": {
+    "name": "Fango Bomb",
+    "type": "Poison",
+    "damage": 80,
+    "duration": 2300,
+    "energy": 50,
+    "dps": 34.78
+  },
+  "91": {
+    "name": "Fango Wave",
+    "type": "Poison",
+    "damage": 110,
+    "duration": 3200,
+    "energy": 100,
+    "dps": 34.38
+  },
+  "92": {
+    "name": "Sporcolancio",
+    "type": "Poison",
+    "damage": 130,
+    "duration": 3100,
+    "energy": 100,
+    "dps": 41.94
+  },
+  "93": {
+    "name": "Colpodifango",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "94": {
+    "name": "Ossoclava",
+    "type": "Ground",
+    "damage": 40,
+    "duration": 1600,
+    "energy": 33,
+    "dps": 25
+  },
+  "95": {
+    "name": "Battiterra",
+    "type": "Ground",
+    "damage": 80,
+    "duration": 3500,
+    "energy": 50,
+    "dps": 22.86
+  },
+  "96": {
+    "name": "Pantanobomba",
+    "type": "Ground",
+    "damage": 55,
+    "duration": 2300,
+    "energy": 33,
+    "dps": 23.91
+  },
+  "97": {
+    "name": "Tagliofuria",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "98": {
+    "name": "Bug Morso",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "99": {
+    "name": "Segnoraggio",
+    "type": "Bug",
+    "damage": 75,
+    "duration": 2900,
+    "energy": 50,
+    "dps": 25.86
+  },
+  "100": {
+    "name": "Forbice X",
+    "type": "Bug",
+    "damage": 45,
+    "duration": 1600,
+    "energy": 33,
+    "dps": 28.13
+  },
+  "101": {
+    "name": "Nitrocarica",
+    "type": "Fire",
+    "damage": 70,
+    "duration": 3800,
+    "energy": 33,
+    "dps": 18.42
+  },
+  "102": {
+    "name": "Pirolancio",
+    "type": "Fire",
+    "damage": 70,
+    "duration": 2600,
+    "energy": 50,
+    "dps": 26.92
+  },
+  "103": {
+    "name": "Fuocobomba",
+    "type": "Fire",
+    "damage": 140,
+    "duration": 4200,
+    "energy": 100,
+    "dps": 33.33
+  },
+  "104": {
+    "name": "Acquadisale",
+    "type": "Water",
+    "damage": 60,
+    "duration": 2300,
+    "energy": 50,
+    "dps": 26.09
+  },
+  "105": {
+    "name": "Idropulsar",
+    "type": "Water",
+    "damage": 70,
+    "duration": 3200,
+    "energy": 50,
+    "dps": 21.88
+  },
+  "106": {
+    "name": "Idrovampata",
+    "type": "Water",
+    "damage": 82,
+    "duration": 3700,
+    "energy": 50,
+    "dps": 21.62
+  },
+  "107": {
+    "name": "Idropompa",
+    "type": "Water",
+    "damage": 130,
+    "duration": 3300,
+    "energy": 100,
+    "dps": 39.39
+  },
+  "108": {
+    "name": "Psichico",
+    "type": "Psichico",
+    "damage": 100,
+    "duration": 2800,
+    "energy": 100,
+    "dps": 35.71
+  },
+  "109": {
+    "name": "Psicobotta",
+    "type": "Psichico",
+    "damage": 100,
+    "duration": 4400,
+    "energy": 50,
+    "dps": 22.73
+  },
+  "110": {
+    "name": "Geloscheggia",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "111": {
+    "name": "Ventogelato",
+    "type": "Ice",
+    "damage": 60,
+    "duration": 3300,
+    "energy": 33,
+    "dps": 18.18
+  },
+  "112": {
+    "name": "Alitogelido",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "113": {
+    "name": "Assorbimento",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "114": {
+    "name": "Gigassorbimento",
+    "type": "Grass",
+    "damage": 50,
+    "duration": 3900,
+    "energy": 100,
+    "dps": 12.82
+  },
+  "115": {
+    "name": "Fuocopugno",
+    "type": "Fire",
+    "damage": 55,
+    "duration": 2200,
+    "energy": 33,
+    "dps": 25
+  },
+  "116": {
+    "name": "Solarraggio",
+    "type": "Grass",
+    "damage": 180,
+    "duration": 4900,
+    "energy": 100,
+    "dps": 36.73
+  },
+  "117": {
+    "name": "Fendifoglia",
+    "type": "Grass",
+    "damage": 70,
+    "duration": 2400,
+    "energy": 33,
+    "dps": 29.17
+  },
+  "118": {
+    "name": "Vigorcolpo",
+    "type": "Grass",
+    "damage": 90,
+    "duration": 2600,
+    "energy": 50,
+    "dps": 34.62
+  },
+  "119": {
+    "name": "Splash",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "120": {
+    "name": "Acidoo",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "121": {
+    "name": "Aerasoio",
+    "type": "Flying",
+    "damage": 60,
+    "duration": 2700,
+    "energy": 50,
+    "dps": 22.22
+  },
+  "122": {
+    "name": "Tifone",
+    "type": "Flying",
+    "damage": 110,
+    "duration": 2700,
+    "energy": 100,
+    "dps": 40.74
+  },
+  "123": {
+    "name": "Breccia",
+    "type": "Fighting",
+    "damage": 40,
+    "duration": 1600,
+    "energy": 33,
+    "dps": 25
+  },
+  "124": {
+    "name": "Taglio",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "125": {
+    "name": "Comete",
+    "type": "Normal",
+    "damage": 60,
+    "duration": 2800,
+    "energy": 50,
+    "dps": 21.43
+  },
+  "126": {
+    "name": "Incornata",
+    "type": "Normal",
+    "damage": 40,
+    "duration": 1850,
+    "energy": 33,
+    "dps": 21.62
+  },
+  "127": {
+    "name": "Pestone",
+    "type": "Normal",
+    "damage": 55,
+    "duration": 1700,
+    "energy": 50,
+    "dps": 32.35
+  },
+  "128": {
+    "name": "Bottintesta",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "129": {
+    "name": "Iperzanna",
+    "type": "Normal",
+    "damage": 80,
+    "duration": 2500,
+    "energy": 50,
+    "dps": 32
+  },
+  "130": {
+    "name": "Schianto",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "131": {
+    "name": "Body Schianto",
+    "type": "Normal",
+    "damage": 50,
+    "duration": 1900,
+    "energy": 33,
+    "dps": 26.32
+  },
+  "132": {
+    "name": "Riposo",
+    "type": "Normal",
+    "damage": 50,
+    "duration": 1900,
+    "energy": 33,
+    "dps": 26.32
+  },
+  "133": {
+    "name": "Scontro",
+    "type": "Normal",
+    "damage": 35,
+    "duration": 2200,
+    "energy": 0,
+    "dps": 15.91
+  },
+  "134": {
+    "name": "Idrovampata (Blastoise)",
+    "type": "Water",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "135": {
+    "name": "Idropompa (Blastoise)",
+    "type": "Water",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "136": {
+    "name": "Avvolgibotta Green",
+    "type": "Normal",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "137": {
+    "name": "Avvolgibotta Pink",
+    "type": "Normal",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "200": {
+    "name": "Tagliofuria",
+    "type": "Bug",
+    "damage": 3,
+    "duration": 400,
+    "energy": 6,
+    "dps": 7.5
+  },
+  "201": {
+    "name": "Bug Morso",
+    "type": "Bug",
+    "damage": 5,
+    "duration": 500,
+    "energy": 6,
+    "dps": 10
+  },
+  "202": {
+    "name": "Morso",
+    "type": "Dark",
+    "damage": 6,
+    "duration": 500,
+    "energy": 4,
+    "dps": 12
+  },
+  "203": {
+    "name": "Sbigoattacco",
+    "type": "Dark",
+    "damage": 7,
+    "duration": 700,
+    "energy": 8,
+    "dps": 10
+  },
+  "204": {
+    "name": "Dragospiro",
+    "type": "Dragon",
+    "damage": 6,
+    "duration": 500,
+    "energy": 4,
+    "dps": 12
+  },
+  "205": {
+    "name": "Tuonoshock",
+    "type": "Electric",
+    "damage": 5,
+    "duration": 600,
+    "energy": 8,
+    "dps": 8.33
+  },
+  "206": {
+    "name": "Scintilla",
+    "type": "Electric",
+    "damage": 6,
+    "duration": 700,
+    "energy": 9,
+    "dps": 8.57
+  },
+  "207": {
+    "name": "Colpo Basso",
+    "type": "Fighting",
+    "damage": 6,
+    "duration": 600,
+    "energy": 6,
+    "dps": 10
+  },
+  "208": {
+    "name": "Colpokarate",
+    "type": "Fighting",
+    "damage": 8,
+    "duration": 800,
+    "energy": 10,
+    "dps": 10
+  },
+  "209": {
+    "name": "Braciere",
+    "type": "Fire",
+    "damage": 10,
+    "duration": 1000,
+    "energy": 10,
+    "dps": 10
+  },
+  "210": {
+    "name": "Attacco d'Ala",
+    "type": "Flying",
+    "damage": 8,
+    "duration": 800,
+    "energy": 9,
+    "dps": 10
+  },
+  "211": {
+    "name": "Beccata",
+    "type": "Flying",
+    "damage": 10,
+    "duration": 1000,
+    "energy": 10,
+    "dps": 10
+  },
+  "212": {
+    "name": "Leccata",
+    "type": "Ghost",
+    "damage": 5,
+    "duration": 500,
+    "energy": 6,
+    "dps": 10
+  },
+  "213": {
+    "name": "Ombrartigli",
+    "type": "Ghost",
+    "damage": 9,
+    "duration": 700,
+    "energy": 6,
+    "dps": 12.86
+  },
+  "214": {
+    "name": "Frustata",
+    "type": "Grass",
+    "damage": 7,
+    "duration": 600,
+    "energy": 6,
+    "dps": 11.67
+  },
+  "215": {
+    "name": "Foglielama",
+    "type": "Grass",
+    "damage": 13,
+    "duration": 1000,
+    "energy": 7,
+    "dps": 13
+  },
+  "216": {
+    "name": "Colpodifango",
+    "type": "Ground",
+    "damage": 5,
+    "duration": 600,
+    "energy": 7,
+    "dps": 8.33
+  },
+  "217": {
+    "name": "Geloscheggia",
+    "type": "Ice",
+    "damage": 12,
+    "duration": 1200,
+    "energy": 12,
+    "dps": 10
+  },
+  "218": {
+    "name": "Alitogelido",
+    "type": "Ice",
+    "damage": 10,
+    "duration": 900,
+    "energy": 8,
+    "dps": 11.11
+  },
+  "219": {
+    "name": "Attacco Rapido",
+    "type": "Normal",
+    "damage": 8,
+    "duration": 800,
+    "energy": 10,
+    "dps": 10
+  },
+  "220": {
+    "name": "Graffio",
+    "type": "Normal",
+    "damage": 6,
+    "duration": 500,
+    "energy": 4,
+    "dps": 12
+  },
+  "221": {
+    "name": "Azione",
+    "type": "Normal",
+    "damage": 5,
+    "duration": 500,
+    "energy": 5,
+    "dps": 10
+  },
+  "222": {
+    "name": "Botta",
+    "type": "Normal",
+    "damage": 7,
+    "duration": 600,
+    "energy": 6,
+    "dps": 11.67
+  },
+  "223": {
+    "name": "Taglio",
+    "type": "Normal",
+    "damage": 5,
+    "duration": 500,
+    "energy": 5,
+    "dps": 10
+  },
+  "224": {
+    "name": "Velenpuntura",
+    "type": "Poison",
+    "damage": 10,
+    "duration": 800,
+    "energy": 7,
+    "dps": 12.5
+  },
+  "225": {
+    "name": "Acidoo",
+    "type": "Poison",
+    "damage": 9,
+    "duration": 800,
+    "energy": 8,
+    "dps": 11.25
+  },
+  "226": {
+    "name": "Psicotaglio",
+    "type": "Psichico",
+    "damage": 5,
+    "duration": 600,
+    "energy": 8,
+    "dps": 8.33
+  },
+  "227": {
+    "name": "Sassata",
+    "type": "Rock",
+    "damage": 12,
+    "duration": 900,
+    "energy": 7,
+    "dps": 13.33
+  },
+  "228": {
+    "name": "Ferrartigli",
+    "type": "Steel",
+    "damage": 8,
+    "duration": 700,
+    "energy": 7,
+    "dps": 11.43
+  },
+  "229": {
+    "name": "Pugnoscarica",
+    "type": "Steel",
+    "damage": 9,
+    "duration": 900,
+    "energy": 10,
+    "dps": 10
+  },
+  "230": {
+    "name": "Pistolacqua",
+    "type": "Water",
+    "damage": 5,
+    "duration": 500,
+    "energy": 5,
+    "dps": 10
+  },
+  "231": {
+    "name": "Splash",
+    "type": "Water",
+    "damage": 0,
+    "duration": 1730,
+    "energy": 20,
+    "dps": 0
+  },
+  "232": {
+    "name": "Pistolacqua (Blastoise)",
+    "type": "",
+    "damage": 0,
+    "duration": 0,
+    "energy": 0,
+    "dps": 0
+  },
+  "233": {
+    "name": "Mud Slap",
+    "type": "Ground",
+    "damage": 15,
+    "duration": 1400,
+    "energy": 12,
+    "dps": 10.71
+  },
+  "234": {
+    "name": "Zen Bottintesta",
+    "type": "Psichico",
+    "damage": 12,
+    "duration": 1100,
+    "energy": 10,
+    "dps": 10.91
+  },
+  "235": {
+    "name": "Confusione",
+    "type": "Psichico",
+    "damage": 20,
+    "duration": 1600,
+    "energy": 15,
+    "dps": 12.5
+  },
+  "236": {
+    "name": "Velenospina",
+    "type": "Poison",
+    "damage": 5,
+    "duration": 600,
+    "energy": 7,
+    "dps": 8.33
+  },
+  "237": {
+    "name": "Bolla",
+    "type": "Water",
+    "damage": 12,
+    "duration": 1200,
+    "energy": 14,
+    "dps": 10
+  },
+  "238": {
+    "name": "Finta",
+    "type": "Dark",
+    "damage": 10,
+    "duration": 900,
+    "energy": 9,
+    "dps": 11.11
+  },
+  "239": {
+    "name": "Alacciaio",
+    "type": "Steel",
+    "damage": 11,
+    "duration": 800,
+    "energy": 6,
+    "dps": 13.75
+  },
+  "240": {
+    "name": "Rogodenti",
+    "type": "Fire",
+    "damage": 11,
+    "duration": 900,
+    "energy": 8,
+    "dps": 12.22
+  },
+  "241": {
+    "name": "Spaccaroccia",
+    "type": "Fighting",
+    "damage": 15,
+    "duration": 1300,
+    "energy": 10,
+    "dps": 11.54
+  },
+  "242": {
+    "name": "Trasformazione",
+    "type": "Normal",
+    "damage": 0,
+    "duration": 2230,
+    "energy": 0,
+    "dps": 0
+  },
+  "243": {
+    "name": "Contrattacco",
+    "type": "Fighting",
+    "damage": 8,
+    "duration": 900,
+    "energy": 12,
+    "dps": 13.33
+  },
+  "244": {
+    "name": "Polneve",
+    "type": "Ice",
+    "damage": 6,
+    "duration": 1000,
+    "energy": 15,
+    "dps": 6
+  },
+  "245": {
+    "name": "Zuffa",
+    "type": "Fighting",
+    "damage": 100,
+    "duration": 2300,
+    "energy": 100,
+    "dps": 43.48
+  },
+  "246": {
+    "name": "Dinamipugno",
+    "type": "Fighting",
+    "damage": 90,
+    "duration": 2700,
+    "energy": 50,
+    "dps": 33.33
+  },
+  "247": {
+    "name": "Focalcolpo",
+    "type": "Fighting",
+    "damage": 140,
+    "duration": 3500,
+    "energy": 140,
+    "dps": 40
+  },
+  "248": {
+    "name": "Raggiaurora",
+    "type": "Ice",
+    "damage": 80,
+    "duration": 3550,
+    "energy": 50,
+    "dps": 22.54
+  },
+  "249": {
+    "name": "Raggioscossa",
+    "type": "Electric",
+    "damage": 8,
+    "duration": 1100,
+    "energy": 15,
+    "dps": 7.27
+  },
+  "250": {
+    "name": "Invertivolt",
+    "type": "Electric",
+    "damage": 20,
+    "duration": 2300,
+    "energy": 25,
+    "dps": 8.7
+  },
+  "251": {
+    "name": "Sprizzalampo",
+    "type": "Electric",
+    "damage": 90,
+    "duration": 2600,
+    "energy": 50,
+    "dps": 34.62
+  },
+  "252": {
+    "name": "Falcecannone",
+    "type": "Electric",
+    "damage": 140,
+    "duration": 3700,
+    "energy": 100,
+    "dps": 37.84
+  },
+  "253": {
+    "name": "Codadrago",
+    "type": "Dragon",
+    "damage": 15,
+    "duration": 1100,
+    "energy": 9,
+    "dps": 13.64
+  },
+  "254": {
+    "name": "Slavina",
+    "type": "Ice",
+    "damage": 90,
+    "duration": 2700,
+    "energy": 50,
+    "dps": 33.33
+  },
+  "255": {
+    "name": "Eterelama",
+    "type": "Flying",
+    "damage": 14,
+    "duration": 1200,
+    "energy": 10,
+    "dps": 11.67
+  },
+  "256": {
+    "name": "Baldeali",
+    "type": "Flying",
+    "damage": 90,
+    "duration": 2000,
+    "energy": 100,
+    "dps": 45
+  },
+  "257": {
+    "name": "Aeroattacco",
+    "type": "Flying",
+    "damage": 70,
+    "duration": 2000,
+    "energy": 50,
+    "dps": 35
+  },
+  "258": {
+    "name": "Sabbiotomba",
+    "type": "Ground",
+    "damage": 80,
+    "duration": 4000,
+    "energy": 50,
+    "dps": 20
+  },
+  "259": {
+    "name": "Cadutamassi",
+    "type": "Rock",
+    "damage": 50,
+    "duration": 2100,
+    "energy": 33,
+    "dps": 23.81
+  },
+  "260": {
+    "name": "Assillo",
+    "type": "Bug",
+    "damage": 10,
+    "duration": 1100,
+    "energy": 14,
+    "dps": 9.09
+  },
+  "261": {
+    "name": "Scontro Bug",
+    "type": "Bug",
+    "damage": 15,
+    "duration": 1500,
+    "energy": 15,
+    "dps": 10
+  },
+  "262": {
+    "name": "Ventargenteo",
+    "type": "Bug",
+    "damage": 70,
+    "duration": 3700,
+    "energy": 33,
+    "dps": 18.92
+  },
+  "263": {
+    "name": "Sgomento",
+    "type": "Ghost",
+    "damage": 8,
+    "duration": 1100,
+    "energy": 14,
+    "dps": 7.27
+  },
+  "264": {
+    "name": "Sciagura",
+    "type": "Ghost",
+    "damage": 10,
+    "duration": 1200,
+    "energy": 15,
+    "dps": 8.33
+  },
+  "265": {
+    "name": "Ombra Notturna",
+    "type": "Ghost",
+    "damage": 60,
+    "duration": 2600,
+    "energy": 50,
+    "dps": 23.08
+  },
+  "266": {
+    "name": "Codacciaio",
+    "type": "Steel",
+    "damage": 15,
+    "duration": 1100,
+    "energy": 7,
+    "dps": 13.64
+  },
+  "267": {
+    "name": "Vortexpalla",
+    "type": "Steel",
+    "damage": 80,
+    "duration": 3300,
+    "energy": 50,
+    "dps": 24.24
+  },
+  "268": {
+    "name": "Heavy Schianto",
+    "type": "Steel",
+    "damage": 70,
+    "duration": 2100,
+    "energy": 50,
+    "dps": 33.33
+  },
+  "269": {
+    "name": "Turbofuoco",
+    "type": "Fire",
+    "damage": 14,
+    "duration": 1100,
+    "energy": 10,
+    "dps": 12.73
+  },
+  "270": {
+    "name": "Vampata",
+    "type": "Fire",
+    "damage": 160,
+    "duration": 4000,
+    "energy": 100,
+    "dps": 40
+  },
+  "271": {
+    "name": "Semitraglia",
+    "type": "Grass",
+    "damage": 8,
+    "duration": 1100,
+    "energy": 14,
+    "dps": 7.27
+  },
+  "272": {
+    "name": "Laccioerboso",
+    "type": "Grass",
+    "damage": 90,
+    "duration": 2600,
+    "energy": 50,
+    "dps": 34.62
+  },
+  "273": {
+    "name": "Energipalla",
+    "type": "Grass",
+    "damage": 90,
+    "duration": 3900,
+    "energy": 50,
+    "dps": 23.08
+  },
+  "274": {
+    "name": "Extrasenso",
+    "type": "Psichico",
+    "damage": 12,
+    "duration": 1100,
+    "energy": 12,
+    "dps": 10.91
+  },
+  "275": {
+    "name": "Divinazione",
+    "type": "Psichico",
+    "damage": 120,
+    "duration": 2700,
+    "energy": 100,
+    "dps": 44.44
+  },
+  "276": {
+    "name": "Specchiovelo",
+    "type": "Psichico",
+    "damage": 60,
+    "duration": 2600,
+    "energy": 50,
+    "dps": 23.08
+  },
+  "277": {
+    "name": "Oltraggio",
+    "type": "Dragon",
+    "damage": 110,
+    "duration": 3900,
+    "energy": 50,
+    "dps": 28.21
+  },
+  "278": {
+    "name": "Urlorabbia",
+    "type": "Dark",
+    "damage": 12,
+    "duration": 1100,
+    "energy": 12,
+    "dps": 10.91
+  },
+  "279": {
+    "name": "Sgranocchio",
+    "type": "Dark",
+    "damage": 70,
+    "duration": 3200,
+    "energy": 33,
+    "dps": 21.88
+  },
+  "280": {
+    "name": "Ripicca",
+    "type": "Dark",
+    "damage": 70,
+    "duration": 2000,
+    "energy": 50,
+    "dps": 35
+  },
+  "281": {
+    "name": "Introforza",
+    "type": "Normal",
+    "damage": 15,
+    "duration": 1500,
+    "energy": 15,
+    "dps": 10
+  },
+  "282": {
+    "name": "Riduttore",
+    "type": "Normal",
+    "damage": 8,
+    "duration": 1200,
+    "energy": 10,
+    "dps": 6.7
+  },
+  "283": {
+    "name": "Cascata",
+    "type": "Water",
+    "damage": 16,
+    "duration": 1200,
+    "energy": 8,
+    "dps": 13.33
+  },
+  "284": {
+    "name": "Surf",
+    "type": "Water",
+    "damage": 65,
+    "duration": 1700,
+    "energy": 50,
+    "dps": 29.5
+  },
+  "285": {
+    "name": "Dragobolide",
+    "type": "Dragon",
+    "damage": 150,
+    "duration": 3600,
+    "energy": 100,
+    "dps": 36.6
+  },
+  "286": {
+    "name": "Obbliderio",
+    "type": "Steel",
+    "damage": 80,
+    "duration": 1700,
+    "energy": 50,
+    "dps": 36.4
+  },
+  "287": {
+    "name": "Sbadiglio",
+    "type": "Normal",
+    "damage": 0,
+    "duration": 1700,
+    "energy": 15,
+    "dps": 0
+  },
+  "288": {
+    "name": "Psicoslancio",
+    "type": "Psichico",
+    "damage": 70,
+    "duration": 4000,
+    "energy": 50,
+    "dps": 15.6
+  },
+  "289": {
+    "name": "Primopulsar",
+    "type": "Water",
+    "damage": 130,
+    "duration": 1700,
+    "energy": 100,
+    "dps": 59.1
+  },
+  "290": {
+    "name": "Spade Telluriche",
+    "type": "Ground",
+    "damage": 130,
+    "duration": 1700,
+    "energy": 100,
+    "dps": 59.1
+  },
+  "291": {
+    "name": "Present",
+    "type": "Normal",
+    "damage": 5,
+    "duration": 1300,
+    "energy": 20,
+    "dps": 3.8
+  }
+}
