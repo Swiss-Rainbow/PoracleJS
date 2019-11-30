@@ -9,11 +9,6 @@ const commandParts = require('./telegram/middleware/commandParser')
 const log = require('../logger')
 
 function startBeingHungry() {
-	log.log({
-		level: 'debug',
-		message: `telegram worker #${cluster.worker.id} started being hungry`,
-		event: 'telegram:workRequest',
-	})
 	const hungryInterval = setInterval(() => {
 		process.send({ reason: 'hungary' })
 	}, 100)
@@ -52,7 +47,7 @@ fs.readdir(`${__dirname}/telegram/commands/`, (err, files) => {
 	log.log({
 		level: 'debug',
 		message: `Loading Telegram commands: (${enabledCommands.join(' ')})`,
-		event: 'telegram:commandsAdded'
+		event: 'telegram:commandsAdded',
 	})
 
 	clients.forEach((client) => {
@@ -61,28 +56,12 @@ fs.readdir(`${__dirname}/telegram/commands/`, (err, files) => {
 
 })
 
+const targets = {}
 let hungryInterval = startBeingHungry()
-
-function sendMessage(client, msg, message) {
-	client.telegram.sendMessage(msg.job.target, message, {
-		parse_mode: 'Markdown',
-		disable_web_page_preview: true,
-	}).then(() => {
-		if (config.telegram.location || (msg.type === 'monster' && config.telegram.monster_location) || (msg.type === 'raid' && config.telegram.raid_location) || (msg.type === 'quest' && config.telegram.quest_location) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
-			client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
-				log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
-			})
-		}
-	}).catch((err) => {
-		log.error(`Failed sending Telegram message to ${msg.job.name}. Error: ${err.message}`)
-	})
-	hungryInterval = startBeingHungry()
-}
 
 process.on('message', (msg) => {
 	const client = _.sample(clients)
 	if (msg.reason === 'food') {
-		clearInterval(hungryInterval)
 		let message = ''
 		const telegramMessage = msg.job.message
 		if (telegramMessage.content) {
@@ -107,31 +86,60 @@ process.on('message', (msg) => {
 				})
 			}
 		}
-		// Send normal sticker id
-		if (msg.job.sticker && (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images) || (msg.type === 'invasion' && config.telegram.invasion_location))) {
-			client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true }).then(() => {
-				sendMessage(client, msg, message)
-			}).catch((err) => {
-				log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${msg.job.sticker}. Error: ${err.message}`)
 
-				// Normalize sticker and try to send again!
-				let sticker = msg.job.sticker
-				const posUnderline = sticker.lastIndexOf('_')
-				const subcode = sticker.substr(posUnderline)
-				sticker = sticker.replace(subcode, '_00.webp')
-				client.telegram.sendSticker(msg.job.target, sticker, { disable_notification: true }).then(() => {
-					sendMessage(client, msg, message)
+		targets[msg.job.target] = targets[msg.job.target] || []
+		targets[msg.job.target].push((length) => {
+			if (hungryInterval !== null && Object.getOwnPropertyNames(targets).length > 10) {
+				clearInterval(hungryInterval)
+				hungryInterval = null
+			}
+			if (length > 1) {
+				return false
+			}
+			(async () => {
+				if (msg.job.sticker && (config.telegram.images || (msg.type === 'monster' && config.telegram.monster_images) || (msg.type === 'raid' && config.telegram.raid_images) || (msg.type === 'quest' && config.telegram.quest_images) || (msg.type === 'invasion' && config.telegram.invasion_location))) {
+					try {
+						await client.telegram.sendSticker(msg.job.target, msg.job.sticker, { disable_notification: true })
+					}
+					catch (err) {
+						log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${msg.job.sticker}. Error: ${err.message}`)
+
+						// Normalize sticker and try to send again!
+						let { sticker } = msg.job
+						const posUnderline = sticker.lastIndexOf('_')
+						const subcode = sticker.substr(posUnderline)
+						sticker = sticker.replace(subcode, '_00.webp')
+						await client.telegram.sendSticker(msg.job.target, sticker, { disable_notification: true }).catch((err) => {
+							log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${sticker}. Error: ${err.message}`)
+						})
+					}
+				}
+
+				client.telegram.sendMessage(msg.job.target, message, {
+					parse_mode: 'Markdown',
+					disable_web_page_preview: true,
+				}).then(() => {
+					if (config.telegram.location || (msg.type === 'monster' && config.telegram.monster_location) || (msg.type === 'raid' && config.telegram.raid_location) || (msg.type === 'quest' && config.telegram.quest_location) || (msg.type === 'invasion' && config.telegram.invasion_location)) {
+						client.telegram.sendLocation(msg.job.target, msg.job.lat, msg.job.lon, { disable_notification: true }).catch((err) => {
+							log.error(`Failed sending Telegram Location to ${msg.job.name}. Error: ${err.message}`)
+						})
+					}
 				}).catch((err) => {
-					log.error(`Failed sending Telegram sticker to ${msg.job.name}. Sticker: ${sticker}. Error: ${err.message}`)
-
-					// Send without sticker, if also normalized sticker is missing
-					sendMessage(client, msg, message)
+					log.error(`Failed sending Telegram message to ${msg.job.name}. Error: ${err.message}`)
+				}).then(() => {
+					targets[msg.job.target].shift()
+					if (targets[msg.job.target].length > 0) {
+						targets[msg.job.target][0](1)
+					}
+					else {
+						delete targets[msg.job.target]
+						if (hungryInterval === null && Object.getOwnPropertyNames(targets).length < 10) {
+							hungryInterval = startBeingHungry()
+						}
+					}
 				})
-			})
-		}
-		// Send without any sticker
-		else {
-			sendMessage(client, msg, message)
-		}
+			})()
+		})
+		targets[msg.job.target][0](targets[msg.job.target].length)
 	}
 })
