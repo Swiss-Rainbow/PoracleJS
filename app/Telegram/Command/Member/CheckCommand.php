@@ -41,12 +41,12 @@ class CheckCommand extends Command
         if ($connection === null) {
             $config = new Configuration();
             $params = [
-                'dbname' => getenv('DB_DATABASE'),
+                'dbname' => getenv('DB_DATABASE') ?? 'poracledb',
                 'driver' => 'mysqli',
-                'host' => getenv('DB_HOST'),
-                'password' => getenv('DB_PASSWORD'),
-                'port' => getenv('DB_PORT'),
-                'user' => getenv('DB_USER'),
+                'host' => getenv('DB_HOST') ?? '127.0.0.1',
+                'password' => getenv('DB_PASSWORD') ?? 'YourStrongPassw0rd!',
+                'port' => getenv('DB_PORT') ?? 3306,
+                'user' => getenv('DB_USER') ?? 'poracleuser',
             ];
             $connection = DriverManager::getConnection($params, $config);
         }
