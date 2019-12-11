@@ -30,6 +30,11 @@ class CheckCommand extends Command
      */
     private $channel;
 
+    /**
+     * @var array
+     */
+    private $allowedTypes = ['channel', 'group'];
+
     public function __construct(string $name = null, BotApi $bot = null, Connection $connection = null)
     {
         parent::__construct($name);
@@ -68,13 +73,13 @@ class CheckCommand extends Command
         $tokens = array_filter(array_map('trim', $tokens));
         if (empty($tokens)) {
             $output->write('<error>No Telegram token could be found</error>');
-
             return;
         }
 
         $this->channel = $input->getArgument('channel') ?: getenv('TLG_REGISTER');
         if (empty($this->channel)) {
-            throw new \RuntimeException('No channel id could be found', 1575982460);
+            $output->write('<error>No channel id could be found</error>');
+            return;
         }
 
         foreach ((array)$tokens as $token) {
@@ -89,14 +94,9 @@ class CheckCommand extends Command
 
         while ($human = $statement->fetch()) {
             foreach ($this->bots as $bot) {
-                try {
-                    $user = $bot->getChatMember($this->channel, $human['id']);
-                    if ($user instanceof ChatMember) {
-                        $output->writeln('<info>User "' . $human['name'] . '" found in channel</info>');
-                        continue 2;
-                    }
-                } catch (HttpException $exception) {
-                    // Intentional fall through
+                if ($this->humanIsMember($bot, $human) || $this->allowHumanByType($bot, $human)) {
+                    $output->writeln('<info>User "' . $human['name'] . '" found in channel</info>');
+                    continue 2;
                 }
             }
 
@@ -107,5 +107,30 @@ class CheckCommand extends Command
                 ->execute();
             $output->writeln('<error>User "' . $human['name'] . '" removed from channel</error>');
         }
+    }
+
+    private function humanIsMember(BotApi $bot, array $human): bool
+    {
+        try {
+            $user = $bot->getChatMember($this->channel, $human['id']);
+            return $user instanceof ChatMember;
+        } catch (HttpException $exception) {
+            // Intentional fallthrough
+        }
+
+        return false;
+    }
+
+    private function allowHumanByType(BotApi $bot, array $human): bool
+    {
+        try {
+            // Allow all channels
+            $chat = $bot->getChat($human['id']);
+            return in_array(strtolower($chat->getType()), $this->allowedTypes, true);
+        } catch (HttpException $exception) {
+            // Intentional fallthrough
+        }
+
+        return false;
     }
 }
