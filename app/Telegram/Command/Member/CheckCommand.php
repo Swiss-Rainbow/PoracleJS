@@ -33,7 +33,7 @@ class CheckCommand extends Command
     /**
      * @var array
      */
-    private $allowedTypes = ['channel', 'group'];
+    private $allowedTypes = ['channel', 'group', 'supergroup'];
 
     public function __construct(string $name = null, BotApi $bot = null, Connection $connection = null)
     {
