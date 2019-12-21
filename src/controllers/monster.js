@@ -65,8 +65,9 @@ class Monster extends Controller {
               * cos( radians( humans.longitude ) - radians(${data.longitude}) )
               + sin( radians(${data.latitude}) )
               * sin( radians( humans.latitude ) ) ) < monsters.distance and monsters.distance != 0) or
-               monsters.distance = 0 and (${areastring}))
-               group by humans.id, humans.name, monsters.template `
+               monsters.distance = 0 and (${areastring})) and
+            (monsters.time<=${(data.tth.hours * 60) + data.tth.minutes} or monsters.time=0)   
+            group by humans.id, humans.name, monsters.template `
 
 
 			log.log({ level: 'debug', message: 'monsterWhoCares query', event: 'sql:monsterWhoCares' })
