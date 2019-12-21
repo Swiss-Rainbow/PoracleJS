@@ -381,7 +381,7 @@
         },
         {
           "name": "Monster tracking commands",
-          "value": "`{{prefix}}track snorlax lapras d500 iv50 maxiv90 cp1000 level15`: Any arguments are optional, this command would alert you about snorlax and lapras within 500 meters of your location or inside an added area. The set filters require them to have IV between 50% - 90% be at least level 15 and minimum CP of 1000 \n`{{prefix}}untrack lapras vileplume`: will remove tracking for lapras and vileplume"
+          "value": "`{{prefix}}track snorlax lapras d500 t30 iv50 maxiv90 cp1000 level15`: Any arguments are optional, this command would alert you about snorlax and lapras within 500 meters of your location or inside an added area and a remaining time of at least 30 minutes. The set filters require them to have IV between 50% - 90% be at least level 15 and minimum CP of 1000 \n`{{prefix}}untrack lapras vileplume`: will remove tracking for lapras and vileplume"
         },
         {
           "name": "Raid tracking commands",
