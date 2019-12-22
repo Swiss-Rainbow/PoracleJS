@@ -60,7 +60,9 @@ module.exports = (ctx) => {
 				const forms = []
 
 				args.forEach((element) => {
-					const pid = _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
+					const pid = (element.match(/^\d+$/) && _.has(monsterData, element))
+						? element
+						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
 					if (pid) monsters.push(pid)
 				})
 				args.forEach((element) => {
