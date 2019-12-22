@@ -38,7 +38,9 @@ module.exports = (ctx) => {
 
 				let monsters = []
 				args.forEach((element) => {
-					const pid = _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
+					const pid = (element.match(/^\d+$/) && _.has(monsterData, element))
+						? element
+						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
 					if (pid !== undefined) monsters.push(pid)
 					else if (_.has(typeData, element.replace(/\b\w/g, (l) => l.toUpperCase()))) {
 						const Type = element.replace(/\b\w/g, (l) => l.toUpperCase())
