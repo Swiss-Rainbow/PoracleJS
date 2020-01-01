@@ -1512,7 +1512,7 @@
     "dps": 8.7
   },
   "251": {
-    "name": "Stromsbisß",
+    "name": "Stromstoß",
     "type": "Elektro",
     "damage": 90,
     "duration": 2600,
@@ -1904,7 +1904,7 @@
     "dps": 3.8
   },
   "300": {
-    "name": "Last Resort",
+    "name": "Zuflucht",
     "type": "Normal",
     "damage": 5,
     "duration": 1300,
@@ -1912,7 +1912,7 @@
     "dps": 3.8
   },
   "301": {
-    "name": "Meteor Mash",
+    "name": "Sternenhieb",
     "type": "Stahl",
     "damage": 5,
     "duration": 1300,
@@ -1920,7 +1920,7 @@
     "dps": 3.8
   },
   "302": {
-    "name": "Skull Bash",
+    "name": "Schädelwumme",
     "type": "Normal",
     "damage": 5,
     "duration": 1300,
