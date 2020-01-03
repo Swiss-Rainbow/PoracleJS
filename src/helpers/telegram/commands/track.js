@@ -7,7 +7,15 @@ if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCas
 	monsterDataPath = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
 }
 const monsterData = require(monsterDataPath)
-const typeData = require(`${__dirname}/../../../util/types`)
+
+let gruntTypeDataPath = `${__dirname}/../../../util/grunt_types.json`
+const defaultGruntTypes = require(gruntTypeDataPath)
+// Check if the config language is one of the array object (array for future translation possibilities)
+if (_.includes(['de', 'fr'], config.locale.language.toLowerCase())) {
+	gruntTypeDataPath = `${__dirname}/../../../util/locale/grunt_types${config.locale.language.toLowerCase()}.json`
+}
+const gruntTypes = require(gruntTypeDataPath)
+
 const formData = require(`${__dirname}/../../../util/forms`)
 const genData = require(`${__dirname}/../../../util/gens`)
 
@@ -88,14 +96,6 @@ module.exports = (ctx) => {
 					else if (element.match(/genderless/gi)) gender = 3
 					else if (element.match(/weight\d/gi)) 	weight = element.replace(/weight/gi, '')
 					else if (element.match(/form\w/gi)) forms.push(element.replace(/form/gi, ''))
-					else if (_.has(typeData, element.replace(/\b\w/g, (l) => l.toUpperCase()))) {
-						const Type = element.replace(/\b\w/g, (l) => l.toUpperCase())
-						_.filter(monsterData, (o, k) => {
-							if (_.includes(o.types, Type) && k < config.general.max_pokemon) {
-								if (!_.includes(monsters, parseInt(k, 10))) monsters.push(parseInt(k, 10))
-							} return k
-						})
-					}
 					else if (element.match(/everything/gi)) monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
 					else if (element.match(/d\d/gi)) {
 						distance = element.replace(/d/gi, '')
@@ -105,7 +105,18 @@ module.exports = (ctx) => {
 						gen = element.match(/gen\d/gi)[0].replace(/gen/gi, '')
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1).filter((k) => k >= genData[gen].min && k <= genData[gen].max) // eslint-disable-line no-return-assign
 					}
-
+					else {
+						let tid = _.findKey(gruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
+						tid = tid || _.findKey(defaultGruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
+						if (tid) {
+							_.filter(defaultMonsterData, (o, k) => {
+								if (_.includes(o.types, defaultGruntTypes[tid].type) && k < config.general.max_pokemon) {
+									if (!_.includes(monsters, parseInt(k, 10))) monsters.push(parseInt(k, 10))
+								}
+								return k
+							})
+						}
+					}
 				})
 				if (monsters.length && !forms.length) {
 					const form = 0
