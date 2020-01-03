@@ -1,6 +1,8 @@
 const _ = require('lodash')
 const config = require('config')
 
+const genData = require(`${__dirname}/../../../util/gens`)
+
 let monsterDataPath = `${__dirname}/../../../util/monsters.json`
 const defaultMonsterData = require(monsterDataPath)
 if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCase())) {
@@ -45,6 +47,7 @@ module.exports = (ctx) => {
 			if (isregistered) {
 
 				let monsters = []
+				let gen = 0
 				args.forEach((element) => {
 					let pid = (element.match(/^\d+$/) && _.has(monsterData, element))
 						? element
@@ -55,6 +58,10 @@ module.exports = (ctx) => {
 					}
 					else if (element.match(/everything/gi)) {
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
+					}
+					else if (element.match(/gen[1-7]/gi)) {
+						gen = element.match(/gen\d/gi)[0].replace(/gen/gi, '')
+						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1).filter((k) => k >= genData[gen].min && k <= genData[gen].max) // eslint-disable-line no-return-assign
 					}
 					else {
 						let tid = _.findKey(gruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
