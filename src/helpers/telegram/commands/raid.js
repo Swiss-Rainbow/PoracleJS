@@ -2,6 +2,7 @@ const _ = require('lodash')
 const config = require('config')
 
 let monsterDataPath = `${__dirname}/../../../util/monsters.json`
+const defaultMonsterData = require(monsterDataPath)
 if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCase())) {
 	monsterDataPath = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
 }
@@ -50,10 +51,11 @@ module.exports = (ctx) => {
 				const forms = []
 
 				args.forEach((element) => {
-					const pid = (element.match(/^\d+$/) && _.has(monsterData, element))
+					let pid = (element.match(/^\d+$/) && _.has(monsterData, element))
 						? element
 						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
-					if (pid !== undefined) monsters.push(pid)
+					pid = pid || _.findKey(defaultMonsterData, (mon) => mon.name.toLowerCase() === element)
+					if (pid) monsters.push(pid)
 					else if (_.has(typeData, element.replace(/\b\w/g, (l) => l.toUpperCase()))) {
 						const Type = element.replace(/\b\w/g, (l) => l.toUpperCase())
 						_.filter(monsterData, (o, k) => {
