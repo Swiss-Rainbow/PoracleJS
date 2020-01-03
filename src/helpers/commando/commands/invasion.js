@@ -1,5 +1,13 @@
 const _ = require('lodash')
-const typeData = require('../../../util/types')
+const config = require('config')
+
+let gruntTypeDataPath = `${__dirname}/../../../util/grunt_types.json`
+const defaultGruntTypes = require(gruntTypeDataPath)
+// Check if the config language is one of the array object (array for future translation possibilities)
+if (_.includes(['de', 'fr'], config.locale.language.toLowerCase())) {
+	gruntTypeDataPath = `${__dirname}/../../../util/locale/grunt_types${config.locale.language.toLowerCase()}.json`
+}
+const gruntTypes = require(gruntTypeDataPath)
 
 exports.run = (client, msg, args) => {
 	let target = { id: msg.author.id, name: msg.author.tag }
@@ -59,10 +67,10 @@ exports.run = (client, msg, args) => {
 						types.push('Boss')
 					}
 					else {
-						for (const tt in typeData) {
-							if (tt.toLowerCase() === t.toLowerCase()) {
-								types.push(tt)
-							}
+						let key = _.findKey(gruntTypes, (tt) => tt.type.toLowerCase() === t.toLowerCase())
+						key = key || _.findKey(defaultGruntTypes, (tt) => tt.type.toLowerCase() === t.toLowerCase())
+						if (key) {
+							types.push(gruntTypes[key].type)
 						}
 					}
 				})
