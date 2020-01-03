@@ -7,7 +7,15 @@ if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCas
 	monsterDataPath = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
 }
 const monsterData = require(monsterDataPath)
-const typeData = require(`${__dirname}/../../../util/types`)
+
+let gruntTypeDataPath = `${__dirname}/../../../util/grunt_types.json`
+const defaultGruntTypes = require(gruntTypeDataPath)
+// Check if the config language is one of the array object (array for future translation possibilities)
+if (_.includes(['de', 'fr'], config.locale.language.toLowerCase())) {
+	gruntTypeDataPath = `${__dirname}/../../../util/locale/grunt_types${config.locale.language.toLowerCase()}.json`
+}
+const gruntTypes = require(gruntTypeDataPath)
+
 const formData = require(`${__dirname}/../../../util/forms`)
 const genData = require(`${__dirname}/../../../util/gens`)
 
@@ -56,14 +64,17 @@ module.exports = (ctx) => {
 						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
 					pid = pid || _.findKey(defaultMonsterData, (mon) => mon.name.toLowerCase() === element)
 					if (pid) monsters.push(pid)
-					else if (_.has(typeData, element.replace(/\b\w/g, (l) => l.toUpperCase()))) {
-						const Type = element.replace(/\b\w/g, (l) => l.toUpperCase())
-						_.filter(monsterData, (o, k) => {
-							if (_.includes(o.types, Type) && k < config.general.max_pokemon) {
-								if (!_.includes(monsters, parseInt(k, 10))) monsters.push(parseInt(k, 10))
-							}
-							return k
-						})
+					else {
+						let tid = _.findKey(gruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
+						tid = tid || _.findKey(defaultGruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
+						if (tid) {
+							_.filter(defaultMonsterData, (o, k) => {
+								if (_.includes(o.types, defaultGruntTypes[tid].type) && k < config.general.max_pokemon) {
+									if (!_.includes(monsters, parseInt(k, 10))) monsters.push(parseInt(k, 10))
+								}
+								return k
+							})
+						}
 					}
 				})
 				args.forEach((element) => {
