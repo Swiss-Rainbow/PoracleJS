@@ -1,19 +1,25 @@
 const _ = require('lodash')
 const config = require('config')
+const fs = require('fs')
 
 let monsterDataPath = `${__dirname}/../../../util/monsters.json`
 const defaultMonsterData = require(monsterDataPath)
-if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCase())) {
-	monsterDataPath = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+if (config.locale.language.toLowerCase() !== 'en') {
+	const monsterDataPathToTest = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(monsterDataPathToTest)) {
+		monsterDataPath = monsterDataPathToTest
+	}
 }
 const monsterData = require(monsterDataPath)
 const questDts = require('../../../../config/questdts')
 
 let gruntTypeDataPath = `${__dirname}/../../../util/grunt_types.json`
 const defaultGruntTypes = require(gruntTypeDataPath)
-// Check if the config language is one of the array object (array for future translation possibilities)
-if (_.includes(['de', 'fr'], config.locale.language.toLowerCase())) {
-	gruntTypeDataPath = `${__dirname}/../../../util/locale/grunt_types${config.locale.language.toLowerCase()}.json`
+if (config.locale.language.toLowerCase() !== 'en') {
+	const gruntTypeDataPathToTest = `${__dirname}/../../../util/locale/grunt_types${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(gruntTypeDataPathToTest)) {
+		gruntTypeDataPath = gruntTypeDataPathToTest
+	}
 }
 const gruntTypes = require(gruntTypeDataPath)
 

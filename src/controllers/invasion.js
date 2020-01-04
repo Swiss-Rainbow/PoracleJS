@@ -1,4 +1,5 @@
 const config = require('config')
+const fs = require('fs')
 
 const _ = require('lodash')
 const mustache = require('mustache')
@@ -13,18 +14,21 @@ require('moment-precise-range-plugin')
 moment.locale(config.locale.timeformat)
 const minTth = config.general.monsterMinimumTimeTillHidden || 0
 
-let gruntTypeDataPath = `${__dirname}/../util/grunt_types.json`
-// Check if the config language is one of the array object (array for future translation possibilities)
-if (_.includes(['de', 'fr'], config.locale.language.toLowerCase())) {
-	gruntTypeDataPath = `${__dirname}/../util/locale/grunt_types${config.locale.language.toLowerCase()}.json`
+let gruntTypes = require(`${__dirname}/../util/grunt_types.json`)
+if (config.locale.language.toLowerCase() !== 'en') {
+	const gruntTypeDataPathToTest = `${__dirname}/../util/locale/grunt_types${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(gruntTypeDataPathToTest)) {
+		gruntTypes = {...gruntTypes, ...require(gruntTypeDataPathToTest)}
+	}
 }
-const gruntTypes = require(gruntTypeDataPath)
 
-let monsterDataPath = `${__dirname}/../util/monsters.json`
-if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCase())) {
-	monsterDataPath = `${__dirname}/../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+let monsterData = require(`${__dirname}/../util/monsters.json`)
+if (config.locale.language.toLowerCase() !== 'en') {
+	const monsterDataPathToTest = `${__dirname}/../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(monsterDataPathToTest)) {
+		monsterData = {...monsterData, ...require(monsterDataPathToTest)}
+	}
 }
-const monsterData = require(monsterDataPath)
 
 const dts = require('../../config/dts')
 const emojiData = require('../../config/emoji')

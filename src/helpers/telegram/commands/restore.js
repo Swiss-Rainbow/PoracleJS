@@ -1,6 +1,5 @@
 const _ = require('lodash')
 const fs = require('fs')
-const path = require('path')
 
 module.exports = (ctx) => {
 
@@ -32,7 +31,7 @@ module.exports = (ctx) => {
 
 				const backups = []
 				if (args[0]) {
-					fs.readdirSync(path.join(__dirname, '../../commando/commands', '/filterBackups')).forEach((file) => {
+					fs.readdirSync(`${__dirname}/../../commando/commands/filterBackups`).forEach((file) => {
 						if (file !== '.gitkeep') backups.push(file.replace('.sql', ''))
 					})
 
@@ -57,7 +56,7 @@ module.exports = (ctx) => {
 							controller.query.deleteQuery('quest', 'id', target.id).catch((O_o) => {}),
 							controller.query.deleteQuery('incident', 'id', target.id).catch((O_o) => {}),
 						]).then((x) => {
-							const query = fs.readFileSync(path.join(__dirname, '../../commando/commands', `/filterBackups/${args[0]}.sql`), 'utf8').replace('{{ target }}', target.id)
+							const query = fs.readFileSync(`${__dirname}/../../commando/commands/filterBackups/${args[0]}.sql`, 'utf8').replace('{{ target }}', target.id)
 							controller.query.mysteryQuery(query).catch((O_o) => {})
 							ctx.reply('✅').catch((O_o) => {
 								controller.log.error(O_o.message)
