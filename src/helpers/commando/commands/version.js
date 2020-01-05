@@ -1,7 +1,6 @@
 const _ = require('lodash')
-const path = require('path')
 
-const { version } = require(`${path.join(__dirname, '/../../../../')}package.json`)
+const { version } = require(`${__dirname}/../../../../package.json`)
 
 exports.run = (client, msg) => {
 	let target = { id: msg.author.id, name: msg.author.tag }

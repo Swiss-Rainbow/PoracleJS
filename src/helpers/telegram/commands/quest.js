@@ -1,13 +1,28 @@
 const _ = require('lodash')
 const config = require('config')
+const fs = require('fs')
 
 let monsterDataPath = `${__dirname}/../../../util/monsters.json`
-if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCase())) {
-	monsterDataPath = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+const defaultMonsterData = require(monsterDataPath)
+if (config.locale.language.toLowerCase() !== 'en') {
+	const monsterDataPathToTest = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(monsterDataPathToTest)) {
+		monsterDataPath = monsterDataPathToTest
+	}
 }
 const monsterData = require(monsterDataPath)
 const questDts = require(`${__dirname}/../../../../config/questdts`)
-const typeData = require(`${__dirname}/../../../util/types`)
+
+let gruntTypeDataPath = `${__dirname}/../../../util/grunt_types.json`
+const defaultGruntTypes = require(gruntTypeDataPath)
+if (config.locale.language.toLowerCase() !== 'en') {
+	const gruntTypeDataPathToTest = `${__dirname}/../../../util/locale/grunt_types${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(gruntTypeDataPathToTest)) {
+		gruntTypeDataPath = gruntTypeDataPathToTest
+	}
+}
+const gruntTypes = require(gruntTypeDataPath)
+
 const genData = require(`${__dirname}/../../../util/gens`)
 
 module.exports = (ctx) => {
@@ -51,16 +66,11 @@ module.exports = (ctx) => {
 				let stardustTracking = 9999999
 
 				args.forEach((element) => {
-					const pid = _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
-					if (pid !== undefined) monsters.push(pid)
-					else if (_.has(typeData, element.replace(/\b\w/g, (l) => l.toUpperCase()))) {
-						const Type = element.replace(/\b\w/g, (l) => l.toUpperCase())
-						_.filter(monsterData, (o, k) => {
-							if (_.includes(o.types, Type) && k < controller.config.general.max_pokemon) {
-								if (!_.includes(monsters, parseInt(k, 10))) monsters.push(parseInt(k, 10))
-							} return k
-						})
-					}
+					let pid = (element.match(/^\d+$/) && _.has(monsterData, element))
+						? element
+						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
+					pid = pid || _.findKey(defaultMonsterData, (mon) => mon.name.toLowerCase() === element)
+					if (pid) monsters.push(pid)
 					else if (element.match(/gen[1-7]/gi)) {
 						gen = element.match(/gen\d/gi)[0].replace(/gen/gi, '')
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1).filter((k) => k >= genData[gen].min && k <= genData[gen].max) // eslint-disable-line no-return-assign
@@ -77,6 +87,18 @@ module.exports = (ctx) => {
 					else if (element === 'shiny') mustShiny = 1
 					else if (element === 'remove') remove = true
 					else if (element.match(/template[1-5]/gi)) template = element.replace(/template/gi, '')
+					else {
+						let tid = _.findKey(gruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
+						tid = tid || _.findKey(defaultGruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
+						if (tid) {
+							_.filter(defaultMonsterData, (o, k) => {
+								if (_.includes(o.types, defaultGruntTypes[tid].type) && k < config.general.max_pokemon) {
+									if (!_.includes(monsters, parseInt(k, 10))) monsters.push(parseInt(k, 10))
+								}
+								return k
+							})
+						}
+					}
 				})
 				_.forEach(questDts.rewardItems, (item, key) => {
 					const re = new RegExp(` ${item}`, 'gi')

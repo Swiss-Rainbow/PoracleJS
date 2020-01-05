@@ -1,14 +1,16 @@
 const _ = require('lodash')
 const fs = require('fs')
-const path = require('path')
 const hastebin = require('hastebin-gen')
 const config = require('config')
 
-let monsterDataPath = `${__dirname}/../../../util/monsters.json`
-if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCase())) {
-	monsterDataPath = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+let monsterData = require(`${__dirname}/../../../util/monsters.json`)
+if (config.locale.language.toLowerCase() !== 'en') {
+	const monsterDataPathToTest = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(monsterDataPathToTest)) {
+		monsterData = {...monsterData, ...require(monsterDataPathToTest)}
+	}
 }
-const monsterData = require(monsterDataPath)
+
 const teamData = require(`${__dirname}/../../../util/teams`)
 const formData = require(`${__dirname}/../../../util/forms`)
 const genderData = require(`${__dirname}/../../../util/genders`)
@@ -156,7 +158,7 @@ exports.run = (client, msg) => {
 								})
 							})
 							.catch((err) => {
-								const filepath = path.join(__dirname, `../../../../.cache/${human.name}.txt`)
+								const filepath = `${__dirname}/../../../../.cache/${human.name}.txt`
 								fs.writeFileSync(filepath, message)
 								msg.reply(`${target.name} tracking list is long, but Hastebin is also down. ☹️ \nTracking list made into a file:`, { files: [filepath] }).catch((O_o) => {
 									client.log.error(O_o.message)

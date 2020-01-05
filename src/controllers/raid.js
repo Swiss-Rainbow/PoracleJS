@@ -1,25 +1,30 @@
 const config = require('config')
 const pokemonGif = require('pokemon-gif')
-const path = require('path')
+const fs = require('fs')
 
 const _ = require('lodash')
 const mustache = require('mustache')
 
-let monsterDataPath = path.join(__dirname, '../util/monsters.json')
-let moveDataPath = path.join(__dirname, '../util/moves.json')
-if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCase())) {
-	monsterDataPath = path.join(__dirname, `../util/locale/monsters${config.locale.language.toLowerCase()}.json`)
-	moveDataPath = path.join(__dirname, `../util/locale/moves${config.locale.language.toLowerCase()}.json`)
+let monsterData = require(`${__dirname}/../util/monsters.json`)
+let moveData = require(`${__dirname}/../util/moves.json`)
+if (config.locale.language.toLowerCase() !== 'en') {
+	const monsterDataPathToTest = `${__dirname}/../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(monsterDataPathToTest)) {
+		monsterData = {...monsterData, ...require(monsterDataPathToTest)}
+	}
+	const moveDataPathToTest = `${__dirname}/../util/locale/moves${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(moveDataPathToTest)) {
+		moveData = {...moveData, ...require(moveDataPathToTest)}
+	}
 }
+
 const geoTz = require('geo-tz')
 const moment = require('moment-timezone')
 const emojiData = require('../../config/emoji')
 
-const monsterData = require(monsterDataPath)
 const teamData = require('../util/teams')
 const types = require('../util/types')
 
-const moveData = require(moveDataPath)
 const formData = require('../util/forms')
 
 const log = require('../logger')

@@ -1,6 +1,5 @@
 const _ = require('lodash')
 const fs = require('fs')
-const path = require('path')
 
 exports.run = (client, msg, args) => {
 	let target = { id: msg.author.id, name: msg.author.tag }
@@ -33,8 +32,9 @@ exports.run = (client, msg, args) => {
 						})
 					}
 					args.forEach((arg) => {
-						if (fs.existsSync(path.join(__dirname, `/filterBackups/${arg}.sql`))) {
-							fs.unlinkSync(path.join(__dirname, `/filterBackups/${arg}.sql`))
+						const pathToTest = `${__dirname}/filterBackups/${arg}.sql`
+						if (fs.existsSync(pathToTest)) {
+							fs.unlinkSync(pathToTest)
 						}
 					})
 					return msg.react('✅').catch((O_o) => {
@@ -74,7 +74,7 @@ exports.run = (client, msg, args) => {
 						query = query.replace(new RegExp(`'${target.id}'`, 'g'), '\'{{ target }}\'')
 						query = query.replace(/\s\s+/g, ' ').replace(';', ';\n')
 						if (query) {
-							fs.writeFileSync(path.join(__dirname, '/filterBackups/', `${args[0]}.sql`), query)
+							fs.writeFileSync(`${__dirname}/filterBackups/${args[0]}.sql`, query)
 							msg.react('✅').catch((O_o) => {
 								client.log.error(O_o.message)
 							})
