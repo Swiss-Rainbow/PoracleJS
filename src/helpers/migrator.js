@@ -164,6 +164,13 @@ const migration6 = {
 	incidentFixPk: 'ALTER TABLE incident ADD PRIMARY KEY(id,gender,gruntType)',
 }
 
+const migration7 = {
+	monsters: `
+		ALTER TABLE \`monsters\` 
+		ADD \`time\` smallint(1) NOT NULL DEFAULT 0;
+	`,
+}
+
 module.exports = async () => new Promise((resolve, reject) => {
 	queries.countQuery('TABLE_NAME', 'information_schema.tables', 'table_schema', config.db.database)
 		.then((tables) => {
@@ -293,7 +300,21 @@ module.exports = async () => new Promise((resolve, reject) => {
 										})
 								}
 								else if (version.val === 6) {
-									log.info('Database schema-version 6 confirmed')
+									queries.mysteryQuery(migration7.monsters)
+										.then(() => {
+											queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+												.then(() => resolve(true))
+												.catch((unhappy) => {
+													reject(log.error(`Database migration unhappy to create migration 7: ${unhappy.message}`))
+												})
+											log.info('applied Db migration 6')
+										})
+										.catch((unhappy) => {
+											reject(log.error(`Database migration unhappy to drop incident PK: ${unhappy.message}`))
+										})
+								}
+								else if (version.val === 7) {
+									log.info('Database schema-version 7 confirmed')
 									resolve(true)
 								}
 							})

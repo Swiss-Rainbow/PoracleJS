@@ -57,6 +57,7 @@ exports.run = (client, msg, args) => {
 				let template = 3
 				const forms = []
 				let gen = 0
+				let time = 0
 
 				args.forEach((element) => {
 					const pid = _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
@@ -100,14 +101,15 @@ exports.run = (client, msg, args) => {
 						distance = element.replace(/d/gi, '')
 						if (distance.length >= 10) distance = distance.substr(0, 9)
 					}
+					else if (element.match(/t\d/gi)) time = Math.min(element.replace(/t/gi, ''), 59)
 
 				})
 				if (monsters.length && !forms.length) {
 					const form = 0
-					const insertData = monsters.map((pokemonId) => [target.id, pokemonId, template, distance, iv, maxiv, cp, maxcp, level, maxlevel, atk, def, sta, weight, maxweight, form, maxAtk, maxDef, maxSta, gender])
+					const insertData = monsters.map((pokemonId) => [target.id, pokemonId, template, distance, iv, maxiv, cp, maxcp, level, maxlevel, atk, def, sta, weight, maxweight, form, maxAtk, maxDef, maxSta, gender, time])
 					client.query.insertOrUpdateQuery(
 						'monsters',
-						['id', 'pokemon_id', 'template', 'distance', 'min_iv', 'max_iv', 'min_cp', 'max_cp', 'min_level', 'max_level', 'atk', 'def', 'sta', 'min_weight', 'max_weight', 'form', 'maxAtk', 'maxDef', 'maxSta', 'gender'],
+						['id', 'pokemon_id', 'template', 'distance', 'min_iv', 'max_iv', 'min_cp', 'max_cp', 'min_level', 'max_level', 'atk', 'def', 'sta', 'min_weight', 'max_weight', 'form', 'maxAtk', 'maxDef', 'maxSta', 'gender', 'time'],
 						insertData,
 					).catch((O_o) => {})
 
@@ -139,11 +141,11 @@ exports.run = (client, msg, args) => {
 						const fid = _.findKey(formData[monsters[0]], (monforms) => monforms.toLowerCase() === form)
 						if (fid) fids.push(fid)
 					})
-					const insertData = fids.map((form) => [target.id, monsters[0], template, distance, iv, maxiv, cp, maxcp, level, maxlevel, atk, def, sta, weight, maxweight, form, maxAtk, maxDef, maxSta, gender])
+					const insertData = fids.map((form) => [target.id, monsters[0], template, distance, iv, maxiv, cp, maxcp, level, maxlevel, atk, def, sta, weight, maxweight, form, maxAtk, maxDef, maxSta, gender, time])
 					client.log.log({ level: 'debug', message: `${msg.author.username} started tracking ${monsters[0]} form: ${fids} in ${target.name}`, event: 'discord:track' })
 					client.query.insertOrUpdateQuery(
 						'monsters',
-						['id', 'pokemon_id', 'template', 'distance', 'min_iv', 'max_iv', 'min_cp', 'max_cp', 'min_level', 'max_level', 'atk', 'def', 'sta', 'min_weight', 'max_weight', 'form', 'maxAtk', 'maxDef', 'maxSta', 'gender'],
+						['id', 'pokemon_id', 'template', 'distance', 'min_iv', 'max_iv', 'min_cp', 'max_cp', 'min_level', 'max_level', 'atk', 'def', 'sta', 'min_weight', 'max_weight', 'form', 'maxAtk', 'maxDef', 'maxSta', 'gender', 'time'],
 						insertData,
 					).catch((O_o) => {})
 					if (fids.length > 0) {

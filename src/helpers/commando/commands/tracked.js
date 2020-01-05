@@ -78,9 +78,11 @@ exports.run = (client, msg) => {
 						const monsterName = monsterData[monster.pokemon_id].name
 						let miniv = monster.min_iv
 						let formName = formData[monster.pokemon_id] ? formData[monster.pokemon_id][monster.form] : 'none'
-						if (formName === undefined) formName = 'none'
+						formName = formName || 'none'
 						if (miniv === -1) miniv = 0
-						message = message.concat(`\n**${monsterName}** form: ${formName} distance: ${monster.distance}m iv: ${miniv}%-${monster.max_iv}% cp: ${monster.min_cp}-${monster.max_cp} level: ${monster.min_level}-${monster.max_level} stats: ${monster.atk}/${monster.def}/${monster.sta} - ${monster.maxAtk}/${monster.maxDef}/${monster.maxSta}, gender:${genderData[monster.gender]}`)
+						let gender = genderData[monster.gender] ? genderData[monster.gender] : 'any'
+						gender = gender || 'any'
+						message = message.concat(`\n**${monsterName}** form: ${formName} distance: ${monster.distance}m iv: ${miniv}%-${monster.max_iv}% cp: ${monster.min_cp}-${monster.max_cp} level: ${monster.min_level}-${monster.max_level} stats: ${monster.atk}/${monster.def}/${monster.sta} - ${monster.maxAtk}/${monster.maxDef}/${monster.maxSta}, gender: ${gender}, time: ${monster.time}min`)
 					})
 					if (raids.length || eggs.length) {
 						message = message.concat('\n\nYou\'re tracking the following raids:\n')
