@@ -102,6 +102,9 @@ exports.run = (client, msg, args) => {
 						break
 					}
 					default:
+						return msg.reply(`404 COMMAND \`${args[0]}\` NOT FOUND`).catch((O_o) => {
+							client.log.error(O_o.message)
+						})
 				}
 			}
 		})

@@ -98,6 +98,9 @@ module.exports = (ctx) => {
 						break
 					}
 					default:
+						return ctx.reply(`404 COMMAND \`${args[0]}\` NOT FOUND`, { parse_mode: 'Markdown' }).catch((O_o) => {
+							controller.log.error(O_o.message)
+						})
 				}
 			}
 		})
