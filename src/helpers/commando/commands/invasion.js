@@ -75,6 +75,11 @@ exports.run = (client, msg, args) => {
 						if (key) {
 							types.push(gruntTypes[key].type)
 						}
+						else {
+							return msg.reply(`400 UNKNOWN ARGUMENT \`${t}\``).catch((O_o) => {
+								client.log.error(O_o.message)
+							})
+						}
 					}
 				})
 
