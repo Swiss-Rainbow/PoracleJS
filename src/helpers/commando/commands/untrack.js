@@ -57,7 +57,7 @@ exports.run = (client, msg, args) => {
 			if (isregistered) {
 				let monsters = []
 				let gen = 0
-				args.forEach((element) => {
+				for (const element of args) {
 					let pid = (element.match(/^\d+$/) && _.has(monsterData, element))
 						? element
 						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
@@ -83,8 +83,13 @@ exports.run = (client, msg, args) => {
 								return k
 							})
 						}
+						else {
+							return msg.reply(`400 UNKNOWN ARGUMENT \`${element}\``).catch((O_o) => {
+								client.log.error(O_o.message)
+							})
+						}
 					}
-				})
+				}
 
 				if (monsters.length) {
 					monsters.forEach((monster) => {

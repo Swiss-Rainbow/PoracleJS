@@ -54,7 +54,7 @@ module.exports = (ctx) => {
 
 				let monsters = []
 				let gen = 0
-				args.forEach((element) => {
+				for (const element of args) {
 					let pid = (element.match(/^\d+$/) && _.has(monsterData, element))
 						? element
 						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
@@ -80,8 +80,13 @@ module.exports = (ctx) => {
 								return k
 							})
 						}
+						else {
+							return ctx.reply(`400 UNKNOWN ARGUMENT \`${element}\``, { parse_mode: 'Markdown' }).catch((O_o) => {
+								controller.log.error(O_o.message)
+							})
+						}
 					}
-				})
+				}
 
 				if (monsters.length) {
 					monsters.forEach((monster) => {
