@@ -98,6 +98,11 @@ module.exports = (ctx) => {
 								return k
 							})
 						}
+						else {
+							return ctx.reply(`404 UNKNOWN ARGUMENT \`${element}\``, { parse_mode: 'Markdown' }).catch((O_o) => {
+								controller.log.error(O_o.message)
+							})
+						}
 					}
 				})
 				_.forEach(questDts.rewardItems, (item, key) => {
