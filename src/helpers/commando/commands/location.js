@@ -37,7 +37,9 @@ exports.run = (client, msg, args) => {
 					const maplink = `https://www.google.com/maps/search/?api=1&query=${location[0].latitude},${location[0].longitude}`
 					msg.reply(`:wave:, I set ${target.name}s location to : \n${maplink}`)
 					msg.react('✅')
-				}).catch((O_o) => {})
+				}).catch((O_o) => msg.reply(`404 LOCATION \`${search}\` NOT FOUND`).catch((O_o) => {
+					client.log.error(O_o.message)
+				}))
 			}
 		})
 		.catch((err) => {
