@@ -280,7 +280,7 @@
     "dps": 21.05
   },
   "35": {
-    "name": "Ladungssbisß",
+    "name": "Donnerzahn",
     "type": "Elektro",
     "damage": 65,
     "duration": 2500,
@@ -872,7 +872,7 @@
     "dps": 35.71
   },
   "109": {
-    "name": "Psychosbisß",
+    "name": "Psychobeißer",
     "type": "Psychokinese",
     "damage": 100,
     "duration": 4400,
@@ -904,7 +904,7 @@
     "dps": 0
   },
   "113": {
-    "name": "Absorberer",
+    "name": "Absorber",
     "type": "",
     "damage": 0,
     "duration": 0,
@@ -1072,7 +1072,7 @@
     "dps": 15.91
   },
   "134": {
-    "name": "Siedewasser (Blasbisise)",
+    "name": "Siedewasser",
     "type": "Wasser",
     "damage": 0,
     "duration": 0,
@@ -1080,7 +1080,7 @@
     "dps": 0
   },
   "135": {
-    "name": "Hydropumpe (Blasbisise)",
+    "name": "Hydropumpe",
     "type": "Wasser",
     "damage": 0,
     "duration": 0,
@@ -1088,7 +1088,7 @@
     "dps": 0
   },
   "136": {
-    "name": "Wickel Green",
+    "name": "Wickel",
     "type": "Normal",
     "damage": 0,
     "duration": 0,
@@ -1096,7 +1096,7 @@
     "dps": 0
   },
   "137": {
-    "name": "Wickel Pink",
+    "name": "Wickel",
     "type": "Normal",
     "damage": 0,
     "duration": 0,
@@ -1360,7 +1360,7 @@
     "dps": 0
   },
   "232": {
-    "name": "Wasser Gun (Blasbisise)",
+    "name": "Wasserknarre",
     "type": "",
     "damage": 0,
     "duration": 0,
@@ -1368,7 +1368,7 @@
     "dps": 0
   },
   "233": {
-    "name": "Mud Slap",
+    "name": "Lehmschelle",
     "type": "Boden",
     "damage": 15,
     "duration": 1400,
@@ -1480,7 +1480,7 @@
     "dps": 33.33
   },
   "247": {
-    "name": "Fokussbisß",
+    "name": "Fokusstoß",
     "type": "Kampf",
     "damage": 140,
     "duration": 3500,
@@ -1776,7 +1776,7 @@
     "dps": 13.33
   },
   "284": {
-    "name": "Surferer",
+    "name": "Surfer",
     "type": "Wasser",
     "damage": 65,
     "duration": 1700,
@@ -1840,7 +1840,7 @@
     "dps": 3.8
   },
   "292": {
-    "name": "Wetter Ball Feuer",
+    "name": "Meteorologe Feuer",
     "type": "Feuer",
     "damage": 60,
     "duration": 1600,
@@ -1848,7 +1848,7 @@
     "dps": 37.5
   },
   "293": {
-    "name": "Wetter Ball Eis",
+    "name": "Meteorologe Eis",
     "type": "Eis",
     "damage": 60,
     "duration": 1600,
@@ -1856,7 +1856,7 @@
     "dps": 37.5
   },
   "294": {
-    "name": "Wetter Ball Gestein",
+    "name": "Meteorologe Gestein",
     "type": "Gestein",
     "damage": 60,
     "duration": 1600,
@@ -1864,7 +1864,7 @@
     "dps": 37.5
   },
   "295": {
-    "name": "Wetter Ball Wasser",
+    "name": "Meteorologe Wasser",
     "type": "Wasser",
     "damage": 5,
     "duration": 1300,
@@ -1872,7 +1872,7 @@
     "dps": 3.8
   },
   "296": {
-    "name": "Frenzy Pflanze",
+    "name": "Flora-Statue",
     "type": "Pflanze",
     "damage": 5,
     "duration": 1300,
@@ -1880,7 +1880,7 @@
     "dps": 3.8
   },
   "297": {
-    "name": "Smack Down",
+    "name": "Katapult",
     "type": "Gestein",
     "damage": 5,
     "duration": 1300,
@@ -1888,7 +1888,7 @@
     "dps": 3.8
   },
   "298": {
-    "name": "Blast Burn",
+    "name": "Lohekanonade",
     "type": "Feuer",
     "damage": 5,
     "duration": 1300,
@@ -1896,7 +1896,7 @@
     "dps": 3.8
   },
   "299": {
-    "name": "Hydro Cannon",
+    "name": "Aquahaubitze",
     "type": "Wasser",
     "damage": 5,
     "duration": 1300,
@@ -1928,7 +1928,7 @@
     "dps": 3.8
   },
   "303": {
-    "name": "Säure Spray",
+    "name": "Säurespeier",
     "type": "Gift",
     "damage": 5,
     "duration": 1300,
@@ -1936,7 +1936,7 @@
     "dps": 3.8
   },
   "304": {
-    "name": "Earth Power",
+    "name": "Erdkräfte",
     "type": "Boden",
     "damage": 5,
     "duration": 1300,
@@ -1944,7 +1944,7 @@
     "dps": 3.8
   },
   "305": {
-    "name": "Crabhammer",
+    "name": "Krabhammer",
     "type": "Wasser",
     "damage": 5,
     "duration": 1300,
@@ -1952,7 +1952,7 @@
     "dps": 3.8
   },
   "306": {
-    "name": "Lunge",
+    "name": "Anfallen",
     "type": "Käfer",
     "damage": 5,
     "duration": 1300,
@@ -1960,7 +1960,7 @@
     "dps": 3.8
   },
   "307": {
-    "name": "Crush Claw",
+    "name": "Zermalmklaue",
     "type": "Normal",
     "damage": 5,
     "duration": 1300,
@@ -1976,7 +1976,7 @@
     "dps": 3.8
   },
   "309": {
-    "name": "Mirror Shot",
+    "name": "Spiegelsalve",
     "type": "Stahl",
     "damage": 5,
     "duration": 1300,
@@ -1984,7 +1984,7 @@
     "dps": 3.8
   },
   "310": {
-    "name": "Superpower",
+    "name": "Kraftkoloss",
     "type": "Kampf",
     "damage": 5,
     "duration": 1300,
@@ -1992,7 +1992,7 @@
     "dps": 3.8
   },
   "311": {
-    "name": "Fell Stinger",
+    "name": "Stachelfinale",
     "type": "Käfer",
     "damage": 5,
     "duration": 1300,
@@ -2000,7 +2000,7 @@
     "dps": 3.8
   },
   "312": {
-    "name": "Leaf Tornado",
+    "name": "Grasmixer",
     "type": "Pflanze",
     "damage": 5,
     "duration": 1300,
@@ -2008,7 +2008,7 @@
     "dps": 3.8
   },
   "313": {
-    "name": "Leech Life",
+    "name": "Blutsauger",
     "type": "Käfer",
     "damage": 5,
     "duration": 1300,
@@ -2016,7 +2016,7 @@
     "dps": 3.8
   },
   "314": {
-    "name": "Drain Punch",
+    "name": "Ableithieb",
     "type": "Kampf",
     "damage": 5,
     "duration": 1300,
@@ -2024,7 +2024,7 @@
     "dps": 3.8
   },
   "315": {
-    "name": "Shadow Bone",
+    "name": "Schattenknochen",
     "type": "Geist",
     "damage": 5,
     "duration": 1300,
@@ -2032,7 +2032,7 @@
     "dps": 3.8
   },
   "316": {
-    "name": "Muddy Wasser",
+    "name": "Lehmbrühe",
     "type": "Wasser",
     "damage": 5,
     "duration": 1300,
@@ -2040,7 +2040,7 @@
     "dps": 3.8
   },
   "317": {
-    "name": "Blaze Kick",
+    "name": "Feuerfeger",
     "type": "Feuer",
     "damage": 5,
     "duration": 1300,
@@ -2048,7 +2048,7 @@
     "dps": 3.8
   },
   "318": {
-    "name": "Razor Shell",
+    "name": "Kalkklinge",
     "type": "Wasser",
     "damage": 5,
     "duration": 1300,
@@ -2056,7 +2056,7 @@
     "dps": 3.8
   },
   "319": {
-    "name": "Power Up Punch",
+    "name": "Steigerungshieb",
     "type": "Kampf",
     "damage": 50,
     "duration": 2000,
@@ -2064,7 +2064,7 @@
     "dps": 25
   },
   "320": {
-    "name": "Charm",
+    "name": "Charme",
     "type": "Fee",
     "damage": 50,
     "duration": 2000,
@@ -2072,7 +2072,7 @@
     "dps": 25
   },
   "321": {
-    "name": "Giga Impact",
+    "name": "Gigastoß",
     "type": "Normal",
     "damage": 50,
     "duration": 2000,
@@ -2088,7 +2088,7 @@
     "dps": 25
   },
   "323": {
-    "name": "Return",
+    "name": "Rückkehr",
     "type": "Normal",
     "damage": 50,
     "duration": 2000,
@@ -2096,7 +2096,7 @@
     "dps": 25
   },
   "324": {
-    "name": "Synchronoise",
+    "name": "Synchrolärm,
     "type": "Psychokinese",
     "damage": 50,
     "duration": 2000,
@@ -2104,7 +2104,7 @@
     "dps": 25
   },
   "325": {
-    "name": "Lock-On",
+    "name": "Zielschuss",
     "type": "Normal",
     "damage": 50,
     "duration": 2000,
