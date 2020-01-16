@@ -1,7 +1,6 @@
 require('dotenv').config()
 require('./helpers/configCreator')()
 const _ = require('lodash')
-const path = require('path')
 const config = require('config')
 const fastify = require('fastify')()
 const cp = require('child_process')
@@ -12,7 +11,7 @@ const migrator = require('./helpers/migrator')
 fastify
 	.post('/', {}, require('./handlers/receiver'))
 	.register(require('fastify-static'), {
-		root: path.join(__dirname, '../logs/'),
+		root: `${__dirname}/../logs/`,
 		prefix: '/logs/',
 	})
 

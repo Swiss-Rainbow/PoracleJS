@@ -1,296 +1,380 @@
 {
     "0": {
-      "type": "Zufall",
-      "grunt": "Zufall",
-      "gender": 0
+        "type": "Zufall",
+        "grunt": "Zufall",
+        "gender": 0
     },
     "1": {
-      "type": "",
-      "grunt": "Blanche",
-      "gender": 2
+        "type": "",
+        "grunt": "Blanche",
+        "gender": 2
     },
     "2": {
-      "type": "",
-      "grunt": "Candela",
-      "gender": 2
+        "type": "",
+        "grunt": "Candela",
+        "gender": 2
     },
     "3": {
-      "type": "",
-      "grunt": "Spark",
-      "gender": 1
+        "type": "",
+        "grunt": "Spark",
+        "gender": 1
     },
     "4": {
-      "type": "Gemischt",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1,
-      "second_reward": true,
-      "encounters":{
-         "first": ["1","4","7"],
-         "second":["2","5","8"],
-         "third":["3","6","9"]
-      }
+        "type": "Gemischt",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1,
+        "second_reward": true,
+        "encounters": {
+            "first": ["1", "4", "7"],
+            "second": ["2", "5", "8"],
+            "third": ["3", "6", "9"]
+        }
     },
     "5": {
-      "type": "Gemischt",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2,
-      "second_reward": false,
-      "encounters":{
-          "first": ["143"],
-          "second":["143","62","282"],
-          "third":["143","149","130"]
-      }
+        "type": "Gemischt",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2,
+        "second_reward": false,
+        "encounters": {
+            "first": ["143"],
+            "second": ["143", "62", "282"],
+            "third": ["143", "149", "130"]
+        }
     },
     "6": {
-      "type": "Kaefer",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Kaefer",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "7": {
-      "type": "Kaefer",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1,
-      "encounters":{
-          "first": ["123"],
-          "second":["123","212"],
-          "third":["123","212"]
-      }
+        "type": "Kaefer",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1,
+        "encounters": {
+            "first": ["123"],
+            "second": ["123", "212"],
+            "third": ["123", "212"]
+        }
     },
     "8": {
-      "type": "Geist",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Geist",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "9": {
-      "type": "Geist",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1
+        "type": "Geist",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     },
     "10": {
-      "type": "Unlicht",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Unlicht",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "11": {
-      "type": "Unlicht",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1
+        "type": "Unlicht",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     },
     "12": {
-      "type": "Drache",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2,
-      "second_reward": false,
-      "encounters":{
-          "first": ["147"],
-          "second":["147","148"],
-          "third":["148","149","130"]
-      }
+        "type": "Drache",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2,
+        "second_reward": false,
+        "encounters": {
+            "first": ["147"],
+            "second": ["147", "148"],
+            "third": ["148", "149", "130"]
+        }
     },
     "13": {
-      "type": "Drache",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1
+        "type": "Drache",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     },
     "14": {
-      "type": "Fee",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Fee",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "15": {
-      "type": "Fee",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1
+        "type": "Fee",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     },
     "16": {
-      "type": "Kampf",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2,
-      "second_reward": false,
-      "encounters":{
-          "first": ["107"],
-          "second":["107"],
-          "third":["107"]
-      }
+        "type": "Kampf",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2,
+        "second_reward": false,
+        "encounters": {
+            "first": ["107"],
+            "second": ["107"],
+            "third": ["107"]
+        }
     },
     "17": {
-      "type": "Kampf",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1
+        "type": "Kampf",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     },
     "18": {
-      "type": "Feuer",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2,
-      "second_reward": true,
-      "encounters":{
-          "first": ["4","58","228"],
-          "second":["5","229"],
-          "third":["6","59","229"]
-      }
+        "type": "Feuer",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2,
+        "second_reward": true,
+        "encounters": {
+            "first": ["4", "58", "228"],
+            "second": ["5", "229"],
+            "third": ["6", "59", "229"]
+        }
     },
     "19": {
-      "type": "Feuer",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1
+        "type": "Feuer",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     },
     "20": {
-      "type": "Flug",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2,
-      "second_reward": false,
-      "encounters":{
-          "first": ["41","42"],
-          "second":["42","123","169"],
-          "third":["130","149","169"]
-      }
+        "type": "Flug",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2,
+        "second_reward": false,
+        "encounters": {
+            "first": ["41", "42"],
+            "second": ["42", "123", "169"],
+            "third": ["130", "149", "169"]
+        }
     },
     "21": {
-      "type": "Flug",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1
+        "type": "Flug",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     },
     "22": {
-      "type": "Pflanze",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Pflanze",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "23": {
-      "type": "Pflanze",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1,
-      "second_reward": true,
-      "encounters":{
-          "first": ["1","43","387"],
-          "second":["1","2","44"],
-          "third":["2","3","388"]
-      }
+        "type": "Pflanze",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1,
+        "second_reward": true,
+        "encounters": {
+            "first": ["1", "43", "387"],
+            "second": ["1", "2", "44"],
+            "third": ["2", "3", "388"]
+        }
     },
     "24": {
-      "type": "Boden",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Boden",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "25": {
-      "type": "Boden",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1,
-      "second_reward": false,
-      "encounters":{
-          "first": ["19","104","246"],
-          "second":["20","104","105"],
-          "third":["20","105"]
-      }
+        "type": "Boden",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1,
+        "second_reward": false,
+        "encounters": {
+            "first": ["19", "104", "246"],
+            "second": ["20", "104", "105"],
+            "third": ["20", "105"]
+        }
     },
     "26": {
-      "type": "Eis",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Eis",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "27": {
-      "type": "Eis",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1
+        "type": "Eis",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     },
     "28": {
-      "type": "Stahl",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Stahl",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "29": {
-      "type": "Stahl",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1
+        "type": "Stahl",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     },
     "30": {
-      "type": "Normal",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Normal",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "31": {
-      "type": "Normal",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1,
-      "second_reward": true,
-      "encounters":{
-          "first": ["19","41"],
-          "second":["19","20"],
-          "third":["20","143"]
-      }
+        "type": "Normal",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1,
+        "second_reward": true,
+        "encounters": {
+            "first": ["19", "41"],
+            "second": ["19", "20"],
+            "third": ["20", "143"]
+        }
     },
     "32": {
-      "type": "Gift",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2,
-      "second_reward": true,
-      "encounters":{
-          "first": ["41","48","88"],
-          "second":["42","88","89"],
-          "third":["42","49","89"]
-      }
+        "type": "Gift",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2,
+        "second_reward": true,
+        "encounters": {
+            "first": ["41", "48", "88"],
+            "second": ["42", "88", "89"],
+            "third": ["42", "49", "89"]
+        }
     },
     "33": {
-      "type": "Gift",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1
+        "type": "Gift",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     },
     "34": {
-      "type": "Psycho",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Psycho",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "35": {
-      "type": "Psycho",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1,
-      "second_reward": true,
-      "encounters":{
-          "first": ["63","96","280"],
-          "second":["96","97","280"],
-          "third":["64","97","281"]
-      }
+        "type": "Psycho",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1,
+        "second_reward": true,
+        "encounters": {
+            "first": ["63", "96", "280"],
+            "second": ["96", "97", "280"],
+            "third": ["64", "97", "281"]
+        }
     },
     "36": {
-      "type": "Gestein",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2
+        "type": "Gestein",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
     },
     "37": {
-      "type": "Gestein",
-      "grunt": "Männlicher Rüpel", 
-      "gender": 1,
-      "second_reward": false,
-      "encounters":{
-          "first": ["246"],
-          "second":["246","247"],
-          "third":["247","248"]
-      }
+        "type": "Gestein",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1,
+        "second_reward": false,
+        "encounters": {
+            "first": ["246"],
+            "second": ["246", "247"],
+            "third": ["247", "248"]
+        }
     },
     "38": {
-      "type": "Wasser",
-      "grunt": "Weiblicher Rüpel",
-      "gender": 2,
-      "second_reward": false,
-      "encounters":{
-          "first": ["54","60"],
-          "second":["55","61"],
-          "third":["56","61","186"]
-      }
+        "type": "Wasser",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2,
+        "second_reward": false,
+        "encounters": {
+            "first": ["54", "60"],
+            "second": ["55", "61"],
+            "third": ["56", "61", "186"]
+        }
     },
     "39": {
-      "type": "Wasser",
-      "grunt": "Männlicher Rüpel",
-      "gender": 1,
-      "second_reward": false,
-      "encounters":{
-          "first": ["129"],
-          "second":["129"],
-          "third":["129"]
-      }
+        "type": "Wasser",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1,
+        "second_reward": false,
+        "encounters": {
+            "first": ["129"],
+            "second": ["129"],
+            "third": ["129"]
+        }
     },
     "40": {
-      "type": "",
-      "grunt": "Spieler Teamleiter",
-      "gender": 0
+        "type": "",
+        "grunt": "Spieler Teamleiter",
+        "gender": 0
+    },
+    "41": {
+        "type": "Boss",
+        "grunt": "Boss Cliff",
+        "gender": 1,
+        "second_reward": false,
+        "encounters": {
+            "first": ["52"],
+            "second": ["28", "143", "330"],
+            "third": ["248", "392", "389"]
+        }
+    },
+    "42": {
+        "type": "Boss",
+        "grunt": "Boss Arlo",
+        "gender": 1,
+        "second_reward": false,
+        "encounters": {
+            "first": ["123"],
+            "second": ["130", "169", "462"],
+            "third": ["06", "149", "212"]
+        }
+    },
+    "43": {
+        "type": "Boss",
+        "grunt": "Boss Sierra",
+        "gender": 2,
+        "second_reward": false,
+        "encounters": {
+            "first": ["215"],
+            "second": ["97", "131", "302"],
+            "third": ["65", "229", "282"]
+        }
+    },
+    "44": {
+        "type": "Boss",
+        "grunt": "Giovanni oder Täusch-Rüpel",
+        "gender": 1,
+        "second_reward": false,
+        "encounters": {
+            "first": ["146"]
+        }
+    },
+    "45": {
+        "type": "Decoy",
+        "grunt": "Männlicher Täusch-Rüpel",
+        "gender": 1
+    },
+    "46": {
+        "type": "Decoy",
+        "grunt": "Weiblicher Täusch-Rüpel",
+        "gender": 2
+    },
+    "47": {
+        "type": "Geist",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2
+    },
+    "48": {
+        "type": "Geist",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1,
+        "second_reward": "false",
+        "encounters": {
+            "first": ["302", "353", "355"],
+            "second": ["302", "354", "356"],
+            "third": ["302", "354", "477"]
+        }
+    },
+    "49": {
+        "type": "Elektro",
+        "grunt": "Weiblicher Rüpel",
+        "gender": 2,
+        "second_reward": "false",
+        "encounters": {
+            "first": ["81", "125", "179"],
+            "second": ["82", "125", "180"],
+            "third": ["125", "181"]
+        }
+    },
+    "50": {
+        "type": "Elektro",
+        "grunt": "Männlicher Rüpel",
+        "gender": 1
     }
-  }
+}

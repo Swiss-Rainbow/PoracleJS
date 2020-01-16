@@ -1,6 +1,5 @@
 const _ = require('lodash')
 const fs = require('fs')
-const path = require('path')
 
 exports.run = (client, msg, args) => {
 	let target = { id: msg.author.id, name: msg.author.tag }
@@ -35,7 +34,7 @@ exports.run = (client, msg, args) => {
 			if (isregistered) {
 				const backups = []
 				if (args[0]) {
-					fs.readdirSync(path.join(__dirname, '/filterBackups')).forEach((file) => {
+					fs.readdirSync(`${__dirname}/filterBackups`).forEach((file) => {
 						if (file !== '.gitkeep') backups.push(file.replace('.sql', ''))
 					})
 
@@ -60,7 +59,7 @@ exports.run = (client, msg, args) => {
 							client.query.deleteQuery('quest', 'id', target.id).catch((O_o) => {}),
 							client.query.deleteQuery('incident', 'id', target.id).catch((O_o) => {}),
 						]).then((x) => {
-							const query = fs.readFileSync(path.join(__dirname, `/filterBackups/${args[0]}.sql`), 'utf8').replace(/{{ target }}/gi, target.id)
+							const query = fs.readFileSync(`${__dirname}/filterBackups/${args[0]}.sql`, 'utf8').replace(/{{ target }}/gi, target.id)
 							client.query.mysteryQuery(query).catch((O_o) => {})
 							msg.react('✅').catch((O_o) => {
 								client.log.error(O_o.message)

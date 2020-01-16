@@ -1,5 +1,5 @@
 const config = require('config')
-const path = require('path')
+const fs = require('fs')
 const _ = require('lodash')
 const mustache = require('mustache')
 const pokemonGif = require('pokemon-gif')
@@ -8,21 +8,24 @@ const moment = require('moment-timezone')
 const Controller = require('./controller')
 const log = require('../logger')
 
-
-let monsterDataPath = path.join(__dirname, '../util/monsters.json')
-let moveDataPath = path.join(__dirname, '../util/moves.json')
-if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCase())) {
-	monsterDataPath = path.join(__dirname, `../util/locale/monsters${config.locale.language.toLowerCase()}.json`)
-	moveDataPath = path.join(__dirname, `../util/locale/moves${config.locale.language.toLowerCase()}.json`)
+let monsterData = require(`${__dirname}/../util/monsters.json`)
+let moveData = require(`${__dirname}/../util/moves.json`)
+if (config.locale.language.toLowerCase() !== 'en') {
+	const monsterDataPathToTest = `${__dirname}/../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(monsterDataPathToTest)) {
+		monsterData = {...monsterData, ...require(monsterDataPathToTest)}
+	}
+	const moveDataPathToTest = `${__dirname}/../util/locale/moves${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(moveDataPathToTest)) {
+		moveData = {...moveData, ...require(moveDataPathToTest)}
+	}
 }
 
 const types = require('../util/types')
 const emojiData = require('../../config/emoji')
 
-const monsterData = require(monsterDataPath)
 const weatherData = require('../util/weather')
 
-const moveData = require(moveDataPath)
 const formData = require('../util/forms')
 const genderData = require('../util/genders')
 
@@ -65,8 +68,9 @@ class Monster extends Controller {
               * cos( radians( humans.longitude ) - radians(${data.longitude}) )
               + sin( radians(${data.latitude}) )
               * sin( radians( humans.latitude ) ) ) < monsters.distance and monsters.distance != 0) or
-               monsters.distance = 0 and (${areastring}))
-               group by humans.id, humans.name, monsters.template `
+               monsters.distance = 0 and (${areastring})) and
+            (monsters.time<=${(data.tth.hours * 60) + data.tth.minutes} or monsters.time=0)   
+            group by humans.id, humans.name, monsters.template `
 
 
 			log.log({ level: 'debug', message: 'monsterWhoCares query', event: 'sql:monsterWhoCares' })

@@ -1,5 +1,16 @@
 const _ = require('lodash')
-const typeData = require('../../../util/types')
+const config = require('config')
+const fs = require('fs')
+
+let gruntTypeDataPath = `${__dirname}/../../../util/grunt_types.json`
+const defaultGruntTypes = require(gruntTypeDataPath)
+if (config.locale.language.toLowerCase() !== 'en') {
+	const gruntTypeDataPathToTest = `${__dirname}/../../../util/locale/grunt_types${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(gruntTypeDataPathToTest)) {
+		gruntTypeDataPath = gruntTypeDataPathToTest
+	}
+}
+const gruntTypes = require(gruntTypeDataPath)
 
 module.exports = (ctx) => {
 	const { controller, command } = ctx.state
@@ -46,21 +57,21 @@ module.exports = (ctx) => {
 					else rawTypes.push(element)
 				})
 
-				rawTypes.forEach((t) => {
-					if (t.toLowerCase() === 'mixed') {
+				for (const t of rawTypes) {
+					if (t === 'mixed') {
 						types.push('Mixed')
 					}
-					else if (t.toLowerCase() === 'boss') {
+					else if (t === 'boss') {
 						types.push('Boss')
 					}
 					else {
-						for (const tt in typeData) {
-							if (tt.toLowerCase() === t.toLowerCase()) {
-								types.push(tt)
-							}
+						let key = _.findKey(gruntTypes, (tt) => tt.type.toLowerCase() === t)
+						key = key || _.findKey(defaultGruntTypes, (tt) => tt.type.toLowerCase() === t)
+						if (key) {
+							types.push(gruntTypes[key].type)
 						}
 					}
-				})
+				}
 
 				if (!remove) {
 					const insertData = types.length === 0 ? [[target.id, template, distance, gender, '']] : []

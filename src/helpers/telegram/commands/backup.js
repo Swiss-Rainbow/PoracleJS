@@ -1,6 +1,5 @@
 const _ = require('lodash')
 const fs = require('fs')
-const path = require('path')
 
 module.exports = (ctx) => {
 
@@ -40,8 +39,9 @@ module.exports = (ctx) => {
 						})
 					}
 					args.forEach((arg) => {
-						if (fs.existsSync(path.join(__dirname, '../../commando/commands', `/filterBackups/${arg}.sql`))) {
-							fs.unlinkSync(path.join(__dirname, '../../commando/commands', `/filterBackups/${arg}.sql`))
+						const pathToTest = `${__dirname}/../../commando/commands/filterBackups/${arg}.sql`
+						if (fs.existsSync(pathToTest)) {
+							fs.unlinkSync(pathToTest)
 						}
 					})
 					return ctx.reply('✅').catch((O_o) => {
@@ -81,7 +81,7 @@ module.exports = (ctx) => {
 						query = query.replace(new RegExp(`'${target.id}'`, 'g'), '\'{{ target }}\'')
 						query = query.replace(/\s\s+/g, ' ').replace(';', ';\n')
 						if (query) {
-							fs.writeFileSync(path.join(__dirname, '../../commando/commands', '/filterBackups/', `${args[0]}.sql`), query)
+							fs.writeFileSync(`${__dirname}/../../commando/commands/filterBackups/${args[0]}.sql`, query)
 							ctx.reply('✅').catch((O_o) => {
 								controller.log.error(O_o.message)
 							})

@@ -16,7 +16,6 @@ const _ = require('lodash')
 
 
 const fs = require('fs')
-const path = require('path')
 const fastify = require('fastify')()
 const chai = require('chai')
 
@@ -76,7 +75,7 @@ describe('Db connection, geolocating, webserver', () => {
 	})
 
 	it('The geolocated stuff should be cached', (done) => {
-		if (fs.existsSync(path.join(__dirname, '../.cache/cache/addrCache/59.4372155-24.7453688.json'))) done()
+		if (fs.existsSync(`${__dirname}/../.cache/cache/addrCache/59.4372155-24.7453688.json`)) done()
 		done(err)
 	})
 

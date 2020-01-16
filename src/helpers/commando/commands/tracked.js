@@ -1,14 +1,16 @@
 const _ = require('lodash')
 const fs = require('fs')
-const path = require('path')
 const hastebin = require('hastebin-gen')
 const config = require('config')
 
-let monsterDataPath = `${__dirname}/../../../util/monsters.json`
-if (_.includes(['de', 'fr', 'ja', 'ko', 'ru'], config.locale.language.toLowerCase())) {
-	monsterDataPath = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+let monsterData = require(`${__dirname}/../../../util/monsters.json`)
+if (config.locale.language.toLowerCase() !== 'en') {
+	const monsterDataPathToTest = `${__dirname}/../../../util/locale/monsters${config.locale.language.toLowerCase()}.json`
+	if (fs.existsSync(monsterDataPathToTest)) {
+		monsterData = {...monsterData, ...require(monsterDataPathToTest)}
+	}
 }
-const monsterData = require(monsterDataPath)
+
 const teamData = require(`${__dirname}/../../../util/teams`)
 const formData = require(`${__dirname}/../../../util/forms`)
 const genderData = require(`${__dirname}/../../../util/genders`)
@@ -78,9 +80,11 @@ exports.run = (client, msg) => {
 						const monsterName = monsterData[monster.pokemon_id].name
 						let miniv = monster.min_iv
 						let formName = formData[monster.pokemon_id] ? formData[monster.pokemon_id][monster.form] : 'none'
-						if (formName === undefined) formName = 'none'
+						formName = formName || 'none'
 						if (miniv === -1) miniv = 0
-						message = message.concat(`\n**${monsterName}** form: ${formName} distance: ${monster.distance}m iv: ${miniv}%-${monster.max_iv}% cp: ${monster.min_cp}-${monster.max_cp} level: ${monster.min_level}-${monster.max_level} stats: ${monster.atk}/${monster.def}/${monster.sta} - ${monster.maxAtk}/${monster.maxDef}/${monster.maxSta}, gender:${genderData[monster.gender]}`)
+						let gender = genderData[monster.gender] ? genderData[monster.gender] : 'any'
+						gender = gender || 'any'
+						message = message.concat(`\n**${monsterName}** form: ${formName} distance: ${monster.distance}m iv: ${miniv}%-${monster.max_iv}% cp: ${monster.min_cp}-${monster.max_cp} level: ${monster.min_level}-${monster.max_level} stats: ${monster.atk}/${monster.def}/${monster.sta} - ${monster.maxAtk}/${monster.maxDef}/${monster.maxSta}, gender: ${gender}, time: ${monster.time}min`)
 					})
 					if (raids.length || eggs.length) {
 						message = message.concat('\n\nYou\'re tracking the following raids:\n')
@@ -154,7 +158,7 @@ exports.run = (client, msg) => {
 								})
 							})
 							.catch((err) => {
-								const filepath = path.join(__dirname, `../../../../.cache/${human.name}.txt`)
+								const filepath = `${__dirname}/../../../../.cache/${human.name}.txt`
 								fs.writeFileSync(filepath, message)
 								msg.reply(`${target.name} tracking list is long, but Hastebin is also down. ☹️ \nTracking list made into a file:`, { files: [filepath] }).catch((O_o) => {
 									client.log.error(O_o.message)
