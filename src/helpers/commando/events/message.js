@@ -11,9 +11,14 @@ module.exports = (client, msg) => {
 	const command = args.shift().toLowerCase()
 	const cmd = client.commands.get(command)
 	if (!cmd) {
-		return msg.reply(`404 COMMAND \`${command}\` NOT FOUND`).catch((O_o) => {
-			client.log.error(O_o.message)
-		})
+		if (msg.channel.type !== 'dm') {
+			return
+		}
+		else {
+			return msg.reply(`404 COMMAND \`${command}\` NOT FOUND`).catch((O_o) => {
+				client.log.error(O_o.message)
+			})
+		}
 	}
 
 	cmd.run(client, msg, args)
