@@ -49,7 +49,7 @@ exports.run = (client, msg, args) => {
 								})
 							}
 							if (addAreas.length) {
-								msg.reply(`Added areas: ${addAreas}`).catch((O_o) => {
+								msg.reply(`Added areas: ${addAreas.join(', ')}`).catch((O_o) => {
 									client.log.error(O_o.message)
 								})
 								client.log.log({ level: 'debug', message: `${msg.author.tag} added area ${addAreas} for ${target.name}`, event: 'discord:areaAdd' })
@@ -80,7 +80,7 @@ exports.run = (client, msg, args) => {
 								})
 							}
 							if (removeAreas.length) {
-								msg.reply(`Removed areas: ${removeAreas}`)
+								msg.reply(`Removed areas: ${removeAreas.join(', ')}`)
 								client.log.log({ level: 'debug', message: `${msg.author.tag} removed area ${removeAreas} for ${target.name}`, event: 'discord:areaRemove' })
 							}
 							else {
@@ -95,13 +95,25 @@ exports.run = (client, msg, args) => {
 						break
 					}
 					case 'list': {
-						msg.reply(`Current configured areas are ${confAreas}`).catch((O_o) => {
-							client.log.error(O_o.message)
+						client.query.selectOneQuery('humans', 'id', target.id).then((human) => {
+							let message = ''
+							message = message.concat(`You currently are set to receive alarms in:\n${human.area}`)
+							message = message.concat(`\n\nCurrent configured areas are:\n${confAreas.join(', ')}`)
+							msg.reply(message).catch((O_o) => {
+								client.log.error(O_o.message)
+							})
+							client.log.log({
+								level: 'debug',
+								message: `${msg.author.tag} checked areas for ${target.name}`,
+								event: 'discord:areaList'
+							})
 						})
-						client.log.log({ level: 'debug', message: `${msg.author.tag} checked areas for ${target.name}`, event: 'discord:areaList' })
 						break
 					}
 					default:
+						return msg.reply(`404 COMMAND \`${args[0]}\` NOT FOUND`).catch((O_o) => {
+							client.log.error(O_o.message)
+						})
 				}
 			}
 		})

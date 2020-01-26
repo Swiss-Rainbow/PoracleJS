@@ -103,6 +103,11 @@ exports.run = (client, msg) => {
 								return k
 							})
 						}
+						else {
+							return msg.reply(`400 UNKNOWN ARGUMENT \`${element}\``).catch((O_o) => {
+								client.log.error(O_o.message)
+							})
+						}
 					}
 				})
 				_.forEach(questDts.rewardItems, (item, key) => {

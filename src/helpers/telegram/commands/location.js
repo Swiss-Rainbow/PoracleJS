@@ -31,7 +31,9 @@ module.exports = (ctx) => {
 					controller.query.updateLocation('humans', location[0].latitude, location[0].longitude, 'id', target.id).catch((O_o) => {})
 					const maplink = `https://www.google.com/maps/search/?api=1&query=${location[0].latitude},${location[0].longitude}`
 					ctx.reply(`✅, I set ${target.name}s location to : \n${maplink}`)
-				}).catch((O_o) => {})
+				}).catch((O_o) => ctx.reply(`404 LOCATION \`${search}\` NOT FOUND`, { parse_mode: 'Markdown' }).catch((O_o) => {
+					controller.log.error(O_o.message)
+				}))
 			}
 		})
 		.catch((err) => {

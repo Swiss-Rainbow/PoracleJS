@@ -74,16 +74,13 @@ exports.run = (client, msg, args) => {
 				let gen = 0
 				let time = 0
 
-				args.forEach((element) => {
+				for (const element of args) {
 					let pid = (element.match(/^\d+$/) && _.has(monsterData, element))
 						? element
 						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
 					pid = pid || _.findKey(defaultMonsterData, (mon) => mon.name.toLowerCase() === element)
 					if (pid) monsters.push(pid)
-				})
-				args.forEach((element) => {
-
-					if (element.match(/maxlevel\d/gi)) 	maxlevel = element.replace(/maxlevel/gi, '')
+					else if (element.match(/maxlevel\d/gi)) 	maxlevel = element.replace(/maxlevel/gi, '')
 					else if (element.match(/template[1-5]/gi)) template = element.replace(/template/gi, '')
 					else if (element.match(/maxcp\d/gi)) maxcp = element.replace(/maxcp/gi, '')
 					else if (element.match(/maxiv\d/gi)) maxiv = element.replace(/maxiv/gi, '')
@@ -123,9 +120,13 @@ exports.run = (client, msg, args) => {
 								return k
 							})
 						}
+						else {
+							return msg.reply(`400 UNKNOWN ARGUMENT \`${element}\``).catch((O_o) => {
+								client.log.error(O_o.message)
+							})
+						}
 					}
-
-				})
+				}
 				if (monsters.length && !forms.length) {
 					const form = 0
 					const insertData = monsters.map((pokemonId) => [target.id, pokemonId, template, distance, iv, maxiv, cp, maxcp, level, maxlevel, atk, def, sta, weight, maxweight, form, maxAtk, maxDef, maxSta, gender, time])

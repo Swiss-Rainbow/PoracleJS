@@ -75,16 +75,13 @@ module.exports = (ctx) => {
 				let time = 0
 				const forms = []
 
-				args.forEach((element) => {
+				for (const element of args) {
 					let pid = (element.match(/^\d+$/) && _.has(monsterData, element))
 						? element
 						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
 					pid = pid || _.findKey(defaultMonsterData, (mon) => mon.name.toLowerCase() === element)
 					if (pid) monsters.push(pid)
-				})
-				args.forEach((element) => {
-
-					if (element.match(/maxlevel\d/gi)) 	maxlevel = element.replace(/maxlevel/gi, '')
+					else if (element.match(/maxlevel\d/gi)) maxlevel = element.replace(/maxlevel/gi, '')
 					else if (element.match(/template[1-5]/gi)) template = element.replace(/template/gi, '')
 					else if (element.match(/maxcp\d/gi)) maxcp = element.replace(/maxcp/gi, '')
 					else if (element.match(/maxiv\d/gi)) maxiv = element.replace(/maxiv/gi, '')
@@ -101,7 +98,7 @@ module.exports = (ctx) => {
 					else if (element.match(/female/gi)) gender = 2
 					else if (element.match(/male/gi)) gender = 1
 					else if (element.match(/genderless/gi)) gender = 3
-					else if (element.match(/weight\d/gi)) 	weight = element.replace(/weight/gi, '')
+					else if (element.match(/weight\d/gi)) weight = element.replace(/weight/gi, '')
 					else if (element.match(/form\w/gi)) forms.push(element.replace(/form/gi, ''))
 					else if (element.match(/everything/gi)) monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
 					else if (element.match(/d\d/gi)) {
@@ -124,8 +121,13 @@ module.exports = (ctx) => {
 								return k
 							})
 						}
+						else {
+							return ctx.reply(`400 UNKNOWN ARGUMENT \`${element}\``, { parse_mode: 'Markdown' }).catch((O_o) => {
+								controller.log.error(O_o.message)
+							})
+						}
 					}
-				})
+				}
 				if (monsters.length && !forms.length) {
 					const form = 0
 					const insertData = monsters.map((pokemonId) => [target.id, pokemonId, template, distance, iv, maxiv, cp, maxcp, level, maxlevel, atk, def, sta, weight, maxweight, form, maxAtk, maxDef, maxSta, gender, time])

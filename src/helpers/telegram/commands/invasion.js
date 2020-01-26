@@ -70,6 +70,11 @@ module.exports = (ctx) => {
 						if (key) {
 							types.push(gruntTypes[key].type)
 						}
+						else {
+							return ctx.reply(`400 UNKNOWN ARGUMENT \`${t}\``, { parse_mode: 'Markdown' }).catch((O_o) => {
+								controller.log.error(O_o.message)
+							})
+						}
 					}
 				}
 

@@ -6,11 +6,15 @@ module.exports = (client, msg) => {
 	if (msg.content.indexOf(client.config.discord.prefix) !== 0) return
 
 	let args = msg.content.slice(client.config.discord.prefix.length).trim().split(/ +/g)
-	args = args.map((arg) => arg.toLowerCase())
+	args = args.map((arg) => arg.toLowerCase().replace(/,*$/, ''))
 
 	const command = args.shift().toLowerCase()
 	const cmd = client.commands.get(command)
-	if (!cmd) return
+	if (!cmd) {
+		return msg.reply(`404 COMMAND \`${command}\` NOT FOUND`).catch((O_o) => {
+			client.log.error(O_o.message)
+		})
+	}
 
 	cmd.run(client, msg, args)
 }

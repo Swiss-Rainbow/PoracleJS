@@ -45,7 +45,7 @@ module.exports = (ctx) => {
 								})
 							}
 							if (addAreas.length) {
-								ctx.reply(`Added areas: ${addAreas}`).catch((O_o) => {
+								ctx.reply(`Added areas: ${addAreas.join(', ')}`).catch((O_o) => {
 									controller.log.error(O_o.message)
 								})
 								controller.log.log({ level: 'debug', message: `${user.first_name} added area ${addAreas} for ${target.name}`, event: 'telegram:areaAdd' })
@@ -76,7 +76,7 @@ module.exports = (ctx) => {
 								})
 							}
 							if (removeAreas.length) {
-								ctx.reply(`Removed areas: ${removeAreas}`)
+								ctx.reply(`Removed areas: ${removeAreas.join(', ')}`)
 								controller.log.log({ level: 'debug', message: `${user.first_name} removed area ${removeAreas} for ${target.name}`, event: 'telegram:areaRemove' })
 							}
 							else {
@@ -91,13 +91,28 @@ module.exports = (ctx) => {
 						break
 					}
 					case 'list': {
-						ctx.reply(`Current configured areas are: ${confAreasNormal.join(", ")}`).catch((O_o) => {
-							controller.log.error(O_o.message)
+						controller.query.selectOneQuery('humans', 'id', target.id).then((human) => {
+							let message = ''
+							message = message.concat(`You currently are set to receive alarms in:\n${human.area}`)
+							message = message.concat(`\n\nCurrent configured areas are:\n${confAreasNormal.join(', ')}`)
+							ctx.reply(message).catch((O_o) => {
+								controller.log.error(O_o.message)
+							})
+							controller.log.log({
+								level: 'debug',
+								message: `${user.first_name} checked areas for ${target.name}`,
+								event: 'telegram:areaList'
+							})
 						})
-						controller.log.log({ level: 'debug', message: `${user.first_name} checked areas for ${target.name}`, event: 'telegram:areaList' })
+							.catch((err) => {
+								controller.log.error(`selectOneQuery on !area list unhappy; ${err.message}`)
+							})
 						break
 					}
 					default:
+						return ctx.reply(`404 COMMAND \`${args[0]}\` NOT FOUND`, { parse_mode: 'Markdown' }).catch((O_o) => {
+							controller.log.error(O_o.message)
+						})
 				}
 			}
 		})
