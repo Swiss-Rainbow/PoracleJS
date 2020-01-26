@@ -54,6 +54,7 @@ const monsters = `CREATE TABLE \`monsters\` (
   \`maxDef\` smallint(2) NOT NULL DEFAULT 15,
   \`maxSta\` smallint(2) NOT NULL DEFAULT 15,
   \`gender\` smallint(2) NOT NULL DEFAULT 0,
+  \`time\` smallint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY monsters_tracking (\`id\`, \`pokemon_id\`, \`min_iv\`, \`max_iv\`, \`min_cp\`, \`max_cp\`, \`min_level\`, \`max_level\`, \`atk\`, \`def\`, \`sta\`, \`min_weight\`, \`max_weight\`, \`form\`),
   KEY \`monsters_pokemon_id\` (\`pokemon_id\`),
   KEY \`monsters_distance\` (\`distance\`),
@@ -186,9 +187,9 @@ module.exports = async () => new Promise((resolve, reject) => {
 					queries.mysteryQuery(schemaVersion),
 				])
 					.then(() => {
-						queries.insertQuery('schema_version', ['`key`', '`val`'], ['db_version', '6'])
+						queries.insertQuery('schema_version', ['`key`', '`val`'], ['db_version', '7'])
 							.then(() => {
-								log.info('Database tables created, db_version 6 applied')
+								log.info('Database tables created, db_version 7 applied')
 								resolve(true)
 							})
 							.catch((unhappy) => {
