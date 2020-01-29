@@ -70,7 +70,7 @@ exports.run = (client, msg) => {
 				let minDust = 10000000
 				let stardustTracking = 9999999
 
-				args.forEach((element) => {
+				for (const element of args) {
 					let pid = (element.match(/^\d+$/) && _.has(monsterData, element))
 						? element
 						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
@@ -103,19 +103,14 @@ exports.run = (client, msg) => {
 								return k
 							})
 						}
-						else {
-							return msg.reply(`400 UNKNOWN ARGUMENT \`${element}\``).catch((O_o) => {
-								client.log.error(O_o.message)
-							})
-						}
 					}
-				})
+				}
 				_.forEach(questDts.rewardItems, (item, key) => {
-					const re = new RegExp(`^${item}$`, 'i')
+					const re = new RegExp(`(^| )${item}`, 'i')
 					if (rawArgs.match(re)) items.push(key)
 				})
-				if (rawArgs === 'all pokemon') monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
-				if (rawArgs === 'all items') {
+				if (rawArgs.match(/(^| )all pokemon/i)) monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
+				if (rawArgs.match(/(^| )all items/i)) {
 					_.forEach(questDts.rewardItems, (item, key) => {
 						items.push(key)
 					})
