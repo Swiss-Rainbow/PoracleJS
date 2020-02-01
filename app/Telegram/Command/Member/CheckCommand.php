@@ -33,6 +33,11 @@ class CheckCommand extends Command
     /**
      * @var array
      */
+    private $allowedStatus = ['administrator', 'creator', 'member'];
+
+    /**
+     * @var array
+     */
     private $allowedTypes = ['channel', 'group', 'supergroup'];
 
     public function __construct(string $name = null, BotApi $bot = null, Connection $connection = null)
@@ -90,12 +95,13 @@ class CheckCommand extends Command
         $statement = $queryBuilder->select('id', 'name')
             ->from('humans')
             ->where('enabled = 1')
+            ->orderBy('name')
             ->execute();
 
         while ($human = $statement->fetch()) {
             foreach ($this->bots as $bot) {
                 if ($this->humanIsMember($bot, $human) || $this->allowHumanByType($bot, $human)) {
-                    $output->writeln('<info>User "' . $human['name'] . '" found in channel</info>');
+                    $output->writeln('<info>User "' . $human['name'] . '" (' . $human['id'] . ') found in channel</info>');
                     continue 2;
                 }
             }
@@ -105,7 +111,7 @@ class CheckCommand extends Command
                 ->set('enabled', 0)
                 ->where('id = ' . $updateQueryBuilder->createNamedParameter($human['id'], ParameterType::STRING))
                 ->execute();
-            $output->writeln('<error>User "' . $human['name'] . '" removed from channel</error>');
+            $output->writeln('<error>User "' . $human['name'] . '" (' . $human['id'] . ') removed from channel</error>');
         }
     }
 
@@ -113,7 +119,7 @@ class CheckCommand extends Command
     {
         try {
             $user = $bot->getChatMember($this->channel, $human['id']);
-            return $user instanceof ChatMember;
+            return $user instanceof ChatMember && in_array($user->getStatus(), $this->allowedStatus, true);
         } catch (HttpException $exception) {
             // Intentional fallthrough
         }
