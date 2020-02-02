@@ -52,7 +52,7 @@ fs.readdir(`${__dirname}/telegram/commands/`, (err, files) => {
 
 	clients.forEach((client) => {
 		client.on('text', (ctx) => {
-			if (ctx.update.message.chat.type === 'private') {
+			if (ctx.update.message !== undefined && ctx.update.message.chat.type === 'private') {
 				const command = ctx.state.command ? ctx.state.command.command : ctx.message.text
 				return ctx.reply(`404 COMMAND \`${command}\` NOT FOUND`, { parse_mode: 'Markdown' }).catch((O_o) => {
 					log.error(O_o.message)
