@@ -55,6 +55,8 @@ const monsters = `CREATE TABLE \`monsters\` (
   \`maxSta\` smallint(2) NOT NULL DEFAULT 15,
   \`gender\` smallint(2) NOT NULL DEFAULT 0,
   \`time\` smallint(1) NOT NULL DEFAULT 0,
+  \`pvp_rank\` smallint(3) NOT NULL DEFAULT 0,
+  \`pvp_id\` smallint(6) NOT NULL DEFAULT 0,
   PRIMARY KEY monsters_tracking (\`id\`, \`pokemon_id\`, \`distance\`, \`min_iv\`, \`max_iv\`, \`min_cp\`, \`max_cp\`, \`min_level\`, \`max_level\`, \`atk\`, \`def\`, \`sta\`, \`min_weight\`, \`max_weight\`, \`form\`),
   KEY \`monsters_pokemon_id\` (\`pokemon_id\`),
   KEY \`monsters_distance\` (\`distance\`),
@@ -180,6 +182,14 @@ const migration8 = {
 	`,
 }
 
+const migration9 = {
+	monsters: `
+		ALTER TABLE \`monsters\` 
+  		ADD \`pvp_rank\` smallint(3) NOT NULL DEFAULT 0,
+  		ADD \`pvp_id\` smallint(6) NOT NULL DEFAULT 0;
+	`,
+}
+
 module.exports = async () => new Promise((resolve, reject) => {
 	queries.countQuery('TABLE_NAME', 'information_schema.tables', 'table_schema', config.db.database)
 		.then((tables) => {
@@ -195,9 +205,9 @@ module.exports = async () => new Promise((resolve, reject) => {
 					queries.mysteryQuery(schemaVersion),
 				])
 					.then(() => {
-						queries.insertQuery('schema_version', ['`key`', '`val`'], ['db_version', '8'])
+						queries.insertQuery('schema_version', ['`key`', '`val`'], ['db_version', '9'])
 							.then(() => {
-								log.info('Database tables created, db_version 8 applied')
+								log.info('Database tables created, db_version 9 applied')
 								resolve(true)
 							})
 							.catch((unhappy) => {
@@ -319,7 +329,7 @@ module.exports = async () => new Promise((resolve, reject) => {
 											log.info('applied Db migration 7')
 										})
 										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to drop incident PK: ${unhappy.message}`))
+											reject(log.error(`Database migration unhappy to create migration 7: ${unhappy.message}`))
 										})
 								}
 								else if (version.val === 7) {
@@ -333,11 +343,25 @@ module.exports = async () => new Promise((resolve, reject) => {
 											log.info('applied Db migration 8')
 										})
 										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to drop incident PK: ${unhappy.message}`))
+											reject(log.error(`Database migration unhappy to create migration 8: ${unhappy.message}`))
 										})
 								}
 								else if (version.val === 8) {
-									log.info('Database schema-version 8 confirmed')
+									queries.mysteryQuery(migration9.monsters)
+										.then(() => {
+											queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+												.then(() => resolve(true))
+												.catch((unhappy) => {
+													reject(log.error(`Database migration unhappy to create migration 8: ${unhappy.message}`))
+												})
+											log.info('applied Db migration 9')
+										})
+										.catch((unhappy) => {
+											reject(log.error(`Database migration unhappy to create migration 9: ${unhappy.message}`))
+										})
+								}
+								else if (version.val === 9) {
+									log.info('Database schema-version 9 confirmed')
 									resolve(true)
 								}
 							})
