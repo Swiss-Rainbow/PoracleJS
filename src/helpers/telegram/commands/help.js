@@ -7,7 +7,7 @@ module.exports = (ctx) => {
         
         ctx.update.message = ctx.update.channel_post;
     }
-	const user = ctx.update.message.from === undefined ? ctx.update.message.chat : ctx.update.message.from
+	const user = (ctx.update.message.from === undefined) ? ctx.update.message.chat : ctx.update.message.from
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
 
 	let target = { id: user.id.toString(), name: user.first_name }
