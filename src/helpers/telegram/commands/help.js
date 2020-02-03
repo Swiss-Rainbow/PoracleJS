@@ -3,7 +3,7 @@ const _ = require('lodash')
 module.exports = (ctx) => {
 
 	const { controller, command } = ctx.state
-    if (ctx.channel_post) {
+    if (ctx.update.channel_post) {
         
         ctx.update.message = ctx.update.channel_post;
     }

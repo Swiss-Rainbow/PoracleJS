@@ -4,9 +4,9 @@ const emojiStrip = require('emoji-strip')
 module.exports = (ctx) => {
 
 	const { controller, command } = ctx.state
-    if (ctx.channel_post) {
+    if (ctx.update.channel_post) {
         
-        ctx.message = ctx.channel_post;
+        ctx.update.message = ctx.update.channel_post;
     }
 	const user = (ctx.update.message.from === undefined) ? ctx.update.message.chat : ctx.update.message.from
 	const args = command.splitArgs
