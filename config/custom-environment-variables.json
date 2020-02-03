@@ -142,6 +142,7 @@
     "egg": "CMDEGG",
     "help": "CMDHELP",
     "location": "CMDLODCATION",
+    "pvp": "CMDPVP",
     "quest": "CMDQUEST",
     "raid": "CMDRAID",
     "restore": "CMDRESTORE",
