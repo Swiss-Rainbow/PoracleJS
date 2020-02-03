@@ -66,11 +66,11 @@ module.exports = (ctx) => {
 					if (pid) {
 						monsters.push(pid)
 					}
-					else if (element.match(/everything/gi)) {
+					else if (element === 'everything') {
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
 					}
-					else if (element.match(/gen[1-7]/gi)) {
-						gen = element.match(/gen\d/gi)[0].replace(/gen/gi, '')
+					else if (element.match(/^gen[1-7]$/i)) {
+						gen = element.replace(/gen/i, '')
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1).filter((k) => k >= genData[gen].min && k <= genData[gen].max) // eslint-disable-line no-return-assign
 					}
 					else {

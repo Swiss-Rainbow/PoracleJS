@@ -70,28 +70,28 @@ exports.run = (client, msg) => {
 				let minDust = 10000000
 				let stardustTracking = 9999999
 
-				args.forEach((element) => {
+				for (const element of args) {
 					let pid = (element.match(/^\d+$/) && _.has(monsterData, element))
 						? element
 						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
 					pid = pid || _.findKey(defaultMonsterData, (mon) => mon.name.toLowerCase() === element)
 					if (pid) monsters.push(pid)
-					else if (element.match(/gen[1-7]/gi)) {
-						gen = element.match(/gen\d/gi)[0].replace(/gen/gi, '')
+					else if (element.match(/^gen[1-7]$/i)) {
+						gen = element.replace(/gen/i, '')
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1).filter((k) => k >= genData[gen].min && k <= genData[gen].max) // eslint-disable-line no-return-assign
 					}
-					else if (element.match(/d\d/gi)) {
-						distance = element.replace(/d/gi, '')
+					else if (element.match(/^d\d+$/i)) {
+						distance = element.replace(/d/i, '')
 						if (distance.length >= 10) distance = distance.substr(0, 9)
 					}
-					else if (element.match(/stardust\d/gi)) minDust = element.replace(/stardust/gi, '')
+					else if (element.match(/^stardust\d+$/i)) minDust = element.replace(/stardust/i, '')
 					else if (element === 'stardust') {
 						minDust = 1
 						stardustTracking = -1
 					}
 					else if (element === 'shiny') mustShiny = 1
 					else if (element === 'remove') remove = true
-					else if (element.match(/template[1-5]/gi)) template = element.replace(/template/gi, '')
+					else if (element.match(/^template[1-5]$/i)) template = element.replace(/template/i, '')
 					else {
 						let tid = _.findKey(gruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
 						tid = tid || _.findKey(defaultGruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
@@ -103,24 +103,19 @@ exports.run = (client, msg) => {
 								return k
 							})
 						}
-						else {
-							return msg.reply(`400 UNKNOWN ARGUMENT \`${element}\``).catch((O_o) => {
-								client.log.error(O_o.message)
-							})
-						}
 					}
-				})
+				}
 				_.forEach(questDts.rewardItems, (item, key) => {
-					const re = new RegExp(` ${item}`, 'gi')
+					const re = new RegExp(`(^| )${item}`, 'i')
 					if (rawArgs.match(re)) items.push(key)
 				})
-				if (rawArgs.match(/all pokemon/gi)) monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
-				if (rawArgs.match(/all items/gi)) {
+				if (rawArgs.match(/(^| )all pokemon/i)) monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
+				if (rawArgs.match(/(^| )all items/i)) {
 					_.forEach(questDts.rewardItems, (item, key) => {
 						items.push(key)
 					})
 				}
-				if (rawArgs.match(/stardust\d/gi)) {
+				if (rawArgs.match(/^stardust\d+$/i)) {
 					questTracks.push({
 						id: target.id,
 						reward: minDust,
