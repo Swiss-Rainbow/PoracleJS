@@ -4,9 +4,10 @@ const regex = /^\/([^@\s]+)@?(?:(\S+)|)\s?([\s\S]*)$/i
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
 module.exports = () => mount('text', (ctx, next) => {
-    if (ctx.update.channel_post) {
+    console.dir(ctx, {depth: null, colors: true})
+    if (ctx.channel_post) {
         
-        ctx.update.message = ctx.update.channel_post;
+        ctx.message = ctx.channel_post;
     }
 	if (!ctx.message) return next()
 	const parts = regex.exec(ctx.message.text)
