@@ -46,14 +46,14 @@ module.exports = (ctx) => {
 				const types = []
 
 				args.forEach((element) => {
-					if (element.match(/template[1-5]/gi)) template = element.replace(/template/gi, '')
-					else if (element.match(/remove/gi)) remove = true
-					else if (element.match(/d\d/gi)) {
-						distance = element.replace(/d/gi, '')
+					if (element.match(/^template[1-5]$/i)) template = element.replace(/template/i, '')
+					else if (element === 'remove') remove = true
+					else if (element.match(/^d\d+$/i)) {
+						distance = element.replace(/d/i, '')
 						if (distance.length >= 10) distance = distance.substr(0, 9)
 					}
-					else if (element.match(/female/gi)) gender = 2
-					else if (element.match(/male/gi)) gender = 1
+					else if (element === 'female') gender = 2
+					else if (element === 'male') gender = 1
 					else rawTypes.push(element)
 				})
 

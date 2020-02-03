@@ -37,16 +37,16 @@ module.exports = (ctx) => {
 
 				args.forEach((element) => {
 					if (element.toLowerCase() === 'ex') park = 1
-					else if (element.match(/template[1-5]/gi)) template = element.replace(/template/gi, '')
-					else if (element.match(/level\d/gi)) levels.push(element.replace(/level/gi, ''))
-					else if (element.match(/instinct/gi)) team = 3
-					else if (element.match(/valor/gi)) team = 2
-					else if (element.match(/mystic/gi)) team = 1
-					else if (element.match(/harmony/gi)) team = 0
-					else if (element.match(/remove/gi)) remove = true
-					else if (element.match(/everything/gi)) levels = [1, 2, 3, 4, 5]
-					else if (element.match(/d\d/gi)) {
-						distance = element.replace(/d/gi, '')
+					else if (element.match(/^template[1-5]$/i)) template = element.replace(/template/i, '')
+					else if (element.match(/^level\d+$/i)) levels.push(element.replace(/level/i, ''))
+					else if (element === 'instinct') team = 3
+					else if (element === 'valor') team = 2
+					else if (element === 'mystic') team = 1
+					else if (element === 'harmony') team = 0
+					else if (element === 'remove') remove = true
+					else if (element === 'everything') levels = [1, 2, 3, 4, 5]
+					else if (element.match(/^d\d+$/i)) {
+						distance = element.replace(/d/i, '')
 						if (distance.length >= 10) distance = distance.substr(0, 9)
 					}
 
