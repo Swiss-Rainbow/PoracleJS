@@ -8,7 +8,7 @@ module.exports = (ctx) => {
         
         ctx.message = ctx.channel_post;
     }
-	const user = ctx.update.message.from === undefined ? ctx.update.message.chat : ctx.update.message.from
+	const user = (ctx.update.message.from === undefined) ? ctx.update.message.chat : ctx.update.message.from
 	const args = command.splitArgs
 
 	if (_.includes(controller.config.telegram.admins, user.id.toString()) && ctx.update.message.chat.type !== 'private') {
