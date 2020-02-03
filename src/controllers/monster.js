@@ -43,7 +43,7 @@ class Monster extends Controller {
 				areastring = areastring.concat(`or humans.area like '%"${area}"%' `)
 			})
 			const query = `
-			select humans.id, humans.name, monsters.template from monsters
+			select humans.id, humans.name, monsters.template, monsters.max_cp, monsters.pvp_rank, monsters.pvp_id from monsters
             join humans on humans.id = monsters.id
             where humans.enabled = 1 and
             pokemon_id=${data.pokemon_id} and
@@ -70,7 +70,7 @@ class Monster extends Controller {
               * sin( radians( humans.latitude ) ) ) < monsters.distance and monsters.distance != 0) or
                monsters.distance = 0 and (${areastring})) and
             (monsters.time<=${(data.tth.hours * 60) + data.tth.minutes} or monsters.time=0)   
-            group by humans.id, humans.name, monsters.template `
+            group by humans.id, humans.name, monsters.template, monsters.max_cp, monsters.pvp_rank, monsters.pvp_id `
 
 
 			log.log({ level: 'debug', message: 'monsterWhoCares query', event: 'sql:monsterWhoCares' })
@@ -246,6 +246,11 @@ class Monster extends Controller {
 								pokemoji: emojiData.pokemon[data.pokemon_id],
 								areas: data.matched.map((area) => area.replace(/'/gi, '').replace(/ /gi, '-')).join(', '),
 
+								// pvp
+								pvpLeague: cares.max_cp,
+								pvpRank: cares.pvp_rank,
+								pvpMonster: monsterData[cares.pvp_id] && monsterData[cares.pvp_id].name ? monsterData[cares.pvp_id].name : 'errormon',
+
 								// geocode stuff
 								lat: data.latitude.toString().substring(0, 8),
 								lon: data.longitude.toString().substring(0, 8),
@@ -270,9 +275,13 @@ class Monster extends Controller {
 								}
 							}
 
-							const monsterDts = data.iv === -1 && this.mdts.monsterNoIv
-								? this.mdts.monsterNoIv[`${cares.template}`]
-								: this.mdts.monster[`${cares.template}`]
+							let monsterDts = this.mdts.monster[`${cares.template}`]
+							if (cares.pvp_rank) {
+								monsterDts = this.mdts.pvp[`${cares.template}`]
+							}
+							else if (data.iv === -1 && this.mdts.monsterNoIv) {
+								monsterDts = this.mdts.monsterNoIv[`${cares.template}`]
+							}
 							const template = JSON.stringify(monsterDts)
 							let message = mustache.render(template, view)
 							message = JSON.parse(message)
