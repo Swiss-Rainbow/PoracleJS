@@ -5,6 +5,10 @@ const { version } = require(`${__dirname}/../../../../package.json`)
 module.exports = (ctx) => {
 
 	const { controller, command } = ctx.state
+    if (ctx.channel_post) {
+        
+        ctx.message = ctx.channel_post;
+    }
 	const user = ctx.update.message.from
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
 
