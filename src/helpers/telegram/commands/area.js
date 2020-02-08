@@ -44,7 +44,7 @@ module.exports = (ctx) => {
 							const newAreas = oldArea.concat(addAreas)
 							if (addAreas.length) controller.query.updateQuery('humans', 'area', JSON.stringify(newAreas), 'id', target.id)
 							if (!validAreas.length) {
-								return ctx.reply(`no valid areas there, please use one of ${confAreas}`).catch((O_o) => {
+								return ctx.reply(`no valid areas there, please use one of ${confAreasNormal.join(', ')}`).catch((O_o) => {
 									controller.log.error(O_o.message)
 								})
 							}
@@ -75,7 +75,7 @@ module.exports = (ctx) => {
 								controller.query.updateQuery('humans', 'area', JSON.stringify(newAreas), 'id', target.id).catch((O_o) => {})
 							}
 							if (!validAreas.length) {
-								return ctx.reply(`404 NO VALID AND TRACKED AREAS FOUND \n VALID: ${confAreas} \n TRACKED: ${oldArea}`).catch((O_o) => {
+								return ctx.reply(`404 NO VALID AND TRACKED AREAS FOUND \n VALID: ${confAreasNormal.join(', ')} \n TRACKED: ${oldArea}`).catch((O_o) => {
 									controller.log.error(O_o.message)
 								})
 							}
