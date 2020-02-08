@@ -50,6 +50,7 @@ fs.readdir(`${__dirname}/telegram/commands/`, (err, files) => {
 		event: 'telegram:commandsAdded',
 	})
 
+    // TDOO: Check for channel - but for normal the channel admins now how to command Poracle ;)
 	clients.forEach((client) => {
 		client.on('text', (ctx) => {
 			if (ctx.update.message !== undefined && ctx.update.message.chat.type === 'private') {
