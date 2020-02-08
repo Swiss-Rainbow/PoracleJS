@@ -8,12 +8,13 @@ module.exports = () => mount('text', (ctx, next) => {
         
         ctx.update.message = ctx.update.channel_post;
     }
+    ctx.update.message.text = ctx.update.message.text.toLowerCase()
 	if (!ctx.update.message) return next()
 	const parts = regex.exec(ctx.update.message.text)
 	if (!parts) return next()
 	const command = {
 		text: ctx.update.message.text,
-		command: parts[1].toLowerCase(),
+		command: parts[1],
 		bot: parts[2],
 		args: parts[3],
 		get splitArgs() {
