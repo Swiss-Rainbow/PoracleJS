@@ -13,8 +13,8 @@ module.exports = () => mount('text', (ctx, next) => {
 	if (!parts) return next()
 	const command = {
 		text: ctx.update.message.text,
-		command: parts[1],
-		bot: parts[2],
+		command: parts[1].toLowerCase(),
+		bot: parts[2].toLowerCase(),
 		args: parts[3],
 		get splitArgs() {
 			const args = parts[3].split(/\s+/)
