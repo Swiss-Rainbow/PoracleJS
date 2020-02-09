@@ -105,13 +105,13 @@ exports.run = (client, msg, args) => {
 							client.log.log({
 								level: 'debug',
 								message: `${msg.author.tag} checked areas for ${target.name}`,
-								event: 'discord:areaList'
+								event: 'discord:areaList',
 							})
 						})
 						break
 					}
 					default:
-						return msg.reply(`404 COMMAND \`${args[0]}\` NOT FOUND`).catch((O_o) => {
+						return msg.reply('404 COMMAND INCOMPLETE - USE `add`, `list` or `remove`').catch((O_o) => {
 							client.log.error(O_o.message)
 						})
 				}
