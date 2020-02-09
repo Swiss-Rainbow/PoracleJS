@@ -126,6 +126,12 @@ module.exports = (ctx) => {
 							})
 						}
 						else {
+							if (!monsters.length) {
+								return ctx.reply('400 NO MONSTER FOUND').catch((O_o) => {
+									controller.log.error(O_o.message)
+								})
+							}
+
 							return ctx.reply(`400 UNKNOWN ARGUMENT \`${element}\``, { parse_mode: 'Markdown' }).catch((O_o) => {
 								controller.log.error(O_o.message)
 							})

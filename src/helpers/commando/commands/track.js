@@ -121,6 +121,12 @@ exports.run = (client, msg, args) => {
 							})
 						}
 						else {
+							if (!monsters.length) {
+								return msg.reply('400 NO MONSTER FOUND').catch((O_o) => {
+									client.log.error(O_o.message)
+								})
+							}
+
 							return msg.reply(`400 UNKNOWN ARGUMENT \`${element}\``).catch((O_o) => {
 								client.log.error(O_o.message)
 							})
