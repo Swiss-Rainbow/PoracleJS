@@ -121,9 +121,10 @@ module.exports = (ctx) => {
 				if (monsters.length && !forms.length) {
 					const insertData = []
 					monsters.forEach((pokemonId) => {
+						const pokemonIndex = pvpData[pokemonId].family.indexOf(pokemonId)
 						for (let i = 1; i <= maxrank; i += 1) {
-							for (const memberId of pvpData[pokemonId].family) {
-								if (memberId <= pokemonId) {
+							pvpData[pokemonId].family.forEach((memberId, memberIndex) => {
+								if (memberIndex <= pokemonIndex) {
 									for (const formId in pvpData[pokemonId][league]) {
 										if (pvpData[pokemonId][league][formId]) {
 											const rankData = pvpData[pokemonId][league][formId][i]
@@ -158,7 +159,7 @@ module.exports = (ctx) => {
 										}
 									}
 								}
-							}
+							})
 						}
 					})
 					controller.query.insertOrUpdateQuery(
