@@ -28,7 +28,11 @@ const genData = require(`${__dirname}/../../../util/gens`)
 module.exports = (ctx) => {
 
 	const { controller, command } = ctx.state
-	const user = ctx.update.message.from
+    if (ctx.update.channel_post) {
+        
+        ctx.update.message = ctx.update.channel_post;
+    }
+	const user = (ctx.update.message.from === undefined) ? ctx.update.message.chat : ctx.update.message.from
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
 	const args = command.splitArgs
 
@@ -85,21 +89,21 @@ module.exports = (ctx) => {
 				})
 				args.forEach((element) => {
 					if (element.toLowerCase() === 'ex') park = 1
-					else if (element.match(/level\d/gi)) levels.push(element.replace(/level/gi, ''))
-					else if (element.match(/template[1-5]/gi)) template = element.replace(/template/gi, '')
-					else if (element.match(/instinct/gi)) team = 3
-					else if (element.match(/valor/gi)) team = 2
-					else if (element.match(/mystic/gi)) team = 1
-					else if (element.match(/harmony/gi)) team = 0
-					else if (element.match(/remove/gi)) remove = true
-					else if (element.match(/form\w/gi)) forms.push(element.replace(/form/gi, ''))
-					else if (element.match(/everything/gi)) levels = [1, 2, 3, 4, 5]
-					else if (element.match(/d\d/gi)) {
-						distance = element.replace(/d/gi, '')
+					else if (element.match(/^level\d+$/i)) levels.push(element.replace(/level/i, ''))
+					else if (element.match(/^template[1-5]$/i)) template = element.replace(/template/i, '')
+					else if (element === 'instinct') team = 3
+					else if (element === 'valor') team = 2
+					else if (element === 'mystic') team = 1
+					else if (element === 'harmony') team = 0
+					else if (element === 'remove') remove = true
+					else if (element.match(/^form\w+$/i)) forms.push(element.replace(/form/i, ''))
+					else if (element === 'everything') levels = [1, 2, 3, 4, 5]
+					else if (element.match(/^d\d+$/i)) {
+						distance = element.replace(/d/i, '')
 						if (distance.length >= 10) distance = distance.substr(0, 9)
 					}
-					else if (element.match(/gen[1-7]/gi)) {
-						gen = element.match(/gen\d/gi)[0].replace(/gen/gi, '')
+					else if (element.match(/^gen[1-7]$/i)) {
+						gen = element.replace(/gen/i, '')
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1).filter((k) => k >= genData[gen].min && k <= genData[gen].max) // eslint-disable-line no-return-assign
 					}
 				})

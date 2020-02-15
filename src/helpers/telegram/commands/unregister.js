@@ -3,6 +3,10 @@ const _ = require('lodash')
 module.exports = async (ctx) => {
 
 	const { controller, command } = ctx.state
+    if (ctx.update.channel_post) {
+        
+        ctx.update.message = ctx.update.channel_post;
+    }
 	const user = ctx.update.message.from
 	const targets = []
 	const mentions = []

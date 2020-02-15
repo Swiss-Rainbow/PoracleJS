@@ -28,7 +28,11 @@ const genData = require(`${__dirname}/../../../util/gens`)
 module.exports = (ctx) => {
 
 	const { controller, command } = ctx.state
-	const user = ctx.update.message.from
+    if (ctx.update.channel_post) {
+        
+        ctx.update.message = ctx.update.channel_post;
+    }
+	const user = (ctx.update.message.from === undefined) ? ctx.update.message.chat : ctx.update.message.from
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
 	const args = command.splitArgs
 
@@ -81,35 +85,35 @@ module.exports = (ctx) => {
 						: _.findKey(monsterData, (mon) => mon.name.toLowerCase() === element)
 					pid = pid || _.findKey(defaultMonsterData, (mon) => mon.name.toLowerCase() === element)
 					if (pid) monsters.push(pid)
-					else if (element.match(/maxlevel\d/gi)) maxlevel = element.replace(/maxlevel/gi, '')
-					else if (element.match(/template[1-5]/gi)) template = element.replace(/template/gi, '')
-					else if (element.match(/maxcp\d/gi)) maxcp = element.replace(/maxcp/gi, '')
-					else if (element.match(/maxiv\d/gi)) maxiv = element.replace(/maxiv/gi, '')
-					else if (element.match(/maxweight\d/gi)) maxweight = element.replace(/maxweight/gi, '')
-					else if (element.match(/maxatk\d/gi)) maxAtk = element.replace(/maxatk/gi, '')
-					else if (element.match(/maxdef\d/gi)) maxDef = element.replace(/maxdef/gi, '')
-					else if (element.match(/maxsta\d/gi)) maxSta = element.replace(/maxsta/gi, '')
-					else if (element.match(/cp\d/gi)) cp = element.replace(/cp/gi, '')
-					else if (element.match(/level\d/gi)) level = element.replace(/level/gi, '')
-					else if (element.match(/iv\d/gi)) iv = element.replace(/iv/gi, '')
-					else if (element.match(/atk\d/gi)) atk = element.replace(/atk/gi, '')
-					else if (element.match(/def\d/gi)) def = element.replace(/def/gi, '')
-					else if (element.match(/sta\d/gi)) sta = element.replace(/sta/gi, '')
-					else if (element.match(/female/gi)) gender = 2
-					else if (element.match(/male/gi)) gender = 1
-					else if (element.match(/genderless/gi)) gender = 3
-					else if (element.match(/weight\d/gi)) weight = element.replace(/weight/gi, '')
-					else if (element.match(/form\w/gi)) forms.push(element.replace(/form/gi, ''))
-					else if (element.match(/everything/gi)) monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
-					else if (element.match(/d\d/gi)) {
-						distance = element.replace(/d/gi, '')
+					else if (element.match(/^maxlevel\d+$/i)) maxlevel = element.replace(/maxlevel/i, '')
+					else if (element.match(/^template[1-5]$/i)) template = element.replace(/template/i, '')
+					else if (element.match(/^maxcp\d+$/i)) maxcp = element.replace(/maxcp/i, '')
+					else if (element.match(/^maxiv\d+$/i)) maxiv = element.replace(/maxiv/i, '')
+					else if (element.match(/^maxweight\d+$/i)) maxweight = element.replace(/maxweight/i, '')
+					else if (element.match(/^maxatk\d+$/i)) maxAtk = element.replace(/maxatk/i, '')
+					else if (element.match(/^maxdef\d+$/i)) maxDef = element.replace(/maxdef/i, '')
+					else if (element.match(/^maxsta\d+$/i)) maxSta = element.replace(/maxsta/i, '')
+					else if (element.match(/^cp\d+$/i)) cp = element.replace(/cp/i, '')
+					else if (element.match(/^level\d+$/i)) level = element.replace(/level/i, '')
+					else if (element.match(/^iv\d+$/i)) iv = element.replace(/iv/i, '')
+					else if (element.match(/^atk\d+$/i)) atk = element.replace(/atk/i, '')
+					else if (element.match(/^def\d+$/i)) def = element.replace(/def/i, '')
+					else if (element.match(/^sta\d+$/i)) sta = element.replace(/sta/i, '')
+					else if (element === 'female') gender = 2
+					else if (element === 'male') gender = 1
+					else if (element === 'genderless') gender = 3
+					else if (element.match(/^weight\d+$/i)) weight = element.replace(/weight/i, '')
+					else if (element.match(/^form\w+$/i)) forms.push(element.replace(/form/i, ''))
+					else if (element === 'everything') monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
+					else if (element.match(/^d\d+$/i)) {
+						distance = element.replace(/d/i, '')
 						if (distance.length >= 10) distance = distance.substr(0, 9)
 					}
-					else if (element.match(/gen[1-7]/gi)) {
-						gen = element.match(/gen\d/gi)[0].replace(/gen/gi, '')
+					else if (element.match(/^gen[1-7]$/i)) {
+						gen = element.replace(/gen/i, '')
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1).filter((k) => k >= genData[gen].min && k <= genData[gen].max) // eslint-disable-line no-return-assign
 					}
-					else if (element.match(/t\d/gi)) time = Math.min(element.replace(/t/gi, ''), 59)
+					else if (element.match(/^t\d+$/i)) time = Math.min(element.replace(/t/i, ''), 59)
 					else {
 						let tid = _.findKey(gruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
 						tid = tid || _.findKey(defaultGruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())

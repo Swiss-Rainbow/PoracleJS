@@ -27,7 +27,11 @@ const gruntTypes = require(gruntTypeDataPath)
 module.exports = (ctx) => {
 
 	const { controller, command } = ctx.state
-	const user = ctx.update.message.from
+    if (ctx.update.channel_post) {
+        
+        ctx.update.message = ctx.update.channel_post;
+    }
+	const user = (ctx.update.message.from === undefined) ? ctx.update.message.chat : ctx.update.message.from
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
 	const args = command.splitArgs
 
@@ -62,11 +66,11 @@ module.exports = (ctx) => {
 					if (pid) {
 						monsters.push(pid)
 					}
-					else if (element.match(/everything/gi)) {
+					else if (element === 'everything') {
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
 					}
-					else if (element.match(/gen[1-7]/gi)) {
-						gen = element.match(/gen\d/gi)[0].replace(/gen/gi, '')
+					else if (element.match(/^gen[1-7]$/i)) {
+						gen = element.replace(/gen/i, '')
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1).filter((k) => k >= genData[gen].min && k <= genData[gen].max) // eslint-disable-line no-return-assign
 					}
 					else {

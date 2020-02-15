@@ -7,7 +7,11 @@ const confAreasNormal = geofence.map((area) => area.name).sort()
 module.exports = (ctx) => {
 
 	const { controller, command } = ctx.state
-	const user = ctx.update.message.from
+    if (ctx.update.channel_post) {
+        
+        ctx.update.message = ctx.update.channel_post;
+    }
+	const user = (ctx.update.message.from === undefined) ? ctx.update.message.chat : ctx.update.message.from
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
 	const args = command.splitArgs
 
@@ -40,7 +44,7 @@ module.exports = (ctx) => {
 							const newAreas = oldArea.concat(addAreas)
 							if (addAreas.length) controller.query.updateQuery('humans', 'area', JSON.stringify(newAreas), 'id', target.id)
 							if (!validAreas.length) {
-								return ctx.reply(`no valid areas there, please use one of ${confAreas}`).catch((O_o) => {
+								return ctx.reply(`No valid areas there, please use one of ${confAreasNormal.join(', ')}`).catch((O_o) => {
 									controller.log.error(O_o.message)
 								})
 							}
@@ -71,7 +75,7 @@ module.exports = (ctx) => {
 								controller.query.updateQuery('humans', 'area', JSON.stringify(newAreas), 'id', target.id).catch((O_o) => {})
 							}
 							if (!validAreas.length) {
-								return ctx.reply(`404 NO VALID AND TRACKED AREAS FOUND \n VALID: ${confAreas} \n TRACKED: ${oldArea}`).catch((O_o) => {
+								return ctx.reply(`404 NO VALID AND TRACKED AREAS FOUND \nVALID: ${confAreasNormal.join(', ')} \nTRACKED: ${oldArea}`).catch((O_o) => {
 									controller.log.error(O_o.message)
 								})
 							}
