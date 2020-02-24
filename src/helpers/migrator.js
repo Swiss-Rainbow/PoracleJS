@@ -190,6 +190,167 @@ const migration9 = {
 	`,
 }
 
+function checkSchema(resolve, reject) {
+	queries.selectOneQuery('schema_version', 'key', 'db_version')
+		.then((version) => {
+			if (version.val === 9) {
+				log.info('Database schema-version 9 confirmed')
+				return resolve(true)
+			}
+			else if (version.val === 1) {
+				queries.dropTableQuery('quest')
+					.then(() => {
+						log.info('applied Db migration 2')
+						queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+							.then(() => {
+								checkSchema(resolve, reject)
+							})
+							.catch((unhappy) => {
+								reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+							})
+					})
+					.catch((unhappy) => {
+						reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+					})
+			}
+			else if (version.val === 2) {
+				queries.mysteryQuery(migration3.quest)
+					.then(() => {
+						log.info('applied Db migration 3')
+						queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+							.then(() => {
+								checkSchema(resolve, reject)
+							})
+							.catch((unhappy) => {
+								reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+							})
+					})
+					.catch((unhappy) => {
+						reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+					})
+			}
+			else if (version.val === 3) {
+				Promise.all([
+					queries.mysteryQuery(migration4.id.monsters),
+					queries.mysteryQuery(migration4.id.egg),
+					queries.mysteryQuery(migration4.id.raid),
+					queries.mysteryQuery(migration4.id.quest),
+					queries.mysteryQuery(migration4.monsters),
+					queries.mysteryQuery(migration4.raid),
+					queries.dropTableQuery('activeRaid'),
+					queries.dropTableQuery('comevent'),
+					queries.dropTableQuery('comsubmission'),
+					queries.dropTableQuery('pokemon'),
+					queries.dropTableQuery('pokestop'),
+				])
+					.then(() => {
+						log.info('applied Db migration 4')
+						queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+							.then(() => {
+								checkSchema(resolve, reject)
+							})
+							.catch((unhappy) => {
+								reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+							})
+					})
+					.catch((unhappy) => {
+						reject(log.error(`Database migration unhappy to create migration 4: ${unhappy.message}`))
+					})
+			}
+			else if (version.val === 4) {
+				Promise.all([
+					queries.mysteryQuery(migration5.incident),
+				])
+					.then(() => {
+						log.info('applied Db migration 5')
+						queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+							.then(() => {
+								checkSchema(resolve, reject)
+							})
+							.catch((unhappy) => {
+								reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+							})
+					})
+					.catch((unhappy) => {
+						reject(log.error(`Database migration unhappy to create migration 5: ${unhappy.message}`))
+					})
+			}
+			else if (version.val === 5) {
+				queries.mysteryQuery(migration6.incidentDropPk)
+					.then(() => {
+						queries.mysteryQuery(migration6.incidentFixPk)
+							.then(() => {
+								log.info('applied Db migration 6')
+								queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+									.then(() => {
+										checkSchema(resolve, reject)
+									})
+									.catch((unhappy) => {
+										reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+									})
+							})
+							.catch((unhappy) => {
+								reject(log.error(`Database migration unhappy to create migration 6: ${unhappy.message}`))
+							})
+					})
+					.catch((unhappy) => {
+						reject(log.error(`Database migration unhappy to drop incident PK: ${unhappy.message}`))
+					})
+			}
+			else if (version.val === 6) {
+				queries.mysteryQuery(migration7.monsters)
+					.then(() => {
+						log.info('applied Db migration 7')
+						queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+							.then(() => {
+								checkSchema(resolve, reject)
+							})
+							.catch((unhappy) => {
+								reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+							})
+					})
+					.catch((unhappy) => {
+						reject(log.error(`Database migration unhappy to create migration 7: ${unhappy.message}`))
+					})
+			}
+			else if (version.val === 7) {
+				queries.mysteryQuery(migration8.monsters)
+					.then(() => {
+						log.info('applied Db migration 8')
+						queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+							.then(() => {
+								checkSchema(resolve, reject)
+							})
+							.catch((unhappy) => {
+								reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+							})
+					})
+					.catch((unhappy) => {
+						reject(log.error(`Database migration unhappy to create migration 8: ${unhappy.message}`))
+					})
+			}
+			else if (version.val === 8) {
+				queries.mysteryQuery(migration9.monsters)
+					.then(() => {
+						log.info('applied Db migration 9')
+						queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+							.then(() => {
+								checkSchema(resolve, reject)
+							})
+							.catch((unhappy) => {
+								reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+							})
+					})
+					.catch((unhappy) => {
+						reject(log.error(`Database migration unhappy to create migration 9: ${unhappy.message}`))
+					})
+			}
+		})
+		.catch((unhappy) => {
+			reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+		})
+}
+
 module.exports = async () => new Promise((resolve, reject) => {
 	queries.countQuery('TABLE_NAME', 'information_schema.tables', 'table_schema', config.db.database)
 		.then((tables) => {
@@ -227,147 +388,7 @@ module.exports = async () => new Promise((resolve, reject) => {
 						else {
 							reject(log.error(`didn't find Tables I like, this house has ${confirmedTables} similar tables \nPlease check database credentials for my PERSONAL database`))
 						}
-						queries.selectOneQuery('schema_version', 'key', 'db_version')
-							.then((version) => {
-								if (version.val === 1) {
-									queries.dropTableQuery('quest')
-										.then(() => {
-											queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
-												.then(() => resolve(true))
-												.catch((unhappy) => {
-													reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
-												})
-											log.info('applied Db migration 2')
-										})
-										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
-										})
-								}
-								else if (version.val === 2) {
-									queries.mysteryQuery(migration3.quest)
-										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
-										})
-									queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
-										.then(() => resolve(true))
-										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
-										})
-									log.info('applied Db migration 3')
-									resolve(true)
-								}
-								else if (version.val === 3) {
-									Promise.all([
-										queries.mysteryQuery(migration4.id.monsters),
-										queries.mysteryQuery(migration4.id.egg),
-										queries.mysteryQuery(migration4.id.raid),
-										queries.mysteryQuery(migration4.id.quest),
-										queries.mysteryQuery(migration4.monsters),
-										queries.mysteryQuery(migration4.raid),
-										queries.dropTableQuery('activeRaid'),
-										queries.dropTableQuery('comevent'),
-										queries.dropTableQuery('comsubmission'),
-										queries.dropTableQuery('pokemon'),
-										queries.dropTableQuery('pokestop'),
-									])
-										.then(() => {
-											queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
-												.then(() => resolve(true))
-												.catch((unhappy) => {
-													reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
-												})
-											log.info('applied Db migration 4')
-										})
-										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to create migration 4: ${unhappy.message}`))
-										})
-								}
-								else if (version.val === 4) {
-									Promise.all([
-										queries.mysteryQuery(migration5.incident),
-									])
-										.then(() => {
-											queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
-												.then(() => resolve(true))
-												.catch((unhappy) => {
-													reject(log.error(`Database migration unhappy to create migration 5: ${unhappy.message}`))
-												})
-											log.info('applied Db migration 5')
-										})
-										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to create migration 5: ${unhappy.message}`))
-										})
-								}
-								else if (version.val === 5) {
-									queries.mysteryQuery(migration6.incidentDropPk)
-										.then(() => {
-											queries.mysteryQuery(migration6.incidentFixPk)
-												.then(() => {
-													queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
-														.then(() => resolve(true))
-														.catch((unhappy) => {
-															reject(log.error(`Database migration unhappy to create migration 6: ${unhappy.message}`))
-														})
-													log.info('applied Db migration 5')
-												})
-												.catch((unhappy) => {
-													reject(log.error(`Database migration unhappy to create migration 6: ${unhappy.message}`))
-												})
-										})
-										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to drop incident PK: ${unhappy.message}`))
-										})
-								}
-								else if (version.val === 6) {
-									queries.mysteryQuery(migration7.monsters)
-										.then(() => {
-											queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
-												.then(() => resolve(true))
-												.catch((unhappy) => {
-													reject(log.error(`Database migration unhappy to create migration 7: ${unhappy.message}`))
-												})
-											log.info('applied Db migration 7')
-										})
-										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to create migration 7: ${unhappy.message}`))
-										})
-								}
-								else if (version.val === 7) {
-									queries.mysteryQuery(migration8.monsters)
-										.then(() => {
-											queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
-												.then(() => resolve(true))
-												.catch((unhappy) => {
-													reject(log.error(`Database migration unhappy to create migration 8: ${unhappy.message}`))
-												})
-											log.info('applied Db migration 8')
-										})
-										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to create migration 8: ${unhappy.message}`))
-										})
-								}
-								else if (version.val === 8) {
-									queries.mysteryQuery(migration9.monsters)
-										.then(() => {
-											queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
-												.then(() => resolve(true))
-												.catch((unhappy) => {
-													reject(log.error(`Database migration unhappy to create migration 8: ${unhappy.message}`))
-												})
-											log.info('applied Db migration 9')
-										})
-										.catch((unhappy) => {
-											reject(log.error(`Database migration unhappy to create migration 9: ${unhappy.message}`))
-										})
-								}
-								else if (version.val === 9) {
-									log.info('Database schema-version 9 confirmed')
-									resolve(true)
-								}
-							})
-							.catch((unhappy) => {
-								reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
-							})
+						checkSchema(resolve, reject)
 					})
 					.catch((unhappy) => {
 						reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))

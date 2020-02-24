@@ -352,7 +352,10 @@ class Controller {
 	async addOneQuery(table, addable, column, value) {
 		return new Promise((resolve, reject) => {
 			this.db.query('update ?? set ?? = ??+1 where ?? = ?', [table, addable, addable, column, value])
-				.then(log.log({ level: 'debug', message: `addOneQuery ${table}`, event: 'sql:addOneQuery' }))
+				.then(() => {
+					log.log({ level: 'debug', message: `addOneQuery ${table}`, event: 'sql:addOneQuery' })
+					resolve()
+				})
 				.catch((err) => {
 					reject(log.error(`addOneQuery errored with: ${err}`))
 				})
