@@ -114,7 +114,7 @@ module.exports = (ctx) => {
 						break
 					}
 					default:
-						return ctx.reply(`404 COMMAND \`${args[0]}\` NOT FOUND`, { parse_mode: 'Markdown' }).catch((O_o) => {
+						return ctx.reply('404 COMMAND INCOMPLETE - USE `add`, `list` or `remove`', { parse_mode: 'Markdown' }).catch((O_o) => {
 							controller.log.error(O_o.message)
 						})
 				}
