@@ -258,21 +258,21 @@
         },
         {
             "name": "helhum/dotenv-connector",
-            "version": "v2.1.2",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helhum/dotenv-connector.git",
-                "reference": "21748f164864d864e3514160c75e14a48a734903"
+                "reference": "bccfdfc40438c64ef62f5bec24cbff609967dbb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helhum/dotenv-connector/zipball/21748f164864d864e3514160c75e14a48a734903",
-                "reference": "21748f164864d864e3514160c75e14a48a734903",
+                "url": "https://api.github.com/repos/helhum/dotenv-connector/zipball/bccfdfc40438c64ef62f5bec24cbff609967dbb6",
+                "reference": "bccfdfc40438c64ef62f5bec24cbff609967dbb6",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0",
-                "php": ">=7.0 <7.4",
+                "php": ">=7.0 <7.5",
                 "symfony/dotenv": "^3.3.0 || ^4.0"
             },
             "require-dev": {
@@ -310,7 +310,7 @@
                 "dotenv",
                 "env"
             ],
-            "time": "2019-01-17T10:57:40+00:00"
+            "time": "2020-02-13T14:18:23+00:00"
         },
         {
             "name": "psr/container",
