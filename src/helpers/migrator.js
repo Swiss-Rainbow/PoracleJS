@@ -57,7 +57,7 @@ const monsters = `CREATE TABLE \`monsters\` (
   \`time\` smallint(1) NOT NULL DEFAULT 0,
   \`pvp_rank\` smallint(3) NOT NULL DEFAULT 0,
   \`pvp_id\` smallint(6) NOT NULL DEFAULT 0,
-  PRIMARY KEY monsters_tracking (\`id\`, \`pokemon_id\`, \`distance\`, \`min_iv\`, \`max_iv\`, \`min_cp\`, \`max_cp\`, \`min_level\`, \`max_level\`, \`atk\`, \`def\`, \`sta\`, \`min_weight\`, \`max_weight\`, \`form\`),
+  PRIMARY KEY monsters_tracking (\`id\`, \`pokemon_id\`, \`distance\`, \`min_iv\`, \`max_iv\`, \`min_cp\`, \`max_cp\`, \`min_level\`, \`max_level\`, \`atk\`, \`def\`, \`sta\`, \`min_weight\`, \`max_weight\`, \`form\`, \`pvp_id\`),
   KEY \`monsters_pokemon_id\` (\`pokemon_id\`),
   KEY \`monsters_distance\` (\`distance\`),
   KEY \`monsters_min_iv\` (\`min_iv\`)
@@ -190,11 +190,19 @@ const migration9 = {
 	`,
 }
 
+const migration10 = {
+	monsters: `
+		ALTER TABLE \`monsters\` 
+		DROP PRIMARY KEY, 
+		ADD PRIMARY KEY monsters_tracking (\`id\`, \`pokemon_id\`, \`distance\`, \`min_iv\`, \`max_iv\`, \`min_cp\`, \`max_cp\`, \`min_level\`, \`max_level\`, \`atk\`, \`def\`, \`sta\`, \`min_weight\`, \`max_weight\`, \`form\`, \`pvp_id\`);
+	`,
+}
+
 function checkSchema(resolve, reject) {
 	queries.selectOneQuery('schema_version', 'key', 'db_version')
 		.then((version) => {
-			if (version.val === 9) {
-				log.info('Database schema-version 9 confirmed')
+			if (version.val === 10) {
+				log.info('Database schema-version 10 confirmed')
 				return resolve(true)
 			}
 			else if (version.val === 1) {
@@ -343,6 +351,22 @@ function checkSchema(resolve, reject) {
 					})
 					.catch((unhappy) => {
 						reject(log.error(`Database migration unhappy to create migration 9: ${unhappy.message}`))
+					})
+			}
+			else if (version.val === 9) {
+				queries.mysteryQuery(migration10.monsters)
+					.then(() => {
+						log.info('applied Db migration 10')
+						queries.addOneQuery('schema_version', 'val', 'key', 'db_version')
+							.then(() => {
+								checkSchema(resolve, reject)
+							})
+							.catch((unhappy) => {
+								reject(log.error(`Database migration unhappy to create tables: ${unhappy.message}`))
+							})
+					})
+					.catch((unhappy) => {
+						reject(log.error(`Database migration unhappy to create migration 10: ${unhappy.message}`))
 					})
 			}
 		})
