@@ -7,7 +7,7 @@
           "name": "#{{id}} {{name}} L{{level}} {{atk}}/{{ def }}/{{ sta }}, {{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}}",
           "icon_url": "{{{imgurl}}}"
         },
-        "description": "\n  [Google Maps]sfkjahfkjadsh ({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
+        "description": "{{#pvpText}} \n{{pvpText}}{{/pvpText}} \n  [Google Maps]sfkjahfkjadsh ({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
       }
     },
     "2": {
@@ -17,14 +17,14 @@
         "thumbnail": {
           "url": "{{{gif}}}"
         },
-        "description": "\n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
+        "description": "{{#pvpText}} \n{{pvpText}}{{/pvpText}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
       }
     },
     "3": {
       "embed": {
         "color": "{{ivcolor}}",
         "title": "#{{id}} {{name}} cp:{{cp}} L{{level}} {{atk}}/{{ def }}/{{ sta }}",
-        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
+        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} {{#pvpText}} \n{{pvpText}}{{/pvpText}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
         "thumbnail": {
           "url": "{{{imgurl}}}"
         },
@@ -37,7 +37,7 @@
       "embed": {
         "color": "{{ivcolor}}",
         "title": "#{{id}} {{name}} cp:{{cp}} L{{level}} {{atk}}/{{ def }}/{{ sta }}",
-        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} \nMatched Areas:{{areas}} \n[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
+        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} \nMatched Areas:{{areas}} {{#pvpText}} \n{{pvpText}}{{/pvpText}} \n[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
         "thumbnail": {
           "url": "{{{imgurl}}}"
         }
@@ -47,7 +47,7 @@
       "embed": {
         "color": "{{ivcolor}}",
         "title": "#{{id}} {{name}} cp:{{cp}} L{{level}} {{atk}}/{{ def }}/{{ sta }}",
-        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} \nMatched Areas:{{areas}} \n[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
+        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} \nMatched Areas:{{areas}} {{#pvpText}} \n{{pvpText}}{{/pvpText}} \n[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
         "thumbnail": {
           "url": "{{{imgurl}}}"
         }
@@ -110,61 +110,7 @@
       }
     }
   },
-  "pvp": {
-    "1": {
-      "embed": {
-        "color": "{{ivcolor}}",
-        "author": {
-          "name": "#{{id}} {{name}} L{{level}} {{atk}}/{{ def }}/{{ sta }}, {{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}}",
-          "icon_url": "{{{imgurl}}}"
-        },
-        "description": "\nLeague: {{pvpLeague}}, Rank: {{pvpRank}}, {{pvpMonster}}\n  [Google Maps]sfkjahfkjadsh ({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
-      }
-    },
-    "2": {
-      "embed": {
-        "color": "{{ivcolor}}",
-        "title": "#{{id}} {{name}} L{{level}} {{atk}}/{{ def }}/{{ sta }}, {{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}}",
-        "thumbnail": {
-          "url": "{{{gif}}}"
-        },
-        "description": "\nLeague: {{pvpLeague}}, Rank: {{pvpRank}}, {{pvpMonster}}\n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
-      }
-    },
-    "3": {
-      "embed": {
-        "color": "{{ivcolor}}",
-        "title": "#{{id}} {{name}} cp:{{cp}} L{{level}} {{atk}}/{{ def }}/{{ sta }}",
-        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} \nLeague: {{pvpLeague}}, Rank: {{pvpRank}}, {{pvpMonster}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        },
-        "image": {
-          "url": "{{{staticmap}}}"
-        }
-      }
-    },
-    "4": {
-      "embed": {
-        "color": "{{ivcolor}}",
-        "title": "#{{id}} {{name}} cp:{{cp}} L{{level}} {{atk}}/{{ def }}/{{ sta }}",
-        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} \nLeague: {{pvpLeague}}, Rank: {{pvpRank}}, {{pvpMonster}} \nMatched Areas:{{areas}} \n[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        }
-      }
-    },
-    "5": {
-      "embed": {
-        "color": "{{ivcolor}}",
-        "title": "#{{id}} {{name}} cp:{{cp}} L{{level}} {{atk}}/{{ def }}/{{ sta }}",
-        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} \nLeague: {{pvpLeague}}, Rank: {{pvpRank}}, {{pvpMonster}} \nMatched Areas:{{areas}} \n[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "thumbnail": {
-            "url": "{{{imgurl}}}"
-        }
-      }
-    }
-  },
+  "pvp": "target: {{monster}}, league: {{league}}, rank: {{rank}}, max-level: {{level}}",
   "raid": {
     "1": {
       "embed": {
