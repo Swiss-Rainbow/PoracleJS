@@ -78,25 +78,25 @@ module.exports = (ctx) => {
 						monsters.push(parseInt(pid, 10))
 						if (family) monsters = monsters.concat(pvpData[pid].family)
 					}
-					else if (element.match(/league(1500|2500)/gi)) league = element.replace(/league/gi, '')
-					else if (element.match(/maxrank\d+/gi)) maxrank = Math.min(element.replace(/maxrank/gi, ''), 10)
-					else if (element.match(/template[1-5]/gi)) template = element.replace(/template/gi, '')
-					else if (element.match(/maxweight\d/gi)) maxweight = element.replace(/maxweight/gi, '')
-					else if (element.match(/female/gi)) gender = 2
-					else if (element.match(/male/gi)) gender = 1
-					else if (element.match(/genderless/gi)) gender = 3
-					else if (element.match(/weight\d/gi)) weight = element.replace(/weight/gi, '')
-					else if (element.match(/form\w/gi)) forms.push(element.replace(/form/gi, ''))
-					else if (element.match(/everything/gi)) monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
-					else if (element.match(/d\d/gi)) {
-						distance = element.replace(/d/gi, '')
+					else if (element.match(/^league(1500|2500)$/i)) league = element.replace(/league/i, '')
+					else if (element.match(/^maxrank\d+$/i)) maxrank = Math.min(element.replace(/maxrank/i, ''), 10)
+					else if (element.match(/^template[1-5]$/i)) template = element.replace(/template/i, '')
+					else if (element.match(/^maxweight\d+$/i)) maxweight = element.replace(/maxweight/i, '')
+					else if (element.match(/^female$/i)) gender = 2
+					else if (element.match(/^male$/i)) gender = 1
+					else if (element.match(/^genderless$/i)) gender = 3
+					else if (element.match(/^weight\d+$/i)) weight = element.replace(/weight/i, '')
+					else if (element.match(/^form\w+$/i)) forms.push(element.replace(/form/i, ''))
+					else if (element.match(/^everything$/i)) monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
+					else if (element.match(/^d\d+$/i)) {
+						distance = element.replace(/d/i, '')
 						if (distance.length >= 10) distance = distance.substr(0, 9)
 					}
-					else if (element.match(/gen[1-7]/gi)) {
-						gen = element.match(/gen\d/gi)[0].replace(/gen/gi, '')
+					else if (element.match(/^gen[1-7]$/i)) {
+						gen = element.replace(/gen/i, '')
 						monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1).filter((k) => k >= genData[gen].min && k <= genData[gen].max) // eslint-disable-line no-return-assign
 					}
-					else if (element.match(/t\d/gi)) time = Math.min(element.replace(/t/gi, ''), 59)
+					else if (element.match(/^t\d+$/i)) time = Math.min(element.replace(/t/i, ''), 59)
 					else {
 						let tid = _.findKey(gruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
 						tid = tid || _.findKey(defaultGruntTypes, (t) => t.type.toLowerCase() === element.toLowerCase())
