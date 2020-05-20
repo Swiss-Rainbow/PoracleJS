@@ -43,7 +43,7 @@ class Monster extends Controller {
 				areastring = areastring.concat(`or humans.area like '%"${area}"%' `)
 			})
 			const query = `
-			select humans.id, humans.name, monsters.template, monsters.max_cp, monsters.pvp_rank, monsters.pvp_id from monsters
+            select humans.id, humans.name, monsters.template from monsters
             join humans on humans.id = monsters.id
             where humans.enabled = 1 and
             pokemon_id=${data.pokemon_id} and
@@ -58,7 +58,7 @@ class Monster extends Controller {
             atk<=${data.individual_attack} and
             def<=${data.individual_defense} and
             sta<=${data.individual_stamina} and
-			maxAtk>=${data.individual_attack} and
+            maxAtk>=${data.individual_attack} and
             maxDef>=${data.individual_defense} and
             maxSta>=${data.individual_stamina} and
             min_weight<=${data.weight} * 1000 and
@@ -70,7 +70,7 @@ class Monster extends Controller {
               * sin( radians( humans.latitude ) ) ) < monsters.distance and monsters.distance != 0) or
                monsters.distance = 0 and (${areastring})) and
             (monsters.time<=${(data.tth.hours * 60) + data.tth.minutes} or monsters.time=0)   
-            group by humans.id, humans.name, monsters.template, monsters.max_cp, monsters.pvp_rank, monsters.pvp_id `
+            group by humans.id, humans.name, monsters.template`
 
 
 			log.log({ level: 'debug', message: 'monsterWhoCares query', event: 'sql:monsterWhoCares' })
@@ -216,96 +216,134 @@ class Monster extends Controller {
 						if (config.geocoding.staticProvider === 'poracle') {
 							data.staticmap = `${data.staticmap}?markers=${data.staticSprite}`
 						}
-						const jobs = []
-						whocares.forEach((cares) => {
-							const alarmId = this.uuid
-							log.log({
-								level: 'debug', message: `alarm ${alarmId} processing`, event: 'alarm:start', correlationId: data.correlationId, messageId: data.messageId, alarmId,
-							})
 
-							const caresCache = this.getDiscordCache(cares.id)
-							const view = _.extend(data, {
-								id: data.pokemon_id,
-								time: data.distime,
-								tthh: data.tth.hours,
-								tthm: data.tth.minutes,
-								tths: data.tth.seconds,
-								confirmedTime: data.disappear_time_verified,
-								name: data.name,
-								now: new Date(),
-								gendername: emojiData.gender && emojiData.gender[data.gender] ? emojiData.gender[data.gender] : genderData[data.gender],
-								move1: data.quick_move,
-								move2: data.charge_move,
-								move1emoji: data.move1emoji,
-								move2emoji: data.move2emoji,
-								level: Math.round(data.pokemon_level),
-								atk: data.individual_attack,
-								def: data.individual_defense,
-								sta: data.individual_stamina,
-								imgurl: data.imgurl,
-								pokemoji: emojiData.pokemon[data.pokemon_id],
-								areas: data.matched.map((area) => area.replace(/'/gi, '').replace(/ /gi, '-')).join(', '),
+						const query = `
+                        select max_cp, max_level, pvp_rank, pvp_id from monsters
+                        where pokemon_id=${data.pokemon_id} and
+                        min_iv<=${data.iv} and
+                        max_iv>=${data.iv} and
+                        min_cp<=${data.cp} and
+                        max_cp>=${data.cp} and
+                        (gender = ${data.gender} or gender = 0) and
+                        (form = ${data.form} or form = 0) and
+                        min_level<=${data.pokemon_level} and
+                        max_level>=${data.pokemon_level} and
+                        atk=${data.individual_attack} and
+                        def=${data.individual_defense} and
+                        sta=${data.individual_stamina} and
+                        pvp_rank > 0
+                        group by max_cp, max_level, pvp_rank, pvp_id
+                        order by max_cp, pvp_rank`
 
-								// pvp
-								pvpLeague: cares.max_cp,
-								pvpRank: cares.pvp_rank,
-								pvpMonster: monsterData[cares.pvp_id] && monsterData[cares.pvp_id].name ? monsterData[cares.pvp_id].name : 'errormon',
+						this.db.query(query)
+							.then((result) => {
 
-								// geocode stuff
-								lat: data.latitude.toString().substring(0, 8),
-								lon: data.longitude.toString().substring(0, 8),
-								addr: geoResult.addr,
-								streetNumber: geoResult.streetNumber,
-								streetName: geoResult.streetName,
-								zipcode: geoResult.zipcode,
-								country: geoResult.country,
-								countryCode: geoResult.countryCode,
-								city: geoResult.city,
-								state: geoResult.state,
-								stateCode: geoResult.stateCode,
-								flagemoji: geoResult.flag,
-								neighbourhood: geoResult.neighbourhood,
-							})
-
-							if (config.general.monsterPropsToEscape.length) {
-								for (const [key, value] of Object.entries(view)) {
-									if (_.includes(config.general.monsterPropsToEscape, key)) {
-										view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+								let pvpText = []
+								result[0].forEach((row) => {
+									const pvpView = {
+										league: row.max_cp,
+										level: row.max_level,
+										rank: row.pvp_rank,
+										monster: monsterData[row.pvp_id] && monsterData[row.pvp_id].name ? monsterData[row.pvp_id].name : 'errormon',
 									}
-								}
-							}
 
-							let monsterDts = this.mdts.monster[`${cares.template}`]
-							if (cares.pvp_rank) {
-								monsterDts = this.mdts.pvp[`${cares.template}`]
-							}
-							else if (data.iv === -1 && this.mdts.monsterNoIv) {
-								monsterDts = this.mdts.monsterNoIv[`${cares.template}`]
-							}
-							const template = JSON.stringify(monsterDts)
-							let message = mustache.render(template, view)
-							message = JSON.parse(message)
+									const pvpTemplate = JSON.stringify(this.mdts.pvp)
+									pvpText.push(JSON.parse(mustache.render(pvpTemplate, pvpView)))
+								})
 
-							const work = {
-								lat: data.latitude.toString().substring(0, 8),
-								lon: data.longitude.toString().substring(0, 8),
-								sticker: data.sticker,
-								message: caresCache === config.discord.limitamount + 1 ? { content: `You have reached the limit of ${config.discord.limitamount} messages over ${config.discord.limitsec} seconds` } : message,
-								target: cares.id,
-								name: cares.name,
-								emoji: caresCache === config.discord.limitamount + 1 ? [] : data.emoji,
-								meta: { correlationId: data.correlationId, messageId: data.messageId, alarmId },
-                                type: 'monster',
+								const jobs = []
+								whocares.forEach((cares) => {
+									const alarmId = this.uuid
+									log.log({
+										level: 'debug',
+										message: `alarm ${alarmId} processing`,
+										event: 'alarm:start',
+										correlationId: data.correlationId,
+										messageId: data.messageId,
+										alarmId,
+									})
 
-							}
-							if (caresCache <= config.discord.limitamount + 1) {
-								jobs.push(work)
-								this.addDiscordCache(cares.id)
-							}
+									const caresCache = this.getDiscordCache(cares.id)
+									const view = _.extend(data, {
+										id: data.pokemon_id,
+										time: data.distime,
+										tthh: data.tth.hours,
+										tthm: data.tth.minutes,
+										tths: data.tth.seconds,
+										confirmedTime: data.disappear_time_verified,
+										name: data.name,
+										now: new Date(),
+										gendername: emojiData.gender && emojiData.gender[data.gender] ? emojiData.gender[data.gender] : genderData[data.gender],
+										move1: data.quick_move,
+										move2: data.charge_move,
+										move1emoji: data.move1emoji,
+										move2emoji: data.move2emoji,
+										level: Math.round(data.pokemon_level),
+										atk: data.individual_attack,
+										def: data.individual_defense,
+										sta: data.individual_stamina,
+										imgurl: data.imgurl,
+										pokemoji: emojiData.pokemon[data.pokemon_id],
+										areas: data.matched.map((area) => area.replace(/'/gi, '').replace(/ /gi, '-')).join(', '),
 
-						})
-						resolve(jobs)
+										// pvp
+										pvpText: pvpText.join(' \\n'),
 
+										// geocode stuff
+										lat: data.latitude.toString().substring(0, 8),
+										lon: data.longitude.toString().substring(0, 8),
+										addr: geoResult.addr,
+										streetNumber: geoResult.streetNumber,
+										streetName: geoResult.streetName,
+										zipcode: geoResult.zipcode,
+										country: geoResult.country,
+										countryCode: geoResult.countryCode,
+										city: geoResult.city,
+										state: geoResult.state,
+										stateCode: geoResult.stateCode,
+										flagemoji: geoResult.flag,
+										neighbourhood: geoResult.neighbourhood,
+									})
+
+									if (config.general.monsterPropsToEscape.length) {
+										for (const [key, value] of Object.entries(view)) {
+											if (_.includes(config.general.monsterPropsToEscape, key)) {
+												view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+											}
+										}
+									}
+
+									const monsterDts = data.iv === -1 && this.mdts.monsterNoIv
+										? this.mdts.monsterNoIv[`${cares.template}`]
+										: this.mdts.monster[`${cares.template}`]
+									const template = JSON.stringify(monsterDts)
+									let message = mustache.render(template, view)
+									message = JSON.parse(message)
+
+									const work = {
+										lat: data.latitude.toString().substring(0, 8),
+										lon: data.longitude.toString().substring(0, 8),
+										sticker: data.sticker,
+										message: caresCache === config.discord.limitamount + 1 ? {content: `You have reached the limit of ${config.discord.limitamount} messages over ${config.discord.limitsec} seconds`} : message,
+										target: cares.id,
+										name: cares.name,
+										emoji: caresCache === config.discord.limitamount + 1 ? [] : data.emoji,
+										meta: {
+											correlationId: data.correlationId,
+											messageId: data.messageId,
+											alarmId
+										},
+										type: 'monster',
+
+									}
+									if (caresCache <= config.discord.limitamount + 1) {
+										jobs.push(work)
+										this.addDiscordCache(cares.id)
+									}
+
+								})
+								resolve(jobs)
+							})
 					}).catch((err) => {
 						log.log({ level: 'error', message: `getAddress errored with: ${err.message}`, event: 'fail:getAddress' })
 					})
