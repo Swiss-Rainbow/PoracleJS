@@ -3,27 +3,23 @@ const _ = require('lodash')
 module.exports = async (ctx) => {
 
 	const { controller, command } = ctx.state
-    if (ctx.update.channel_post) {
-        
-        ctx.update.message = ctx.update.channel_post;
-    }
-	const user = ctx.update.message.from
+	const user = ctx.update.message.from || ctx.update.message.chat
 	const targets = []
 	const mentions = []
-    const userids = []
+	const userids = []
 	const args = ctx.state.command.splitArgs
 	args.forEach((arg) => {
 		if (arg.startsWith('@')) {
 			mentions.push(arg.replace('@', ''))
 		}
-        else if (parseInt(arg, 10)) {
-            userids.push(arg)
-        }
+		else if (parseInt(arg, 10)) {
+			userids.push(arg)
+		}
 	})
 
 
 	if (_.includes(controller.config.telegram.admins, user.id.toString())) {
-        
+
 		let extraTargets = []
 		try {
 			if (mentions.length) extraTargets = await controller.query.selectAllInQuery('humans', 'name', mentions)
@@ -32,22 +28,22 @@ module.exports = async (ctx) => {
 			controller.log.error(`Failed to get menitoned users for telegram: ${err.message}`)
 			extraTargets = []
 		}
-        extraTargets.forEach((target) => {
+		extraTargets.forEach((target) => {
 			if (target.id.length < 15) targets.push({ id: target.id, name: target.name })
 		})
 
-        let moreExtraTargets = []
-        try {
+		let moreExtraTargets = []
+		try {
 			if (userids.length) moreExtraTargets = await controller.query.selectAllInQuery('humans', 'id', userids)
 		}
 		catch (err) {
 			controller.log.error(`Failed to get userided users for telegram: ${err.message}`)
 			moreExtraTargets = []
 		}
-        moreExtraTargets.forEach((target) => {
+		moreExtraTargets.forEach((target) => {
 			if (target.id.length < 15) targets.push({ id: target.id, name: target.name })
 		})
-		
+
 	}
 
 	if (!targets.length && mentions.length === 0 && userids.length === 0) targets.push({ id: user.id, name: user.first_name })

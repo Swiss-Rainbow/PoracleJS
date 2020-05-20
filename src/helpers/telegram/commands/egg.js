@@ -3,11 +3,7 @@ const _ = require('lodash')
 module.exports = (ctx) => {
 
 	const { controller, command } = ctx.state
-    if (ctx.update.channel_post) {
-        
-        ctx.update.message = ctx.update.channel_post;
-    }
-	const user = (ctx.update.message.from === undefined) ? ctx.update.message.chat : ctx.update.message.from
+	const user = ctx.update.message.from || ctx.update.message.chat
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
 	const args = command.splitArgs
 

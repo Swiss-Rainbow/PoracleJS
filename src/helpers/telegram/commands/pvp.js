@@ -28,7 +28,7 @@ const pvpData = require(`${__dirname}/../../../util/pvp_ranks`)
 module.exports = (ctx) => {
 
 	const { controller, command } = ctx.state
-	const user = ctx.update.message.from
+	const user = ctx.update.message.from || ctx.update.message.chat
 	const channelName = ctx.update.message.chat.title ? ctx.update.message.chat.title : ''
 	const args = command.splitArgs
 
