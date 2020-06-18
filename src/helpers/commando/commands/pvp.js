@@ -128,7 +128,7 @@ exports.run = (client, msg, args) => {
 									for (const formId in pvpData[pokemonId][league]) {
 										if (pvpData[pokemonId][league][formId]) {
 											const rankData = pvpData[pokemonId][league][formId][i]
-											const level = Math.ceil(rankData.level)
+											const level = Math.floor(rankData.level)
 											insertData.push(
 												[
 													target.id,
