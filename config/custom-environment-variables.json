@@ -65,6 +65,10 @@
     "language": "PORACLE_LANGUAGE"
   },
 
+  "weather": {
+    "apiKey": "WEATHER_APIKEY"
+  },
+
   "geocoding": {
     "provider": "GEO_PROVIDER",
     "staticProvider": "STATIC_PROVIDER",
