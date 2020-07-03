@@ -7,7 +7,10 @@ const NodeGeocoder = require('node-geocoder')
 const child = require('child_process')
 
 const ivColorData = config.discord.iv_colors
+const axios = require('axios')
 const emojiFlags = require('emoji-flags')
+const moment = require('moment')
+const S2 = require('s2-geometry').S2
 const uuid = require('uuid/v4')
 const Cache = require('ttl')
 const geofence = require('../../config/geofence.json')
@@ -31,6 +34,12 @@ discordcache.on('hit', (key, val) => { })
 const addrCache = pcache({
 	base: '.cache',
 	name: 'addrCache',
+	duration: 30 * 24 * 3600 * 1000, // 30 days is what google allows
+})
+
+const weatherCache = pcache({
+	base: '.cache',
+	name: 'weatherCache',
 	duration: 30 * 24 * 3600 * 1000, // 30 days is what google allows
 })
 
@@ -413,6 +422,119 @@ class Controller {
 					return
 				}
 				resolve(stdout.trim())
+			})
+		})
+	}
+
+	async getWeather(weatherObject) {
+		return new Promise((resolve) => {
+			const res = {
+				current: 0,
+				next: 0,
+			}
+			if (!config.weather.apiKey
+				|| moment().hour() >= moment(weatherObject.disappear * 1000).hour()
+			) {
+				resolve(res)
+				return
+			}
+
+			const key = S2.latLngToKey(weatherObject.lat, weatherObject.lon, 10)
+			const id = S2.keyToId(key)
+
+			weatherCache.get(id, (err, data) => {
+				if (err) {
+					log.error(err)
+					resolve(res)
+				}
+
+				(async () => {
+					const nextHourTimestamp = weatherObject.disappear - (weatherObject.disappear % 3600)
+					const currentHourTimestamp = nextHourTimestamp - 3600
+
+					// Weather must be refreshed at 3am, 11am and 19pm
+					const currentMoment = moment(currentHourTimestamp * 1000)
+					const currentHour = currentMoment.hour()
+					// Round to next greater multiple of 8; Add offset of 3 (hours); Subtract current hour
+					// eslint-disable-next-line no-bitwise
+					let nextUpdateInHours = (((currentHour + ((currentHour % 8) < 3 ? 0 : 7)) & -8) + 3) % 24
+					nextUpdateInHours = (nextUpdateInHours > currentHour ? nextUpdateInHours : 27) - currentHour
+
+					const internalCacheTimeout = currentMoment.add(nextUpdateInHours, 'hours').unix()
+
+					if (!data) {
+						data = {}
+						const latlng = S2.idToLatLng(id)
+						// Fetch location information
+						await axios.get(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${config.weather.apiKey}&q=${latlng.lat}%2C${latlng.lng}`)
+							.then((response) => {
+								data.key = response.data.Key
+							})
+							.catch((err) => {
+								log.error(`Fetching AccuWeather location errored with: ${err}`)
+								resolve(res)
+							})
+					}
+
+					if (!({}).hasOwnProperty.call(data, currentHourTimestamp)) {
+						// Nothing to say about current weather
+						data[currentHourTimestamp] = {
+							WeatherIcon: 0,
+						}
+					}
+
+					if (!({}).hasOwnProperty.call(data, nextHourTimestamp)
+						|| !({}).hasOwnProperty.call(data, 'internalCacheTimeout')
+						|| data.internalCacheTimeout <= currentHourTimestamp
+					) {
+						// Delete old weather information
+						Object.entries(data).forEach(([timestamp]) => {
+							if (timestamp < currentHourTimestamp) {
+								delete data[timestamp]
+							}
+						})
+						// Fetch new weather information
+						await axios.get(`https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${data.key}?apikey=${config.weather.apiKey}`)
+							.then((response) => {
+								Object.entries(response.data).forEach(([i, forecast]) => {
+									data[forecast.EpochDateTime] = forecast
+								})
+								data.internalCacheTimeout = internalCacheTimeout
+								weatherCache.put(id, data, (error, r) => {
+									if (error) log.error(`Error saving weather of ${id}: ${error}`)
+								})
+							})
+							.catch((err) => {
+								log.error(`Fetching AccuWeather forecast errored with: ${err}`)
+								resolve(res)
+							})
+					}
+
+					const mapPoGoWeather = (weatherIcon) => {
+						const mapping = {
+							1: [1, 2, 30, 33, 34],
+							2: [12, 15, 18, 26, 29],
+							3: [3, 4, 14, 17, 21, 35, 36, 39, 41],
+							4: [5, 6, 7, 8, 13, 16, 20, 23, 37, 38, 40, 42],
+							5: [32],
+							6: [19, 22, 24, 25, 31, 43, 44],
+							7: [11],
+						}
+
+						for (const [index, map] of Object.entries(mapping)) {
+							if (map.indexOf(weatherIcon) !== -1) {
+								return parseInt(index, 10)
+							}
+						}
+
+						return 0
+					}
+
+					resolve({
+						current: mapPoGoWeather(data[currentHourTimestamp].WeatherIcon),
+						next: mapPoGoWeather(data[nextHourTimestamp].WeatherIcon),
+					})
+				})()
 			})
 		})
 	}

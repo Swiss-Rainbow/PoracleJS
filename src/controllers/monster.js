@@ -217,133 +217,142 @@ class Monster extends Controller {
 							data.staticmap = `${data.staticmap}?markers=${data.staticSprite}`
 						}
 
-						const query = `
-                        select max_cp, max_level, pvp_rank, pvp_id from monsters
-                        where pokemon_id=${data.pokemon_id} and
-                        min_iv<=${data.iv} and
-                        max_iv>=${data.iv} and
-                        min_cp<=${data.cp} and
-                        max_cp>=${data.cp} and
-                        (gender = ${data.gender} or gender = 0) and
-                        (form = ${data.form} or form = 0) and
-                        min_level<=${data.pokemon_level} and
-                        max_level>=${data.pokemon_level} and
-                        atk=${data.individual_attack} and
-                        def=${data.individual_defense} and
-                        sta=${data.individual_stamina} and
-                        pvp_rank > 0
-                        group by max_cp, max_level, pvp_rank, pvp_id
-                        order by max_cp, pvp_rank`
+						this.getWeather({lat: data.latitude, lon: data.longitude, disappear: data.disappear_time}).then((weatherResult) => {
 
-						this.db.query(query)
-							.then((result) => {
+							if (weatherResult.current && weatherResult.next && weatherResult.current !== weatherResult.next) {
+								data.weatherchange = `${emojiData.weather[weatherResult.current]} 🔜 ${emojiData.weather[weatherResult.next]}`
+							}
 
-								let pvpText = []
-								result[0].forEach((row) => {
-									const pvpView = {
-										league: row.max_cp,
-										level: row.max_level,
-										rank: row.pvp_rank,
-										monster: monsterData[row.pvp_id] && monsterData[row.pvp_id].name ? monsterData[row.pvp_id].name : 'errormon',
-									}
+							const query = `
+                            select max_cp, max_level, pvp_rank, pvp_id from monsters
+                            where pokemon_id=${data.pokemon_id} and
+                            min_iv<=${data.iv} and
+                            max_iv>=${data.iv} and
+                            min_cp<=${data.cp} and
+                            max_cp>=${data.cp} and
+                            (gender = ${data.gender} or gender = 0) and
+                            (form = ${data.form} or form = 0) and
+                            min_level<=${data.pokemon_level} and
+                            max_level>=${data.pokemon_level} and
+                            atk=${data.individual_attack} and
+                            def=${data.individual_defense} and
+                            sta=${data.individual_stamina} and
+                            pvp_rank > 0
+                            group by max_cp, max_level, pvp_rank, pvp_id
+                            order by max_cp, pvp_rank`;
 
-									const pvpTemplate = JSON.stringify(this.mdts.pvp)
-									pvpText.push(JSON.parse(mustache.render(pvpTemplate, pvpView)))
-								})
+							this.db.query(query)
+								.then((result) => {
 
-								const jobs = []
-								whocares.forEach((cares) => {
-									const alarmId = this.uuid
-									log.log({
-										level: 'debug',
-										message: `alarm ${alarmId} processing`,
-										event: 'alarm:start',
-										correlationId: data.correlationId,
-										messageId: data.messageId,
-										alarmId,
-									})
-
-									const caresCache = this.getDiscordCache(cares.id)
-									const view = _.extend(data, {
-										id: data.pokemon_id,
-										time: data.distime,
-										tthh: data.tth.hours,
-										tthm: data.tth.minutes,
-										tths: data.tth.seconds,
-										confirmedTime: data.disappear_time_verified,
-										name: data.name,
-										now: new Date(),
-										gendername: emojiData.gender && emojiData.gender[data.gender] ? emojiData.gender[data.gender] : genderData[data.gender],
-										move1: data.quick_move,
-										move2: data.charge_move,
-										move1emoji: data.move1emoji,
-										move2emoji: data.move2emoji,
-										level: Math.round(data.pokemon_level),
-										atk: data.individual_attack,
-										def: data.individual_defense,
-										sta: data.individual_stamina,
-										imgurl: data.imgurl,
-										pokemoji: emojiData.pokemon[data.pokemon_id],
-										areas: data.matched.map((area) => area.replace(/'/gi, '').replace(/ /gi, '-')).join(', '),
-
-										// pvp
-										pvpText: pvpText.join(' \\n'),
-
-										// geocode stuff
-										lat: data.latitude.toString().substring(0, 8),
-										lon: data.longitude.toString().substring(0, 8),
-										addr: geoResult.addr,
-										streetNumber: geoResult.streetNumber,
-										streetName: geoResult.streetName,
-										zipcode: geoResult.zipcode,
-										country: geoResult.country,
-										countryCode: geoResult.countryCode,
-										city: geoResult.city,
-										state: geoResult.state,
-										stateCode: geoResult.stateCode,
-										flagemoji: geoResult.flag,
-										neighbourhood: geoResult.neighbourhood,
-									})
-
-									if (config.general.monsterPropsToEscape.length) {
-										for (const [key, value] of Object.entries(view)) {
-											if (_.includes(config.general.monsterPropsToEscape, key)) {
-												view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
-											}
+									let pvpText = []
+									result[0].forEach((row) => {
+										const pvpView = {
+											league: row.max_cp,
+											level: row.max_level,
+											rank: row.pvp_rank,
+											monster: monsterData[row.pvp_id] && monsterData[row.pvp_id].name ? monsterData[row.pvp_id].name : 'errormon',
 										}
-									}
 
-									const monsterDts = data.iv === -1 && this.mdts.monsterNoIv
-										? this.mdts.monsterNoIv[`${cares.template}`]
-										: this.mdts.monster[`${cares.template}`]
-									const template = JSON.stringify(monsterDts)
-									let message = mustache.render(template, view)
-									message = JSON.parse(message)
+										const pvpTemplate = JSON.stringify(this.mdts.pvp)
+										pvpText.push(JSON.parse(mustache.render(pvpTemplate, pvpView)))
+									})
 
-									const work = {
-										lat: data.latitude.toString().substring(0, 8),
-										lon: data.longitude.toString().substring(0, 8),
-										sticker: data.sticker,
-										message: caresCache === config.discord.limitamount + 1 ? {content: `You have reached the limit of ${config.discord.limitamount} messages over ${config.discord.limitsec} seconds`} : message,
-										target: cares.id,
-										name: cares.name,
-										emoji: caresCache === config.discord.limitamount + 1 ? [] : data.emoji,
-										meta: {
+									const jobs = []
+									whocares.forEach((cares) => {
+										const alarmId = this.uuid
+										log.log({
+											level: 'debug',
+											message: `alarm ${alarmId} processing`,
+											event: 'alarm:start',
 											correlationId: data.correlationId,
 											messageId: data.messageId,
-											alarmId
-										},
-										type: 'monster',
+											alarmId,
+										})
 
-									}
-									if (caresCache <= config.discord.limitamount + 1) {
-										jobs.push(work)
-										this.addDiscordCache(cares.id)
-									}
+										const caresCache = this.getDiscordCache(cares.id)
+										const view = _.extend(data, {
+											id: data.pokemon_id,
+											time: data.distime,
+											tthh: data.tth.hours,
+											tthm: data.tth.minutes,
+											tths: data.tth.seconds,
+											confirmedTime: data.disappear_time_verified,
+											name: data.name,
+											now: new Date(),
+											gendername: emojiData.gender && emojiData.gender[data.gender] ? emojiData.gender[data.gender] : genderData[data.gender],
+											move1: data.quick_move,
+											move2: data.charge_move,
+											move1emoji: data.move1emoji,
+											move2emoji: data.move2emoji,
+											level: Math.round(data.pokemon_level),
+											atk: data.individual_attack,
+											def: data.individual_defense,
+											sta: data.individual_stamina,
+											imgurl: data.imgurl,
+											pokemoji: emojiData.pokemon[data.pokemon_id],
+											areas: data.matched.map((area) => area.replace(/'/gi, '').replace(/ /gi, '-')).join(', '),
 
+											// pvp
+											pvpText: pvpText.join(' \\n'),
+
+											// geocode stuff
+											lat: data.latitude.toString().substring(0, 8),
+											lon: data.longitude.toString().substring(0, 8),
+											addr: geoResult.addr,
+											streetNumber: geoResult.streetNumber,
+											streetName: geoResult.streetName,
+											zipcode: geoResult.zipcode,
+											country: geoResult.country,
+											countryCode: geoResult.countryCode,
+											city: geoResult.city,
+											state: geoResult.state,
+											stateCode: geoResult.stateCode,
+											flagemoji: geoResult.flag,
+											neighbourhood: geoResult.neighbourhood,
+										})
+
+										if (config.general.monsterPropsToEscape.length) {
+											for (const [key, value] of Object.entries(view)) {
+												if (_.includes(config.general.monsterPropsToEscape, key)) {
+													if (typeof value === 'string') {
+														view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+													}
+												}
+											}
+										}
+
+										const monsterDts = data.iv === -1 && this.mdts.monsterNoIv
+											? this.mdts.monsterNoIv[`${cares.template}`]
+											: this.mdts.monster[`${cares.template}`]
+										const template = JSON.stringify(monsterDts)
+										let message = mustache.render(template, view)
+										message = JSON.parse(message)
+
+										const work = {
+											lat: data.latitude.toString().substring(0, 8),
+											lon: data.longitude.toString().substring(0, 8),
+											sticker: data.sticker,
+											message: caresCache === config.discord.limitamount + 1 ? {content: `You have reached the limit of ${config.discord.limitamount} messages over ${config.discord.limitsec} seconds`} : message,
+											target: cares.id,
+											name: cares.name,
+											emoji: caresCache === config.discord.limitamount + 1 ? [] : data.emoji,
+											meta: {
+												correlationId: data.correlationId,
+												messageId: data.messageId,
+												alarmId
+											},
+											type: 'monster',
+
+										}
+										if (caresCache <= config.discord.limitamount + 1) {
+											jobs.push(work)
+											this.addDiscordCache(cares.id)
+										}
+
+									})
+									resolve(jobs)
 								})
-								resolve(jobs)
-							})
+						})
 					}).catch((err) => {
 						log.log({ level: 'error', message: `getAddress errored with: ${err.message}`, event: 'fail:getAddress' })
 					})
