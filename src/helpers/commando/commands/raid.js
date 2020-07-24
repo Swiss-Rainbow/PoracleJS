@@ -96,7 +96,7 @@ exports.run = (client, msg, args) => {
 					else if (element === 'mystic') team = 1
 					else if (element === 'harmony') team = 0
 					else if (element === 'remove') remove = true
-					else if (element.match(/^form\w+$/i)) forms.push(element.replace(/form/i, ''))
+					else if (element.match(/^form[\w-]+$/i)) forms.push(element.replace(/form/i, ''))
 					else if (element === 'everything') levels = [1, 2, 3, 4, 5]
 					else if (element.match(/^d\d+$/i)) {
 						distance = element.replace(/d/i, '')
