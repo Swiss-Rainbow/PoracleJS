@@ -306,14 +306,6 @@ class Monster extends Controller {
 										neighbourhood: geoResult.neighbourhood,
 									})
 
-									log.log({
-										level: 'debug',
-										message: `${geoResult.addr}`,
-										event: 'alarm:start',
-										correlationId: data.correlationId,
-										messageId: data.messageId,
-										alarmId,
-									})	
 									//if (config.general.monsterPropsToEscape.length) {
 									//	for (const [key, value] of Object.entries(view)) {
 									//		if (_.includes(config.general.monsterPropsToEscape, key)) {

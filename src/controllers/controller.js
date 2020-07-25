@@ -93,7 +93,7 @@ class Controller {
 					.catch((err) => {
 						reject(log.error(`Geolocate failed with error: ${err}`))
 					})
-			}else if(isString === false){
+			}else{
 				const result = [{latitude: split[0], longitude: split[1]}]
 				resolve(result)
 				log.log({ level: 'debug', message: `geolocate ${locationString}`, event: 'geo:geolocate' })
