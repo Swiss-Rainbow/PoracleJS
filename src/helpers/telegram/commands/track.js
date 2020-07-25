@@ -99,7 +99,7 @@ module.exports = (ctx) => {
 					else if (element === 'male') gender = 1
 					else if (element === 'genderless') gender = 3
 					else if (element.match(/^weight\d+$/i)) weight = element.replace(/weight/i, '')
-					else if (element.match(/^form\w+$/i)) forms.push(element.replace(/form/i, ''))
+					else if (element.match(/^form[\w-]+$/i)) forms.push(element.replace(/form/i, ''))
 					else if (element === 'everything') monsters = [...Array(config.general.max_pokemon).keys()].map((x) => x += 1) // eslint-disable-line no-return-assign
 					else if (element.match(/^d\d+$/i)) {
 						distance = element.replace(/d/i, '')
