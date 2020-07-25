@@ -82,14 +82,23 @@ class Controller {
 
 	async geolocate(locationString) {
 		return new Promise((resolve, reject) => {
-			this.getGeocoder().geocode(locationString)
-				.then((result) => {
-					resolve(result)
-					log.log({ level: 'debug', message: `geolocate ${locationString}`, event: 'geo:geolocate' })
-				})
-				.catch((err) => {
-					reject(log.error(`Geolocate failed with error: ${err}`))
-				})
+			const split = locationString.split(/[\s,]+/)
+			const isString = split.every(i => (isNaN(i)))
+			if(isString === true){	
+				this.getGeocoder().geocode(locationString)
+					.then((result) => {
+						resolve(result)
+						log.log({ level: 'debug', message: `geolocate ${locationString}`, event: 'geo:geolocate' })
+					})
+					.catch((err) => {
+						reject(log.error(`Geolocate failed with error: ${err}`))
+					})
+			}else if(isString === false){
+				const result = [{latitude: split[0], longitude: split[1]}]
+				resolve(result)
+				log.log({ level: 'debug', message: `geolocate ${locationString}`, event: 'geo:geolocate' })
+			}
+
 		})
 	}
 
