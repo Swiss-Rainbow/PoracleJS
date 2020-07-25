@@ -154,7 +154,7 @@ class Quest extends Controller {
 						if (config.geocoding.staticProvider === 'poracle') {
 							data.staticmap = `${data.staticmap}?markers=${data.staticSprite}`
 						}
-
+						const geoResult = {}
 						const view = _.extend(data, {
 							now: new Date(),
 							questType: data.questType,
@@ -189,13 +189,13 @@ class Quest extends Controller {
 
 						})
 
-						if (config.general.questPropsToEscape.length) {
-							for (const [key, value] of Object.entries(view)) {
-								if (_.includes(config.general.questPropsToEscape, key)) {
-									view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
-								}
-							}
-						}
+						//if (config.general.questPropsToEscape.length) {
+						//	for (const [key, value] of Object.entries(view)) {
+						//		if (_.includes(config.general.questPropsToEscape, key)) {
+						//			view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+						//		}
+						//	}
+						//}
 
 						whoCares.forEach((cares) => {
 							const alarmId = this.uuid
