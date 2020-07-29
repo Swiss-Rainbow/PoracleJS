@@ -264,7 +264,7 @@ class Monster extends Controller {
 									})
 
 									const caresCache = this.getDiscordCache(cares.id)
-									const geoResult = {}
+									var geoResult = {}
 									const view = _.extend(data, {
 										id: data.pokemon_id,
 										time: data.distime,
