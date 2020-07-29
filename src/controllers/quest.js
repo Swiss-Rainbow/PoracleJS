@@ -154,7 +154,7 @@ class Quest extends Controller {
 						if (config.geocoding.staticProvider === 'poracle') {
 							data.staticmap = `${data.staticmap}?markers=${data.staticSprite}`
 						}
-						const geoResult = {}
+						var geoResult = {}
 						const view = _.extend(data, {
 							now: new Date(),
 							questType: data.questType,

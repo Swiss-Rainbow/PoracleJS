@@ -230,7 +230,7 @@ class Incident extends Controller {
 									level: 'debug', message: `alarm ${alarmId} processing`, event: 'alarm:start', correlationId: data.correlationId, messageId: data.messageId, alarmId,
 								})
 								const caresCache = _.cloneDeep(this.getDiscordCache(cares.id))
-								const geoResult = {}
+								var geoResult = {}
 								const view = _.extend(data, {
 									id: data.pokestop_id,
 									time: data.distime,
