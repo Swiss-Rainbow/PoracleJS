@@ -270,7 +270,6 @@ class Monster extends Controller {
 										})
 
 										const caresCache = this.getDiscordCache(cares.id)
-										var geoResult = {}
 										const view = _.extend(data, {
 											id: data.pokemon_id,
 											time: data.distime,
@@ -312,15 +311,15 @@ class Monster extends Controller {
 											neighbourhood: geoResult.neighbourhood,
 										})
 
-										// if (config.general.monsterPropsToEscape.length) {
-										// 	for (const [key, value] of Object.entries(view)) {
-										// 		if (_.includes(config.general.monsterPropsToEscape, key)) {
-										// 			if (typeof value === 'string') {
-										// 				view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
-										// 			}
-										// 		}
-										// 	}
-										// }
+										if (config.general.monsterPropsToEscape.length) {
+											for (const [key, value] of Object.entries(view)) {
+												if (_.includes(config.general.monsterPropsToEscape, key)) {
+													if (typeof value === 'string') {
+														view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+													}
+												}
+											}
+										}
 
 										const monsterDts = data.iv === -1 && this.mdts.monsterNoIv
 											? this.mdts.monsterNoIv[`${cares.template}`]

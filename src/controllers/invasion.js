@@ -230,7 +230,6 @@ class Incident extends Controller {
 									level: 'debug', message: `alarm ${alarmId} processing`, event: 'alarm:start', correlationId: data.correlationId, messageId: data.messageId, alarmId,
 								})
 								const caresCache = _.cloneDeep(this.getDiscordCache(cares.id))
-								var geoResult = {}
 								const view = _.extend(data, {
 									id: data.pokestop_id,
 									time: data.distime,
@@ -260,13 +259,13 @@ class Incident extends Controller {
 									areas: data.matched.map((area) => area.replace(/'/gi, '').replace(/ /gi, '-')).join(', '),
 								})
 
-								//if (config.general.invasionPropsToEscape.length) {
-								//	for (const [key, value] of Object.entries(view)) {
-								//		if (_.includes(config.general.invasionPropsToEscape, key)) {
-								//			view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
-								//		}
-								//	}
-								//}
+								if (config.general.invasionPropsToEscape.length) {
+									for (const [key, value] of Object.entries(view)) {
+										if (_.includes(config.general.invasionPropsToEscape, key)) {
+											view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+										}
+									}
+								}
 
 								const template = JSON.stringify(dts.incident[`${cares.template}`])
 								let message = mustache.render(template, view)
