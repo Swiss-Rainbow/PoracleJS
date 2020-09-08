@@ -64,6 +64,8 @@ module.exports = (ctx) => {
 				const rawArgs = command.args
 				let minDust = 10000000
 				let stardustTracking = 9999999
+				let minEnergy = 10000000
+				let energyTracking = 9999999
 
 				for (const element of args) {
 					let pid = (element.match(/^\d+$/) && _.has(monsterData, element))
@@ -83,6 +85,11 @@ module.exports = (ctx) => {
 					else if (element === 'stardust') {
 						minDust = 1
 						stardustTracking = -1
+					}
+					else if (element.match(/^energy\d+$/i)) minEnergy = element.replace(/energy/i, '')
+					else if (element === 'energy') {
+						minEnergy = 1
+						energyTracking = -1
 					}
 					else if (element === 'shiny') mustShiny = 1
 					else if (element === 'remove') remove = true
@@ -117,6 +124,16 @@ module.exports = (ctx) => {
 						template,
 						mustShiny: 0,
 						reward_type: 3,
+						distance,
+					})
+				}
+				if (rawArgs.match(/^energy\d+$/i)) {
+					questTracks.push({
+						id: target.id,
+						reward: minEnergy,
+						template,
+						mustShiny: 0,
+						reward_type: 12,
 						distance,
 					})
 				}
@@ -158,7 +175,7 @@ module.exports = (ctx) => {
 					monsters.push(0)
 					const remQuery = `
 						delete from quest WHERE id=${target.id} and 
-						((reward_type = 2 and reward in(${items})) or (reward_type = 7 and reward in(${monsters})) or (reward_type = 3 and reward > ${stardustTracking}))		
+						((reward_type = 2 and reward in(${items})) or (reward_type = 7 and reward in(${monsters})) or (reward_type = 3 and reward > ${stardustTracking}) or (reward_type = 12 and reward > ${energyTracking}))		
 						`
 					controller.query.mysteryQuery(remQuery).then(() => {
 						controller.log.log({ level: 'debug', message: `${user.first_name} removed quest trackings for ${target.name}`, event: 'discord:questRemove' })
