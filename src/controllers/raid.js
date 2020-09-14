@@ -261,7 +261,9 @@ class Raid extends Controller {
 											if (config.general.raidPropsToEscape.length) {
 												for (const [key, value] of Object.entries(view)) {
 													if (_.includes(config.general.raidPropsToEscape, key)) {
-														view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+														if (typeof value === 'string') {
+															view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+														}
 													}
 												}
 											}

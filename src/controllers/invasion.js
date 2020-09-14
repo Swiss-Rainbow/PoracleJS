@@ -262,7 +262,9 @@ class Incident extends Controller {
 								if (config.general.invasionPropsToEscape.length) {
 									for (const [key, value] of Object.entries(view)) {
 										if (_.includes(config.general.invasionPropsToEscape, key)) {
-											view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+											if (typeof value === 'string') {
+												view[key] = value.replace(/[*_`[]/g, (match) => `\\\\${match}`)
+											}
 										}
 									}
 								}
