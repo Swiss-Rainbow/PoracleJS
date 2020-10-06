@@ -121,10 +121,9 @@ class CheckCommand extends Command
             $user = $bot->getChatMember($this->channel, $human['id']);
             return $user instanceof ChatMember && in_array($user->getStatus(), $this->allowedStatus, true);
         } catch (HttpException $exception) {
-            // Intentional fallthrough
+            // An error occurred. Maybe Telegram isn't available. Better don't change anything
+            return true;
         }
-
-        return false;
     }
 
     private function allowHumanByType(BotApi $bot, array $human): bool
