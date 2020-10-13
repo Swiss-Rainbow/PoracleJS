@@ -159,7 +159,8 @@ exports.run = (client, msg) => {
 								})
 							})
 							.catch((err) => {
-								const filepath = `${__dirname}/../../../../.cache/${human.name}.txt`
+								const filename = human.name.replace(/\W/g, '')
+								const filepath = `${__dirname}/../../../../.cache/${filename}.txt`
 								fs.writeFileSync(filepath, message)
 								msg.reply(`${target.name} tracking list is long, but Hastebin is also down. ☹️ \nTracking list made into a file:`, { files: [filepath] }).catch((O_o) => {
 									client.log.error(O_o.message)

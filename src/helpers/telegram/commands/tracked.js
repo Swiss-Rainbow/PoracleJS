@@ -149,7 +149,8 @@ module.exports = (ctx) => {
 //								})
 //							})
 //							.catch((err) => {
-								const filepath = `${__dirname}/../../../../.cache/${human.name}.txt`
+								const filename = human.name.replace(/\W/g, '')
+								const filepath = `${__dirname}/../../../../.cache/${filename}.txt`
 								fs.writeFileSync(filepath, message)
 //								ctx.reply(`${target.name} tracking list is long, but Hastebin is also down. ☹️ \nTracking list made into a file:`).catch((O_o) => {
 //									controller.log.error(O_o.message)
