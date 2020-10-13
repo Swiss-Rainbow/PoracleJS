@@ -122,7 +122,7 @@ exports.run = (client, msg) => {
 						items.push(key)
 					})
 				}
-				if (rawArgs.match(/^stardust\d+$/i)) {
+				if (rawArgs.match(/(^| )stardust\d+$/i)) {
 					questTracks.push({
 						id: target.id,
 						reward: minDust,
@@ -132,7 +132,7 @@ exports.run = (client, msg) => {
 						distance,
 					})
 				}
-				if (rawArgs.match(/^energy\d+$/i)) {
+				if (rawArgs.match(/(^| )energy\d+$/i)) {
 					questTracks.push({
 						id: target.id,
 						reward: minEnergy,
