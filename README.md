@@ -1,26 +1,18 @@
-![logo](https://raw.githubusercontent.com/KartulUdus/PoracleJS/master/docs/_assets/PoracleJS.png)  
+![logo](https://raw.githubusercontent.com/BoxService/PoracleJS/master/docs/_assets/PoracleJS.png)  
 
-[![Build Status](https://travis-ci.org/KartulUdus/PoracleJS.svg?branch=master)](https://travis-ci.org/KartulUdus/PoracleJS)
+## Introduction
 
-#### Introduction
+This is a forked version of [PoracleJS](https://github.com/KartulUdus/PoracleJS) which has some improvements:
 
-PoracleJS is a NodeJS application for Discord and Telegram pokemon alarms. It currently supports wild spawns, raids and quests.  
-It allows for high end-user configurability using discord `!commands` or telegram `/commands` and private message or channel alarms.  
+- PVP support with poracle based stat calculation (no pvp webhook needed)
+- An alarm when the weather of a mon is changing 
+- Better telegram support in general (different chat types, convenient access control)
+- Rounded IV numbers
+- Mega energy quests and raids
+- Ignore reverse geocoding errors
+- Many minor things to improve stability and usability
 
-#### Links
+## Links
 
-- [WIKI](https://kartuludus.github.io/PoracleJS/#/) - Useful for words of wizdom!  
+- [WIKI](hhttps://muckelba.github.io/poracleWiki/) - Useful for words of wizdom!  
 - [Discord](https://discord.gg/AathPCp) - Place for #help and #announcments  
-
-### Install
-- [Install NodeJS](https://nodejs.org/en/) version 8 or higher
-- [Create a discord bot and invite it to your server](https://kartuludus.github.io/PoracleJS/#/discordbot)
-- [Install a mysql database](https://kartuludus.github.io/PoracleJS/#/mysql)
-```bash
-git clone https://github.com/KartulUdus/PoracleJS.git   // Clone the repository
-cd PoracleJS                                            // Navigate to the root of the project
-npm install                                             // install dependencies
-cp .env.example .env && vim .env                        // Edit the config file (.env) and fill out Database and Discord bot
-npm start                                               // Start the application
-
-```

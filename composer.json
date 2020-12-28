@@ -1,5 +1,5 @@
 {
-    "name": "florianbecker/poraclejs",
+    "name": "boxservice/poraclejs",
     "require": {
         "ext-json": "*",
         "doctrine/dbal": "^2.10",
