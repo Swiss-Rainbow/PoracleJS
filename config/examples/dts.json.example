@@ -1,423 +1,78 @@
 {
   "monster": {
-    "1": {
-      "embed": {
-        "color": "{{ivcolor}}",
-        "author": {
-          "name": "#{{id}} {{name}} L{{level}} {{atk}}/{{ def }}/{{ sta }}, {{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}}",
-          "icon_url": "{{{imgurl}}}"
-        },
-        "description": "{{#pvpText}} \n{{pvpText}}{{/pvpText}} \n  [Google Maps]sfkjahfkjadsh ({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
-      }
-    },
-    "2": {
-      "embed": {
-        "color": "{{ivcolor}}",
-        "title": "#{{id}} {{name}} L{{level}} {{atk}}/{{ def }}/{{ sta }}, {{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}}",
-        "thumbnail": {
-          "url": "{{{gif}}}"
-        },
-        "description": "{{#pvpText}} \n{{pvpText}}{{/pvpText}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
-      }
-    },
     "3": {
       "embed": {
-        "color": "{{ivcolor}}",
-        "title": "#{{id}} {{name}} cp:{{cp}} L{{level}} {{atk}}/{{ def }}/{{ sta }}",
-        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} {{#pvpText}} \n{{pvpText}}{{/pvpText}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        },
-        "image":{
-          "url": "{{{staticmap}}}"
-        }
-      }
-    },
-    "4": {
-      "embed": {
-        "color": "{{ivcolor}}",
-        "title": "#{{id}} {{name}} cp:{{cp}} L{{level}} {{atk}}/{{ def }}/{{ sta }}",
-        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} \nMatched Areas:{{areas}} {{#pvpText}} \n{{pvpText}}{{/pvpText}} \n[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        }
-      }
-    },
-    "5": {
-      "embed": {
-        "color": "{{ivcolor}}",
-        "title": "#{{id}} {{name}} cp:{{cp}} L{{level}} {{atk}}/{{ def }}/{{ sta }}",
-        "description": "IV:{{iv}}%. end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n quick: {{move1}}, charge {{move2}} \nMatched Areas:{{areas}} {{#pvpText}} \n{{pvpText}}{{/pvpText}} \n[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        }
+        "title": "***{{iv}}%*** {{name}} {{#formname}}({{formname}}){{/formname}}\nCP: {{cp}}, LVL: {{level}}, {{gendername}}\n{{atk}}/{{def}}/{{sta}}\n{{move1}}/{{move2}}\n\n{{tthm}}m {{tths}}s left ({{time}}) {{#verified}}✅{{/verified}}{{^verified}}❌{{/verified}}\nWeather:{{#boostemoji}} {{boostemoji}} boosted{{/boostemoji}}{{^boostemoji}} No Boost {{/boostemoji}}{{#weatherchange}}\n❗Weatherchange: {{weatherchange}}{{/weatherchange}}"
       }
     }
   },
   "monsterNoIv": {
-    "1": {
-      "embed": {
-        "color": "{{color}}",
-        "author": {
-          "name":"#{{id}} {{name}} end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}}",
-          "icon_url": "{{{imgurl}}}"
-        },
-        "description": "\n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
-      }
-    },
-    "2": {
-      "embed": {
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{gif}}}"
-        },
-        "description":"#{{id}} {{name}} end: {{time}}, time left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
-      }
-    },
     "3": {
       "embed": {
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        },
-        "image":{
-          "url": "{{{staticmap}}}"
-        },
-        "description":"#{{id}} {{name}} end: {{time}}, \ntime left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
-
-      }
-    },
-    "4": {
-      "embed": {
-        "title":"#{{id}} {{name}}",
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        },
-        "description":"#{{id}} {{name}} end: {{time}}, \ntime left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
-
-      }
-    },
-    "5": {
-      "embed": {
-        "title":"#{{id}} {{name}}",
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        },
-        "description":"#{{id}} {{name}} end: {{time}}, \ntime left: {{tthm}}m {{tths}}s {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})"
-
+        "title": "{{name}} {{#formname}}({{formname}}){{/formname}}\n{{tthm}}m {{tths}}s left ({{time}}) {{#verified}}✅{{/verified}}{{^verified}}❌{{/verified}}\nWeather:{{#boostemoji}} {{boostemoji}} boosted{{/boostemoji}}{{^boostemoji}} No Boost {{/boostemoji}}{{#weatherchange}}\n❗Weatherchange: {{weatherchange}}{{/weatherchange}}"
       }
     }
   },
   "pvp": "target: {{monster}}, league: {{league}}, rank: {{rank}}, max-level: {{level}}",
   "raid": {
-    "1": {
-      "embed": {
-        "color": "{{color}}",
-        "author": {
-          "name": "R{{level}} {{name}} {{flagemoji}} {{lat}}, {{lon}} end: {{time}}, {{tthm}}m {{tths}}s",
-          "url": "{{{mapurl}}}",
-          "icon_url": "{{{imgurl}}}"
-        }
-      }
-    },
-    "2": {
-      "embed": {
-        "title": "{{gymname}}: {{ex}}, \n {{countryCode}} {{flagemoji}} {{addr}} {{lat}}, {{lon}} )",
-        "description": "[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{detailsurl}}}"
-        },
-        "author": {
-          "name": "{{name}} lvl{{level}} end: {{time}}, {{tthm}}m {{tths}}s",
-          "url": "{{{mapurl}}}",
-          "icon_url": "{{{gif}}}"
-        }
-      }
-    },
     "3": {
       "embed": {
-        "title": "Raid against {{name}}  has started! at {{gymname}}",
-        "description": " {{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        },
-        "image":{
-          "url": "{{{staticmap}}}"
-        },
-        "author": {
-          "name": "{{name}} lvl{{level}} end: {{time}}, {{tthm}}m {{tths}}s",
-          "icon_url": "{{{detailsurl}}}"
-        }
-      }
-    },
-    "4": {
-      "embed": {
-        "title": "Raid has started! at {{gymname}} {{flagemoji}} {{addr}}",
-        "description": "Quick Move {{move1}} Charge Move: {{move2}} \nunboosted target Cp: {{mincp20}} - {{cp20}} \nBoosted CP target {{mincp25}} - {{cp25}} \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        },
-        "author": {
-          "name": "{{name}} lvl{{level}} end: {{time}}, {{tthm}}m {{tths}}s",
-          "icon_url": "{{{detailsurl}}}"
-        }
-      }
-    },
-    "5": {
-      "embed": {
-        "title": "Raid level {{level}} has started! at {{gymname}} {{flagemoji}} {{addr}} \n {{areas}}",
-        "description": "{{name}} will end at {{time}}, you have {{tthm}}m {{tths}}s left \nQuick: {{move1}} Charge: {{move2}} \nunboosted target Cp: {{mincp20}} - {{cp20}} \nBoosted CP target {{mincp25}} - {{cp25}}  \n{{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{detailsurl}}}"
-        },
-        "image": {
-          "url": "{{{imgurl}}}"
-        }
+        "title": "Gym: ***{{{gymname}}}***{{#is_ex_raid_eligible}} (EX){{/is_ex_raid_eligible}}\nRaid-boss: ***{{#evolution}}{{evolutionname}} {{/evolution}}{{name}}***\nRaid end: {{time}}\nUntil {{#tthh}}{{tthh}}h{{/tthh}} {{tthm}}m {{tths}}s \nMoveset: {{move1}} / {{move2}}"
       }
     }
   },
   "egg": {
-    "1": {
-      "embed": {
-        "color": "{{color}}",
-        "author": {
-          "name": "R{{level}} {{flagemoji}} {{lat}}, {{lon}} hatch: {{time}}, {{tthm}}m {{tths}}s",
-          "url": "{{{mapurl}}}",
-          "icon_url": "{{{imgurl}}}"
-        }
-      }
-    },
-    "2": {
-      "embed": {
-        "title": "{{gymname}}: {{ex}}, \n {{countryCode}} {{flagemoji}} {{addr}} {{lat}}, {{lon}} )",
-        "description": "[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{detailsurl}}}"
-        },
-        "author": {
-          "name": "lvl{{level}} hatch: {{time}} in {{tthm}}m {{tths}}s",
-          "icon_url": "{{{imgurl}}}"
-        }
-      }
-    },
     "3": {
       "embed": {
-        "title": "Raid level{{lvl}}  has started! at {{gymname}}",
-        "description": " {{{emojistring}}}  [Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{detailsurl}}}"
-        },
-        "image":{
-          "url": "{{{staticmap}}}"
-        },
-        "author": {
-          "name": "{{name}} lvl{{level}} end: {{time}}, {{tthm}}m {{tths}}s",
-          "icon_url": "{{{imgurl}}}"
-        }
-      }
-    },
-    "4": {
-      "embed": {
-        "title": "Raid will hatch ({{ex}}) {{gymname}} {{flagemoji}} {{addr}}",
-        "description": "[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        },
-        "image": {
-          "url": "{{{detailsurl}}}"
-        },
-        "author": {
-          "name": "{{name}} lvl{{level}} end: {{time}}, {{tthm}}m {{tths}}s",
-          "icon_url": "{{{detailsurl}}}"
-        }
-      }
-    },
-    "5": {
-      "embed": {
-        "title": "Raid level {{level}} will hatch at {{gymname}} {{flagemoji}} {{addr}} \n {{areas}}",
-        "description": "Hatch time: {{time}}, you have {{tthm}}m {{tths}}s left \nCoords: {{lat}}, {{lon}} \n[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "color": "{{color}}",
-        "thumbnail": {
-          "url": "{{{detailsurl}}}"
-        },
-        "image": {
-          "url": "{{{imgurl}}}"
-        }
+        "title": "Gym: ***{{{gymname}}}***{{#is_ex_raid_eligible}} (EX){{/is_ex_raid_eligible}}\nRaid level: {{level}} Egg\n:Hatches {{time}} ({{#tthh}}{{tthh}}h{{/tthh}} {{tthm}}m {{tths}}s)"
       }
     }
   },
   "quest": {
-    "1": {
-      "embed": {
-        "description": "[Google Maps]({{{mapurl}}}) | [Apple Maps]({{{applemap}}})",
-        "author": {
-          "name": " {{questType}}, {{conditions}}, {{reward}} {{flagemoji}} {{lat}}, {{lon}} {{addr}",
-          "url": "{{{mapurl}}",
-          "icon_url": "{{{imgurl}}}"
-        }
-      }
-    },
-    "2": {
-      "embed": {
-        "title": "Conditions: {{conditions}} \nReward:  {{reward}}",
-        "url": "{{{mapurl}}}",
-        "description": "[Google Maps]({{{mapurl}}}) | [Apple Maps]({{{applemap}}})",
-        "author": {
-          "name": " {{questType}}, {{lat}}, {{lon}} {{addr}",
-          "url": "{{{mapurl}}",
-          "icon_url": "{{{imgurl}}}"
-        }
-      }
-    },
     "3": {
       "embed": {
-        "title": "{{questType}}, {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n Pokestop Name: {{name}}",
-        "url": "{{{mapurl}}}",
-        "description": "Conditions: {{conditions}} \nReward:  {{reward}} {{monsterNames}} \n[Google Maps]({{{mapurl}}}) | [Apple Maps]({{{applemap}}})",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        }
-      }
-    },
-    "4": {
-      "embed": {
-        "title": "{{questType}}, {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n Pokestop Name: {{name}}",
-        "url": "{{{mapurl}}}",
-        "description": "Conditions: {{conditions}} \nReward:  {{reward}} {{monsterNames}} \n[Google Maps]({{{mapurl}}}) | [Apple Maps]({{{applemap}}})",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        },
-        "image": {
-          "url": "{{{url}}}"
-        }
-      }
-    },
-    "5": {
-      "embed": {
-        "title": "{{questType}}, {{flagemoji}} {{lat}}, {{lon}} {{addr}} \n Pokestop Name: {{name}}",
-        "url": "{{{mapurl}}}",
-        "description": "Conditions: {{conditions}} \nReward:  {{reward}} {{monsterNames}} \n[Google Maps]({{{mapurl}}}) | [Apple Maps]({{{applemap}}})",
-        "thumbnail": {
-          "url": "{{{url}}}"
-        },
-        "image":{
-          "url": "{{{staticmap}}}"
-        }
+        "title": "Pokéstop: ***{{{name}}}***\nReward: {{reward}}\nQuest: {{quest_task}}"
       }
     }
   },
   "incident": {
-    "1": {
-      "embed": {
-        "author": {
-          "name": "R {{flagemoji}} {{lat}}, {{lon}} until: {{time}}, {{tthm}}m {{tths}}s",
-          "url": "{{{mapurl}}}",
-          "icon_url": "{{{imgurl}}}"
-        }
-      }
-    },
-    "2": {
-      "embed": {
-        "title": "{{name}}: incident, \n {{countryCode}} {{flagemoji}} {{addr}} {{lat}}, {{lon}} )",
-        "description": "[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "author": {
-          "name": "end: {{time}} in {{tthm}}m {{tths}}s",
-          "icon_url": "{{{imgurl}}}"
-        }
-      }
-    },
     "3": {
       "embed": {
-        "title": "Team Rocket incident has started! at {{name}}",
-        "description": "[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "author": {
-          "name": "end: {{time}} in {{tthm}}m {{tths}}s",
-          "icon_url": "{{{imgurl}}}"
-        },
-        "image":{
-          "url": "{{{staticmap}}}"
-        }
-      }
-    },
-    "4": {
-      "embed": {
-        "title": "Team Rocket Incident at {{name}} {{flagemoji}} {{addr}}",
-        "description": "[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "image": {
-          "url": "{{{imgurl}}}"
-        },
-        "author": {
-          "name": "{{name}} end: {{time}}, {{tthm}}m {{tths}}s",
-          "icon_url": "{{{imgurl}}}"
-        }
-      }
-    },
-    "5": {
-      "embed": {
-        "title": "Team rocket incident at {{name}} {{flagemoji}} {{addr}} \n {{areas}}",
-        "description": "End time : {{time}}, you have {{tthm}}m {{tths}}s left \nCoords: {{lat}}, {{lon}} \n[Google Maps]({{{mapurl}}}) [Apple Maps]({{{applemap}}})",
-        "thumbnail": {
-          "url": "{{{imgurl}}}"
-        }
+        "title": "Team Rocket Incident at Stop {{{name}}}!\n***{{gruntName}}***, ***{{gruntType}}***\nReward: {{gruntRewards}}\nUntil: ***{{time}}*** ({{tthm}}m {{tths}}s)"
       }
     }
   },
   "greeting": {
     "embed": {
-      "title": "Welcome",
-      "description": "Thank you for registering \nPlease set a location by typing `{{prefix}}location name of place` (use whatever works properly in Google Maps __without__ autocomplete); you will be setting a radius in metres from that point, for all commands. Alternatively, you can add multiple areas where you want to receive alarms from (if your admin has configured areas)",
+      "description": "***Welcome!***\nPlease set your area with `/area add AREANAME`. List all available areas with `/area list`.",
       "fields": [
         {
-          "name": "General commands",
-          "value": "`{{prefix}}poracle`: Adds you to database and enables tracking \n`{{prefix}}unregister`: Removes you from tracking \n`{{prefix}}stop`: Temporarily stops alarms \n`{{prefix}}start`: Re-enables alarms \n`{{prefix}}location yourArea`: Searches for yourArea and sets it as your location \n`{{prefix}}area add somePlace`: Sets one or multiple areas where to receive alarms from, areas need to be configured by admin \n`{{prefix}}area remove somePlace`: Removes a configured area"
+          "name": "***General commands:***",
+          "value": "`/poracle`: Enables me. \n`/unregister`: Disables me and removes all filter. \n`/stop`: Temporarily stops alarms \n`/start`: Re-enables alarms \n`/location yourArea`: Searches for yourArea and sets it as your location \n`/area add somePlace`: Sets one or multiple areas where to receive alarms from, areas need to be configured by admin \n`/area remove somePlace`: Removes a configured area"
         },
         {
-          "name": "Monster tracking commands",
-          "value": "`{{prefix}}track snorlax lapras d500 t30 iv50 maxiv90 cp1000 level15`: Any arguments are optional, this command would alert you about snorlax and lapras within 500 meters of your location or inside an added area and a remaining time of at least 30 minutes. The set filters require them to have IV between 50% - 90% be at least level 15 and minimum CP of 1000 \n`{{prefix}}untrack lapras vileplume`: will remove tracking for lapras and vileplume"
+          "name": "***Pokémon tracking commands:***",
+          "value": "`/track snorlax lapras d500 iv50 maxiv90 cp1000 level15`: Any arguments are optional, this command would alert you about snorlax and lapras within 500 meters of your location or inside an added area. The set filters require them to have IV between 50% - 90% be at least level 15 and minimum CP of 1000 \n`/untrack lapras vileplume`: will remove tracking for lapras and vileplume"
         },
         {
-          "name": "Raid tracking commands",
-          "value": "`{{prefix}}raid snorlax lapras d500 instinct`: Any arguments are optional, this command would alert you about snorlax and lapras raids within 500 meters of your location or inside an added area. The set filters require the Gym to be controlled by team Instinct \n`{{prefix}}raid remove lapras vileplume`: will remove tracking for lapras and vileplume raids"
+          "name": "***Raid tracking commands:***",
+          "value": "`/raid snorlax lapras d500 instinct`: Any arguments are optional, this command would alert you about snorlax and lapras raids within 500 meters of your location or inside an added area. The set filters require the Gym to be controlled by team Instinct \n`/raid remove lapras vileplume`: will remove tracking for lapras and vileplume raids"
         },
         {
-          "name": "Raid egg tracking commands",
-          "value": "`{{prefix}}egg level3 d500 instinct`: Any arguments are optional, this command would alert you about level 3 raid eggs within 500 meters of your location or inside an added area. The set filters require the Gym to be controlled by team Instinct \n`{{prefix}}egg remove level3`: will remove tracking for level 3 raid eggs"
+          "name": "***Raid egg tracking commands:***",
+          "value": "`/egg level3 d500 instinct`: Any arguments are optional, this command would alert you about level 3 raid eggs within 500 meters of your location or inside an added area. The set filters require the Gym to be controlled by team Instinct \n`/egg remove level3`: will remove tracking for level 3 raid eggs"
         },
         {
-          "name": "Quest tracking commands",
-          "value": "`{{prefix}}quest porygon pikachu poke ball d500 `: Any arguments are optional, this command would alert you about Quests obtainable within 500m of your location with porygon, pikachu or pokeballs as rewards \n `{{prefix}}quest remove all items` Removes tracking for all item based quests. Can also use `all pokemon` or `stardust` or `stardust1000`\n See [a list of quest items](https://github.com/KartulUdus/PoracleJS/blob/fb2daebbfb49b0af5ea8472228f9b726d4c4727e/config/examples/questdts.json.example#L92). \n Replace spaces with _ underscores"
+          "name": "***Quest tracking commands:***",
+          "value": "`/quest porygon pikachu item poke ball d500`: Any arguments are optional, this command would alert you about every Porygon, Pikachu or Pokéball quest within 500 meters of your location or inside an added area.\n`/remove quest all items`: Removes every itembased quest filter. Possible with Pokémon or Stardust as well."
         },
         {
-          "name": "Invasion tracking commands",
-          "value": "`{{prefix}}invasion template3 d500 dragon mixed`: Any arguments are optional, this command would alert you about Team Rocket Incidents within 500m of your location if the grunt type was mixed or dragon. You can use any pokemon type name.\n `{{prefix}}invasion remove` Removes tracking for all Team Rocket Incidents."
-        },
-        {
-          "name": "List your current configuration",
-          "value": "`{{prefix}}tracked`: Shows you what you are currently configured to be notified about."
-        },
-        {
-          "name": "Further info",
-          "value": "See [all the commands available](https://kartuludus.github.io/PoracleJS/#/commands) (including some not listed here)"
-        },
-        {
-          "name": "Examples",
-          "value": "You probably want to start off with something like these 3 commands: \n `{{prefix}}track gible gabite cranidos deino zweilous litwick lampent d1500` \n `{{prefix}}raid timburr litwick d1500` \n `{{prefix}}quest silver_pinap_berry d500`"
-        },
-        {
-          "name": "How far can I walk in metres/minutes? According to the web...",
-          "value": "```Metres | Fast | Moderate | Easy Walk \n 1000      7       10         13 \n 2000      14      20         25 \n 3000      21      30         38 \n 4000      28      40         50 \n 5000      35      50         63```"
+          "name": "***Invasion tracking commands:***",
+          "value": "`/invasion template3 d500 dragon mixed`: Any arguments are optional, this command would alert you about Team Rocket Invasions within 500m of your location if the grunt type was mixed or dragon. You can use any pokemon type name.\n `/invasion remove` Removes tracking for all Team Rocket Invasions.\n\nA detailed documentation can be found here: https://muckelba.github.io/poracleWiki/userguide/en/options.html"
         }
       ]
     }
   },
   "tracked": ""
+   
 }
